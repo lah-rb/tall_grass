@@ -1,6 +1,6 @@
 module Dex
   @pokedex = {}
-  File.open("/home/lhopital/Documents/pkmondd/pokedex.txt", "r") do |entry|
+  File.open("./pokedex.txt", "r") do |entry|
     while record = entry.gets
       @info = record.chomp.split('|')
       @info[1] = @info[1].split('-')

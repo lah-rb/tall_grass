@@ -2,29 +2,34 @@ require './dex.rb'
 
 module DexMaker
   include Dex
-  @babydex = []
-  @incubator = []
-  Dex::pokedex.select do |num, entry|
-    if entry[1] == "1" && entry[0].split("").pop.match?(/["^"|!|#]/) == false
-      @babydex << entry[0]
+  @new_dex = []
+  @que = []
+  
+  def self.que
+    @que
+  end
+
+  def self.dex_pool
+    Dex::pokedex.select do |num, entry|
+      if entry[1] == "1" && entry[0].split("").pop.match?(/["^"|!|#]/) == false
+        @new_dex << entry[0]
+      end
     end
   end
 
-  def self.load_incubator
-    @seed = rand(0..@babydex.size - 1)
-    @specimen = @babydex[@seed]
-    if @incubator.none?(@specimen)
-      @incubator << @specimen
+  def self.load_dex
+    @seed = rand(0..@new_dex.size - 1)
+    @specimen = @new_dex[@seed]
+    if @que.none?(@specimen)
+      @que << @specimen
     else
-      self.load_incubator
+      self.load_dex
     end
   end
 
-  (0..19).each do |i|
-    self.load_incubator
-  end
-
-  File.open('./incubator_facility.txt', 'w') do |new_dex|
-    @incubator.each {|entry| new_dex.puts(entry)}
+  def self.limit_pool(size)
+    (0..size).each do |i|
+      self.load_dex
+    end
   end
 end
