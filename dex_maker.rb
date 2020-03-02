@@ -4,17 +4,17 @@ module DexMaker
   include Dex
   @new_dex = []
   @que = []
-  
+
+  def self.new_dex
+    @new_dex
+  end
+
   def self.que
     @que
   end
 
-  def self.dex_pool
-    Dex::pokedex.select do |num, entry|
-      if entry[1] == "1" && entry[0].split("").pop.match?(/["^"|!|#]/) == false
-        @new_dex << entry[0]
-      end
-    end
+  def self.dex_pool(sort_proc)
+    Dex::pokedex.select(&sort_proc)
   end
 
   def self.load_dex
@@ -28,7 +28,7 @@ module DexMaker
   end
 
   def self.limit_pool(size)
-    (0..size).each do |i|
+    (0...size).each do |i|
       self.load_dex
     end
   end
