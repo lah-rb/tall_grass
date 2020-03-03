@@ -16,10 +16,11 @@ class ToStern
 
   File.open('./to_stern.txt', 'w') do |new_dex|
     @proto_dex.each do |entry|
+      @line = ""
       (0...entry.size).each do
-        new_dex.print("#{entry.shift}-")
+        @line = @line + entry.shift + "-"
       end
-      new_dex.puts
+      new_dex.puts("#{@line.chop}")
     end
   end
 end
