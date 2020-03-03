@@ -1,26 +1,26 @@
-@area_dex = []
-@type_dex = []
+require './dex_maker.rb'
 
-print "Where are you? "
-@area = "./" + STDIN.gets.chomp + ".txt"
+class Encounter
+  include DexMaker
+  @area_dex = []
 
-print "Any specific type? "
-@type = STDIN.gets.chomp.capitalize
+  print "Where are you? "
+  @area = "./" + STDIN.gets.chomp.downcase.split(" ").join("_") + ".txt"
 
-File.open("#{@area}", 'r') do |f|
-  while record = f.gets
-    @species = record.chomp
-    @area_dex << @species
-  end
-end
+  print "Any specific type? (Hit return for no type) "
+  @type = STDIN.gets.chomp.capitalize
 
-if @type.chomp.empty?
-  puts @area_dex[rand(0...@area_dex.size)]
-else
-  @area_dex.each do |entry|
-    if entry.split("-")[2] == @type || entry.split("-")[3] == @type
-      @type_dex << entry.split("-")[0]
+  File.open("#{@area}", 'r') do |f|
+    while record = f.gets
+      @species = record.chomp
+      @area_dex << @species
     end
   end
-  puts @type_dex[rand(0...@type_dex.size)]
+
+  if @type.chomp.empty?
+    puts @area_dex[rand(0...@area_dex.size)]
+  else
+    @type_dex = DexMaker::type_select(@area_dex, @type)
+    puts @type_dex[rand(0...@type_dex.size)]
+  end
 end
