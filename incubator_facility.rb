@@ -1,19 +1,25 @@
+require './dex.rb'
 require './dex_maker.rb'
 
 class IncubatorFacility
+  include Dex
   include DexMaker
+  @pool = []
 
-  @criteria = Proc.new {
-    |num, entry|
-      if entry[1] == "1" && entry[0].split("").pop.match?(/["^"|!|#]/) == false
-        DexMaker::new_dex << entry[0]
-      end
-  }
+  Dex::pokedex.select do |num, entry|
+    if entry[1] == "1" && entry[0].split("").pop.match?(/["^"|!|#]/) == false
+      @pool << entry
+    end
+  end
 
-  DexMaker::dex_pool(@criteria)
-  DexMaker::limit_pool(20)
+  @proto_dex = DexMaker::create_dex(@pool,20)
 
   File.open('./incubator_facility.txt', 'w') do |new_dex|
-    DexMaker::que.each {|entry| new_dex.puts(entry)}
+    @proto_dex.each do |entry|
+      (0...entry.size).each do
+        new_dex.print("#{entry.shift}-")
+      end
+      new_dex.puts
+    end
   end
 end
