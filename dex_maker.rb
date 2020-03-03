@@ -19,7 +19,7 @@ module DexMaker
   def self.type_select(dex_pool, type)
     @type_dex = []
     dex_pool.each do |entry|
-      if entry.split("-")[2] == type || entry.split("-")[3] == type
+      if type.any?(entry[2]) || type.any?(entry[3])
         @type_dex << entry
       end
     end
@@ -38,9 +38,14 @@ module DexMaker
     end
   end
 
-  def self.create_dex(dex_pool, pages, file)
+  def self.create_dex(dex_pool, pages, file, *type)
     @refined_dex = []
-    self.limit_pool(dex_pool, pages)
-    self.write_dex(@refined_dex, file)
+    if type.empty?
+      self.limit_pool(dex_pool, pages)
+      self.write_dex(@refined_dex, file)
+    else
+      self.limit_pool(self.type_select(dex_pool, type), pages)
+      self.write_dex(@refined_dex, file)
+    end
   end
 end

@@ -20,7 +20,7 @@ class Encounter
   if @type.chomp.empty?
     puts @area_dex[rand(0...@area_dex.size)]
   else
-    @type_dex = DexMaker::type_select(@area_dex, @type)
+    @type_dex = DexMaker::type_select(@area_dex, [@type])
     puts @type_dex[rand(0...@type_dex.size)]
   end
 end
