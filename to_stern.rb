@@ -12,15 +12,5 @@ class ToStern
     end
   end
 
-  @proto_dex = DexMaker::create_dex(@pool,20)
-
-  File.open('./to_stern.txt', 'w') do |new_dex|
-    @proto_dex.each do |entry|
-      @line = ""
-      (0...entry.size).each do
-        @line = @line + entry.shift + "-"
-      end
-      new_dex.puts("#{@line.chop}")
-    end
-  end
+  DexMaker::create_dex(@pool,20,'./to_stern.txt')
 end

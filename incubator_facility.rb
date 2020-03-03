@@ -12,15 +12,6 @@ class IncubatorFacility
     end
   end
 
-  @proto_dex = DexMaker::create_dex(@pool,20)
+  DexMaker::create_dex(@pool,20,'./incubator_facility.txt')
 
-  File.open('./incubator_facility.txt', 'w') do |new_dex|
-    @proto_dex.each do |entry|
-      @line = ""
-      (0...entry.size).each do
-        @line = @line + entry.shift + "-"
-      end
-      new_dex.puts("#{@line.chop}")
-    end
-  end
 end
