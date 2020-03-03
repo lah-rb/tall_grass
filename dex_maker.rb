@@ -18,6 +18,7 @@ module DexMaker
 
   def self.type_select(dex_pool, type)
     @type_dex = []
+    type.map! {|i| i.capitalize}
     dex_pool.each do |entry|
       if type.any?(entry[2]) || type.any?(entry[3])
         @type_dex << entry

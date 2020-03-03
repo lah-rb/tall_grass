@@ -12,6 +12,6 @@ class EpicVolcano
     end
   end
 
-  DexMaker::create_dex(@pool,20,'./epic_volcano.txt','Fire','Rock','Ground','Dark')
+  DexMaker::create_dex(@pool,20,'./epic_volcano.txt','fire','Rock','ground','Dark')
 
 end

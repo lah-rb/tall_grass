@@ -4,23 +4,41 @@ class Encounter
   include DexMaker
   @area_dex = []
 
-  print "Where are you? "
-  @area = "./" + STDIN.gets.chomp.downcase.split(" ").join("_") + ".txt"
+  def self.location
+    print "Where are you? "
+    return "./" + STDIN.gets.chomp.downcase.split(" ").join("_") + ".txt"
+  end
 
-  print "Any specific type? (Hit return for no type) "
-  @type = STDIN.gets.chomp.capitalize
+  def self.provide_type
+    print "Any specific type? (Hit return for no type) "
+    return STDIN.gets.chomp
+  end
 
+  @area = self.location
   File.open("#{@area}", 'r') do |f|
     while record = f.gets
-      @species = record.chomp
+      @species = record.chomp.split("-")
       @area_dex << @species
     end
   end
 
-  if @type.chomp.empty?
-    puts @area_dex[rand(0...@area_dex.size)]
-  else
-    @type_dex = DexMaker::type_select(@area_dex, [@type])
-    puts @type_dex[rand(0...@type_dex.size)]
+  def self.make_area_dex
+    @type = self.provide_type
+
+    if @type.chomp.empty?
+      puts @area_dex.dig(rand(0...@area_dex.size),0)
+    else
+      @type_dex = DexMaker::type_select(@area_dex, [@type])
+      # This error check assumes that the area does not contain the type provided
+      if @type_dex.empty?
+        puts 'No Pokemon was found in that area with that type'
+        self.make_area_dex
+      else
+        puts @type_dex.dig(rand(0...@type_dex.size),0)
+      end
+    end
   end
+
+  self.make_area_dex
+
 end
