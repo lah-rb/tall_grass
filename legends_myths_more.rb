@@ -12,6 +12,6 @@ class LegendsMythsMore
     end
   end
 
-  DexMaker::create_dex(@pool,20,'./legends_myths_more.txt')
+  DexMaker::create_dex(@pool,5,'./legends_myths_more.txt')
 
 end

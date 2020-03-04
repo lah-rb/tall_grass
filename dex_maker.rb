@@ -39,6 +39,10 @@ module DexMaker
     end
   end
 
+  def self.teaming
+    rand(0..1) * 10 + rand(0..10) * 4 + rand(0..5) * 2 + rand(0..2) * 3 + rand(0..4)
+  end
+
   def self.create_dex(dex_pool, pages, file, *type)
     @refined_dex = []
     if type.empty?
