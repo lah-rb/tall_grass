@@ -1,10 +1,9 @@
-require './dex.rb'
-require './dex_maker.rb'
+require './area_maker.rb'
 
 class ToStern
-  include Dex
-  include DexMaker
+  include AreaMaker
   @pool = []
+  @file = AreaMaker::store + "to_stern.txt"
 
   Dex::pokedex.select do |num, entry|
     if entry[1].to_i == 1 && entry[0].split("").pop.match?(/["^"|!|#]/) == false
@@ -12,5 +11,5 @@ class ToStern
     end
   end
 
-  DexMaker::create_dex(@pool,'./dex_store/to_stern.txt',[])
+  DexMaker::create_dex(@pool,@file,[])
 end

@@ -1,10 +1,9 @@
-require './dex.rb'
-require './dex_maker.rb'
+require './area_maker'
 
 class LandHoe
-  include Dex
-  include DexMaker
+  include AreaMaker
   @pool = []
+  @file = AreaMaker::store + "land_hoe.txt"
 
   Dex::pokedex.select do |num, entry|
     if entry[1] == '1' && entry[0].split("").pop.match?(/["^"|!|#]/) == false
@@ -12,6 +11,6 @@ class LandHoe
     end
   end
 
-  DexMaker::create_dex(@pool,'./dex_store/land_hoe.txt', %w[rock water])
+  DexMaker::create_dex(@pool,@file, %w[rock water])
 
 end

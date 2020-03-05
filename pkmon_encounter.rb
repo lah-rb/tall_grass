@@ -1,12 +1,15 @@
 require './dex_maker.rb'
+require './area_maker.rb'
 
 class Encounter
   include DexMaker
+  include AreaMaker
+
   @area_dex = []
 
   def self.location
     print "Where are you? "
-    return "./" + STDIN.gets.chomp.downcase.split(" ").join("_") + ".txt"
+    return AreaMaker::store + STDIN.gets.chomp.downcase.split(" ").join("_") + ".txt"
   end
 
   def self.provide_type
