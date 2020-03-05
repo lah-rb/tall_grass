@@ -42,8 +42,8 @@ module DexMaker
   def self.teaming
     rand(0..1) * 10 + rand(0..10) * 4 + rand(0..5) * 2 + rand(0..2) * 3 + rand(0..4)
   end
-
-  def self.create_dex(dex_pool, pages, file, *type)
+  #dex_pool is array, pages is integer, file is string, type is array
+  def self.create_dex(dex_pool, file, type, pages=self.teaming)
     @refined_dex = []
     if type.empty?
       self.limit_pool(dex_pool, pages)

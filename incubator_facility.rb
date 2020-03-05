@@ -12,6 +12,6 @@ class IncubatorFacility
     end
   end
 
-  DexMaker::create_dex(@pool,20,'./incubator_facility.txt')
+  DexMaker::create_dex(@pool,'./dex_store/incubator_facility.txt',[],20)
 
 end
