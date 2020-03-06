@@ -18,11 +18,11 @@ module DexMaker
     @type_dex = []
     type.map! {|i| i.capitalize}
     dex_pool.each do |entry|
-      if type.any?(entry[2]) || type.any?(entry[3])
+      if type.any?(entry[3]) || type.any?(entry[4])
         @type_dex << entry
       end
     end
-    return @type_dex
+    @type_dex
   end
 
   def self.write_dex(refined_dex, file_name)
