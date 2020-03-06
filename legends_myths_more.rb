@@ -5,8 +5,8 @@ class LegendsMythsMore
   @pool = []
   @file = AreaMaker::store + "legends_myths_more.txt"
 
-  Dex::pokedex.select do |num, entry|
-    if entry[0].split("").pop.match?(/["^"|!|#]/) == true
+  Dex::pokedex.select do |entry|
+    if entry[1].split("").pop.match?(/["^"|!|#]/) == true
       @pool << entry
     end
   end

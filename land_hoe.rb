@@ -5,8 +5,8 @@ class LandHoe
   @pool = []
   @file = AreaMaker::store + "land_hoe.txt"
 
-  Dex::pokedex.select do |num, entry|
-    if entry[1] == '1' && entry[0].split("").pop.match?(/["^"|!|#]/) == false
+  Dex::pokedex.select do |entry|
+    if entry[2] == '1' && entry[1].split("").pop.match?(/["^"|!|#]/) == false
       @pool << entry
     end
   end

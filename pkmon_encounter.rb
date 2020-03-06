@@ -27,9 +27,10 @@ class Encounter
 
   def self.make_area_dex
     @type = self.provide_type
+    @seed = rand(0...@area_dex.size)
 
     if @type.chomp.empty?
-      puts @area_dex.dig(rand(0...@area_dex.size),0)
+      puts @area_dex.dig(@seed,1) + " No. " + @area_dex.dig(@seed,0)
     else
       @type_dex = DexMaker::type_select(@area_dex, [@type])
       # This error check assumes that the area does not contain the type provided
@@ -37,7 +38,7 @@ class Encounter
         puts 'No Pokemon was found in that area with that type'
         self.make_area_dex
       else
-        puts @type_dex.dig(rand(0...@type_dex.size),0)
+        puts @type_dex.dig(@seed,1) + " No. " + @type_dex.dig(@seed,0)
       end
     end
   end

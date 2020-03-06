@@ -1,3 +1,4 @@
 require './dex.rb'
+@seed = rand(0...Dex::pokedex.size)
 
-puts Dex::pokedex["#{rand(0...Dex::pokedex.size)}"][0]
+puts Dex::pokedex[@seed][1] + " No. " +  Dex::pokedex[@seed][0]

@@ -5,11 +5,11 @@ class ToStern
   @pool = []
   @file = AreaMaker::store + "to_stern.txt"
 
-  Dex::pokedex.select do |num, entry|
-    if entry[1].to_i == 1 && entry[0].split("").pop.match?(/["^"|!|#]/) == false
+  Dex::pokedex.select do |entry|
+    if entry[2].to_i == 1 && entry[1].split("").pop.match?(/["^"|!|#]/) == false
       @pool << entry
     end
+    print @pool
   end
-
   DexMaker::create_dex(@pool,@file,[])
 end
