@@ -10,7 +10,5 @@ class LandHoe
       @pool << entry
     end
   end
-
   DexMaker::create_dex(@pool,@file, %w[rock water])
-
 end

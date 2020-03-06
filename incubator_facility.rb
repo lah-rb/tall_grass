@@ -10,7 +10,5 @@ class IncubatorFacility
       @pool << entry
     end
   end
-
   DexMaker::create_dex(@pool,@file,[],20)
-
 end

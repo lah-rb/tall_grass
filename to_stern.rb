@@ -9,7 +9,6 @@ class ToStern
     if entry[2].to_i == 1 && entry[1].split("").pop.match?(/["^"|!|#]/) == false
       @pool << entry
     end
-    print @pool
   end
   DexMaker::create_dex(@pool,@file,[])
 end

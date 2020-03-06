@@ -10,7 +10,5 @@ class LegendsMythsMore
       @pool << entry
     end
   end
-
   DexMaker::create_dex(@pool, @file,[],5)
-
 end

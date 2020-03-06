@@ -10,7 +10,5 @@ class EpicVolcano
       @pool << entry
     end
   end
-
   DexMaker::create_dex(@pool,@file, %w[fire rock ground dark])
-
 end
