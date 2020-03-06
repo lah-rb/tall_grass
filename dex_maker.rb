@@ -13,6 +13,10 @@ module DexMaker
   def self.limit_pool(dex_pool, pages)
     (0...pages).each { self.fill_dex(dex_pool) }
   end
+  
+  def self.filter_dex(legendary,types, evolutions)
+    #TBC
+  end
 
   def self.type_select(dex_pool, type)
     @type_dex = []
