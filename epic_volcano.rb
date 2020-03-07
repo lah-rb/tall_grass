@@ -4,11 +4,14 @@ class EpicVolcano
   include AreaMaker
   @pool = []
   @file = AreaMaker::store + "epic_volcano.txt"
+  @dex = Dex::pokedex
+  @evo = false
+  @types = %w[fire rock ground dark]
+  @legend = false
 
-  Dex::pokedex.select do |entry|
-    if entry[1].split("").pop.match?(/["^"|!|#]/) == false
-      @pool << entry
-    end
-  end
-  DexMaker::create_dex(@pool,@file, %w[fire rock ground dark])
+  #filter_dex expects(dex array, evo proc, types array, legend booleon)
+  @pool = DexMaker::filter_dex(@dex, @evo, @types, @legend)
+  @pool = DexMaker::type_select(@pool, %w[water ice].unshift(false))
+
+  DexMaker::create_dex(@pool, @file)
 end

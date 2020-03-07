@@ -4,11 +4,13 @@ class IncubatorFacility
   include AreaMaker
   @pool = []
   @file = AreaMaker::store + "incubator_facility.txt"
+  @dex = Dex::pokedex
+  @evo = Proc.new { |dex| dex[2].to_i == 1 }
+  @types = false
+  @legend = false
 
-  Dex::pokedex.select do |entry|
-    if entry[2] == "1" && entry[1].split("").pop.match?(/["^"|!|#]/) == false
-      @pool << entry
-    end
-  end
-  DexMaker::create_dex(@pool,@file,[],20)
+  #filter_dex expects(dex array, evo proc, types array, legend booleon)
+  @pool = DexMaker::filter_dex(@dex, @evo, @type, @legend)
+
+  DexMaker::create_dex(@pool, @file, 20)
 end

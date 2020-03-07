@@ -4,11 +4,13 @@ class LegendsMythsMore
   include AreaMaker
   @pool = []
   @file = AreaMaker::store + "legends_myths_more.txt"
+  @dex = Dex::pokedex
+  @evo = false
+  @types = false
+  @legend = true
+  
+  #filter_dex expects(dex array, evo proc, types array, legend booleon)
+  @pool = DexMaker::filter_dex(@dex, @evo, @type, @legend)
 
-  Dex::pokedex.select do |entry|
-    if entry[1].split("").pop.match?(/["^"|!|#]/) == true
-      @pool << entry
-    end
-  end
-  DexMaker::create_dex(@pool, @file,[],5)
+  DexMaker::create_dex(@pool, @file,5)
 end

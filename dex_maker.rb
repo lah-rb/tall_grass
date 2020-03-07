@@ -13,20 +13,45 @@ module DexMaker
   def self.limit_pool(dex_pool, pages)
     (0...pages).each { self.fill_dex(dex_pool) }
   end
-  
-  def self.filter_dex(legendary,types, evolutions)
-    #TBC
-  end
 
   def self.type_select(dex_pool, type)
-    @type_dex = []
-    type.map! {|i| i.capitalize}
-    dex_pool.each do |entry|
-      if type.any?(entry[3]) || type.any?(entry[4])
-        @type_dex << entry
+    if type.class == Array
+      @method = type.shift
+      type.map! {|i| i.capitalize}
+      if @method == false
+        dex_pool.reject {|dex| type.any?(dex[3]) || type.any?(dex[4])}
+      else
+        dex_pool.select {|dex| type.any?(dex[3]) || type.any?(dex[4])}
       end
+    else
+      return dex_pool
     end
-    @type_dex
+  end
+
+  def self.legend_select(dex_pool, legendary)
+    if legendary
+      dex_pool.select { |dex| dex[1].split("").pop.match?(/["^"|!|#]/) }
+    elsif legendary == false
+      dex_pool.reject { |dex| dex[1].split("").pop.match?(/["^"|!|#]/) }
+    else
+      return dex_pool
+    end
+  end
+
+  def self.evo_select(dex_pool, evolution)
+    if evolution
+      dex_pool.select(&evolution)
+    else
+      return dex_pool
+    end
+  end
+
+  #Where legendary is booleon, evolution is Proc, and types is an array
+  def self.filter_dex(dex_raw, evolution=false, types=false, legendary=false)
+    @filtered_dex = self.type_select(dex_raw, types)
+    @filtered_dex = self.evo_select(@filtered_dex, evolution)
+    @filtered_dex = self.legend_select(@filtered_dex, legendary)
+    return @filtered_dex
   end
 
   def self.write_dex(refined_dex, file_name)
@@ -46,14 +71,9 @@ module DexMaker
   end
 
   #dex_pool is array, pages is integer, file is string, type is array
-  def self.create_dex(dex_pool, file, type, pages=self.teaming)
-    @refined_dex = []
-    if type.empty?
+  def self.create_dex(dex_pool, file, pages=self.teaming)
+      @refined_dex = []
       self.limit_pool(dex_pool, pages)
       self.write_dex(@refined_dex, file)
-    else
-      self.limit_pool(self.type_select(dex_pool, type), pages)
-      self.write_dex(@refined_dex, file)
-    end
   end
 end

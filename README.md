@@ -8,13 +8,13 @@ This is a side project to help build programming skills and have some fun along 
 ## Usage
 
 ### Game Play
-Print all files in the game_play directory. Read and follow the pkmondd.odt narration and use pokedex.gnumeric to track enounters.
+Print all files in the game_play directory. Read and follow the pkmondd.odt narration and use pokedex.ods to track enounters.
 
 ### Accessing the pokedex
 As is fitting for this project there are many pokedexes that can be accessed. Below are a few of the files and their intended purpose.
 * dex.rb is the store for the cummulative pokedex for script's access. require the file in a new script (or area_maker as it stores the location of dex.rb and includes its methods) then use Dex::pokedex to access this dex. Dex::pokedex is an array or arrays order as follows: [[dex#,species,evolution_stage,primary_type,secondary_type]] and contains each the base (I am sure arguably in some cases) species relesed as of 03/03/2020.
 * pokedex.txt is the parsible complete pokedex used by dex.rb and should be accessed through dex.rb when writing new scripts.
-* pokedex.gnumeric is the table top version of dex.rb with the same information plus seen, captured, and bonded sections to act as a way to actively fill the dex. Additionally this file has a key for the symbols that appear at the end of the species name to help with parsing the text files.
+* pokedex.ods is the table top version of dex.rb with the same information plus seen, captured, and bonded sections to act as a way to actively fill the dex. Additionally this file has a key for the symbols that appear at the end of the species name to help with parsing the text files.
 * pokedexres files are intended to be read_only versions of older dexes incase reversion is wanted or nessary for the project later down the line. If access is desired please copy and rename the file then treat it like pokedex.txt
 * area dex files such as incubator_facility.txt are intended to keep track of pokemon in a certain area encountered during the exploration process.
 

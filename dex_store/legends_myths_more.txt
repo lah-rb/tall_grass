@@ -1,5 +1,5 @@
-889-Zamazenta!-1-Fighting-Steel
-890-Eternatus!-1-Poison-Dragon
-640-Virizion!-1-Grass-Fighting
-480-Uxie!-1-Psychic-%
-648-Meloetta^-1-Normal-%
+243-Raikou!-1-Electric-%
+485-Heatran!-1-Fire-Steel
+797-Celesteela#-1-Steel-Flying
+385-Jirachi^-1-Steel-Psychic
+786-Tapu_Lele!-1-Psychic-Fairy
