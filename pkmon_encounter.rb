@@ -1,11 +1,7 @@
-require './dex_maker.rb'
 require './area_maker.rb'
 
 class Encounter
-  include DexMaker
   include AreaMaker
-
-  @area_dex = []
 
   def self.location
     print "Where are you? "
@@ -17,20 +13,21 @@ class Encounter
     return STDIN.gets.chomp
   end
 
-  @area = self.location
-  File.open("#{@area}", 'r') do |f|
-    while record = f.gets
-      @species = record.chomp.split("-")
-      @area_dex << @species
-    end
+  def self.continue?
+    print "Would you like to have another encounter? (y/n) "
+    true if STDIN.gets.chomp.downcase == 'y'
+  end
+
+  def self.random_output(array)
+    @seed = rand(0...array.size)
+    puts array.dig(@seed,1) + " No. " + array.dig(@seed,0)
   end
 
   def self.make_area_dex
     @type = self.provide_type
 
     if @type.chomp.empty?
-      @seed = rand(0...@area_dex.size)
-      puts @area_dex.dig(@seed,1) + " No. " + @area_dex.dig(@seed,0)
+      self.random_output(@area_dex)
     else
       @type_dex = DexMaker::type_select(@area_dex, [@type])
       # This error check assumes that the area does not contain the type provided
@@ -38,12 +35,17 @@ class Encounter
         puts 'No Pokemon was found in that area with that type'
         self.make_area_dex
       else
-        @seed = rand(0...@type_dex.size)
-        puts @type_dex.dig(@seed,1) + " No. " + @type_dex.dig(@seed,0)
+        self.random_output(@type_dex)
       end
     end
   end
 
-  self.make_area_dex
+  def self.encountering
+    @area = self.location
+    @area_dex = Dex::compile_dex(@area)
+    self.make_area_dex
+    self.encountering if self.continue?
+  end
 
+  self.encountering
 end
