@@ -16,7 +16,7 @@ module DexMaker
 
   def self.type_select(dex_pool, type)
     if type.class == Array
-      @method = type.shift
+      @method = type[0]
       type.map! {|i| i.capitalize}
       if @method == false
         dex_pool.reject {|dex| type.any?(dex[3]) || type.any?(dex[4])}
