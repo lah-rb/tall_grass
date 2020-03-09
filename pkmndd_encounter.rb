@@ -2,8 +2,9 @@ require './area_maker.rb'
 
 class Encounter
   include AreaMaker
+  @i = 0
 
-  def self.location
+  def self.get_location
     print "Where are you? "
     return AreaMaker::store + STDIN.gets.chomp.downcase.split(" ").join("_") + ".txt"
   end
@@ -13,8 +14,8 @@ class Encounter
     return STDIN.gets.chomp
   end
 
-  def self.continue?
-    print "Would you like to have another encounter? (y/n) "
+  def self.continue?(statement="Continue? (y/return) ")
+    print statement
     true if STDIN.gets.chomp.downcase == 'y'
   end
 
@@ -23,7 +24,17 @@ class Encounter
     puts array.dig(@seed,1) + " No. " + array.dig(@seed,0)
   end
 
-  def self.make_area_dex
+  def self.set_location
+    @area = self.get_location
+    begin
+      @area_dex = Dex::compile_dex(@area)
+    rescue
+      puts "A file coordinating to that name was not found."
+      self.set_location
+    end
+  end
+
+  def self.make_type_dex
     @type = self.provide_type
 
     if @type.chomp.empty?
@@ -33,7 +44,7 @@ class Encounter
       # This error check assumes that the area does not contain the type provided
       if @type_dex.empty?
         puts 'No Pokemon was found in that area with that type'
-        self.make_area_dex
+        self.make_type_dex
       else
         self.random_output(@type_dex)
       end
@@ -41,10 +52,10 @@ class Encounter
   end
 
   def self.encountering
-    @area = self.location
-    @area_dex = Dex::compile_dex(@area)
-    self.make_area_dex
-    self.encountering if self.continue?
+    self.set_location if @i == 0 || self.continue?("Would you like a new location? (y/return) ")
+    @i += 1
+    self.make_type_dex
+    self.encountering if self.continue?("Would you like to have another encounter? (y/return) ")
   end
 
   self.encountering

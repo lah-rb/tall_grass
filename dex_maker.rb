@@ -17,7 +17,7 @@ module DexMaker
   def self.type_select(dex_pool, type)
     if type.class == Array
       @method = type.shift if type[0] == false
-      type.map! {|i| i.capitalize}
+      type.map!(&:capitalize)
       if @method == false
         dex_pool.reject {|dex| type.any?(dex[3]) || type.any?(dex[4])}
       else
@@ -30,9 +30,9 @@ module DexMaker
 
   def self.legend_select(dex_pool, legendary)
     if legendary
-      dex_pool.select { |dex| dex[1].split("").pop.match?(/["^"|!|#]/) }
+      dex_pool.select { |dex| dex[1][-1].match?(/["^"|!|#]/) }
     elsif legendary == false
-      dex_pool.reject { |dex| dex[1].split("").pop.match?(/["^"|!|#]/) }
+      dex_pool.reject { |dex| dex[1][-1].match?(/["^"|!|#]/) }
     else
       return dex_pool
     end
