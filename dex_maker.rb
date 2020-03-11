@@ -46,7 +46,7 @@ module DexMaker
     end
   end
 
-  #Where legendary is booleon, evolution is Proc, and types is an array
+  # Where legendary is booleon, evolution is Proc, and types is an array
   def self.filter_dex(dex_raw, evolution=false, types=false, legendary=false)
     @filtered_dex = self.type_select(dex_raw, types)
     @filtered_dex = self.evo_select(@filtered_dex, evolution)
@@ -59,7 +59,7 @@ module DexMaker
       refined_dex.each do |entry|
         @line = ""
         (0...entry.size).each do
-          @line = @line + entry.shift + "-"
+          @line += entry.shift + "-"
         end
         new_dex.puts("#{@line.chop}")
       end
@@ -67,13 +67,22 @@ module DexMaker
   end
 
   def self.teaming
-    rand(0..1) * 10 + rand(0..10) * 4 + rand(0..5) * 2 + rand(0..2) * 3 + rand(0..4)
+    base = rand(1..100)
+    case base
+    when (1..40)
+      return 7
+    when (41..86)
+      return 12 + rand(0..5) + rand(0..2)*5
+    when (87..100)
+      return 2 + rand(0..1)*20 + rand(0..2) * 10
+    end
   end
 
-  #dex_pool is array, pages is integer, file is string, type is array
-  def self.create_dex(dex_pool, file, pages=self.teaming)
+  # Dex_pool is array, pages is integer, file is string, type is array
+  def self.create_dex(dex_pool, file, specified, pages=self.teaming)
       @refined_dex = []
       self.limit_pool(dex_pool, pages)
+      @refined_dex += specified
       self.write_dex(@refined_dex, file)
   end
 end

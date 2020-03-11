@@ -1,7 +1,7 @@
 module Dex
-  @pokedex = []
 
   def self.compile_dex(path)
+    @pokedex = []
     File.open(path, "r") do |entry|
       while record = entry.gets
         @info = record.chomp.split('-')

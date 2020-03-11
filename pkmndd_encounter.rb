@@ -2,7 +2,6 @@ require './area_maker.rb'
 
 class Encounter
   include AreaMaker
-  @i = 0
 
   def self.get_location
     print "Where are you? "
@@ -30,7 +29,7 @@ class Encounter
       @area_dex = Dex::compile_dex(@area)
     rescue
       puts "A file coordinating to that name was not found."
-      self.set_location
+      set_location
     end
   end
 
@@ -44,7 +43,7 @@ class Encounter
       # This error check assumes that the area does not contain the type provided
       if @type_dex.empty?
         puts 'No Pokemon was found in that area with that type'
-        self.make_type_dex
+        make_type_dex
       else
         self.random_output(@type_dex)
       end
@@ -52,11 +51,9 @@ class Encounter
   end
 
   def self.encountering
-    self.set_location if @i == 0 || self.continue?("Would you like a new location? (y/return) ")
-    @i += 1
+    self.set_location if caller.size == 2 || self.continue?("Would you like a new location? (y/return) ")
     self.make_type_dex
-    self.encountering if self.continue?("Would you like to have another encounter? (y/return) ")
+    encountering if self.continue?("Would you like to have another encounter? (y/return) ")
   end
-
   self.encountering
 end
