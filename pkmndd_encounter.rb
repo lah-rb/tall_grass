@@ -3,9 +3,9 @@ require './area_maker.rb'
 class Encounter
   include AreaMaker
 
-  def self.get_location
-    print "Where are you? "
-    return AreaMaker::store + STDIN.gets.chomp.downcase.split(" ").join("_") + ".txt"
+  def self.get_location(prompt="Where are you? ")
+    print prompt
+    AreaMaker::store + STDIN.gets.chomp.downcase.split(" ").join("_") + "_dex.txt"
   end
 
   def self.provide_type

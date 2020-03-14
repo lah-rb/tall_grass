@@ -9,4 +9,7 @@ module AreaMaker
     './dex_store/'
   end
 
+  def self.info
+    './area_info/'
+  end
 end

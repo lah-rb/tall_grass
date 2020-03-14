@@ -47,7 +47,7 @@ module DexMaker
   end
 
   # Where legendary is booleon, evolution is Proc, and types is an array
-  def self.filter_dex(dex_raw, evolution=false, types=false, legendary=false)
+  def self.filter_dex(dex_raw, evolution, types, legendary)
     @filtered_dex = self.type_select(dex_raw, types)
     @filtered_dex = self.evo_select(@filtered_dex, evolution)
     @filtered_dex = self.legend_select(@filtered_dex, legendary)
@@ -80,9 +80,9 @@ module DexMaker
 
   # Dex_pool is array, pages is integer, file is string, type is array
   def self.create_dex(dex_pool, file, specified, pages=self.teaming)
-      @refined_dex = []
-      self.limit_pool(dex_pool, pages)
-      @refined_dex += specified
-      self.write_dex(@refined_dex, file)
+    @refined_dex = []
+    self.limit_pool(dex_pool, pages)
+    @refined_dex += specified
+    self.write_dex(@refined_dex, file)
   end
 end
