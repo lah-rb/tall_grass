@@ -12,6 +12,6 @@ module Dex
   end
 
   def self.pokedex
-    self.compile_dex("./dex_store/pokedex.txt")
+    self.compile_dex("./dex_store/pokedex")
   end
 end

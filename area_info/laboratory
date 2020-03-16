@@ -1,9 +1,9 @@
-[223, 602, 769]
-land_hoe_dex.txt
-8
-Proc.new { |dex| dex[2].to_i == 1 }
-%w[rock water]
+[150, 151]
+laboratory_dex
+4
 false
+%w[psychic]
+nil
 
 # line 1: must have pokemon numbers Array or false
 # line 2: file String

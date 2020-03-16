@@ -5,7 +5,7 @@ class ExploreArea
 
   def self.get_location(prompt="Where are you? ")
     print prompt
-    AreaMaker::info + STDIN.gets.chomp.downcase.split(" ").join("_") + ".txt"
+    AreaMaker::info + STDIN.gets.chomp.downcase.split(" ").join("_")
   end
 
   def self.set_location
@@ -37,6 +37,6 @@ class ExploreArea
       DexMaker::create_dex(@pool, @dex_file, @specific, @size)
     end
   end
-  
+
   self.set_dex
 end

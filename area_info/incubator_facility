@@ -1,5 +1,5 @@
 false
-incubator_facility_dex.txt
+incubator_facility_dex
 20
 Proc.new { |dex| dex[2].to_i == 1 }
 false

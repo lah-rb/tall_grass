@@ -1,8 +1,8 @@
-false
-epic_volcano_dex.txt
-false
-false
-%w[fire rock ground dark]
+[176, 333, 334, 703]
+cloudy_peak_dex
+3
+Proc.new { |dex| dex[2].to_i <= 2 }
+%w[electric]
 false
 
 # line 1: must have pokemon numbers Array or false

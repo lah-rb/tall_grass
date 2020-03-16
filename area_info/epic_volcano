@@ -1,8 +1,8 @@
 false
-to_stern_dex.txt
+epic_volcano_dex
 false
-Proc.new { |dex| dex[2].to_i == 1 }
 false
+%w[fire rock ground dark]
 false
 
 # line 1: must have pokemon numbers Array or false

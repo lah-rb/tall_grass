@@ -1,9 +1,9 @@
-[176, 333, 334, 703]
-cloudy_peak_dex.txt
-3
-Proc.new { |dex| dex[2].to_i <= 2 }
-%w[electric]
 false
+legends_dex
+4
+false
+false
+true
 
 # line 1: must have pokemon numbers Array or false
 # line 2: file String
