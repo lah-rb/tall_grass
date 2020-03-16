@@ -26,7 +26,14 @@ class Lookup
     case search_means
     when 'name'
       begin
-        @pkmn = dex.select {|p| p[1] == what}.flatten
+        @pkmn = dex.select do |p|
+                  if p[1][-1].match?(/["^"|!|#]/)
+                     p[1].chop == what
+                   else
+                     p[1] == what
+                   end
+                 end
+       @pkmn = @pkmn.flatten
         puts make_output(@pkmn[0], @pkmn[1], @pkmn[2], @pkmn[3], @pkmn[4])
       rescue
         puts "That name does not exist. Please check for spelling."

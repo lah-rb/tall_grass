@@ -18,11 +18,13 @@ module DexMaker
     if type.class == Array
       @method = type.shift if type[0] == false
       type.map!(&:capitalize)
+
       if @method == false
         dex_pool.reject {|dex| type.any?(dex[3]) || type.any?(dex[4])}
       else
         dex_pool.select {|dex| type.any?(dex[3]) || type.any?(dex[4])}
       end
+      
     else
       return dex_pool
     end

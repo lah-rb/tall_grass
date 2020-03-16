@@ -1,7 +1,7 @@
 [176, 333, 334, 703]
 cloudy_peak_dex.txt
 3
-Proc.new { |dex| dex[2].to_i <= 2 } # line 4: Proc or false
+Proc.new { |dex| dex[2].to_i <= 2 }
 %w[electric]
 false
 

@@ -1,6 +1,6 @@
 require "./area_maker.rb"
 
-class NewArea
+class ExploreArea
   include AreaMaker
 
   def self.get_location(prompt="Where are you? ")
@@ -12,14 +12,15 @@ class NewArea
     @prompt = "What is the name of the new location? "
     @dex = Dex::pokedex
     @pool = []
-
     @area_file = File.open(self.get_location(@prompt), "r")
+
     @specific = eval(@area_file.gets) # line 1: Array or false
     if @specific.class == Array
       @specific.map! { |num| @dex[num-1] }
     else
       @specific = []
     end
+
     @dex_file = AreaMaker::store + @area_file.gets.chomp # line 2: String
     @size = eval(@area_file.gets) # line 3: Integer or false
     @evo =  eval(@area_file.gets) # line 4: Proc or false
@@ -36,5 +37,6 @@ class NewArea
       DexMaker::create_dex(@pool, @dex_file, @specific, @size)
     end
   end
+  
   self.set_dex
 end
