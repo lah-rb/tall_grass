@@ -1,5 +1,5 @@
 module DexMaker
-
+  $store = './dex_store/'
   def self.fill_dex(dex_pool)
     @seed = rand(0...dex_pool.size)
     @specimen = dex_pool[@seed]
@@ -24,7 +24,7 @@ module DexMaker
       else
         dex_pool.select {|dex| type.any?(dex[3]) || type.any?(dex[4])}
       end
-      
+
     else
       return dex_pool
     end
@@ -81,9 +81,10 @@ module DexMaker
   end
 
   # Dex_pool is array, pages is integer, file is string, type is array
-  def self.create_dex(dex_pool, file, specified, pages=self.teaming)
+  def self.create_dex(dex_pool, file, specified, size=self.teaming)
+    @additional_pages = size - specified.size
     @refined_dex = []
-    self.limit_pool(dex_pool, pages)
+    self.limit_pool(dex_pool, @additional_pages)
     @refined_dex += specified
     self.write_dex(@refined_dex, file)
   end

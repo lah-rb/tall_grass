@@ -1,42 +1,35 @@
-require "./area_maker.rb"
+require "./dex_maker.rb"
+require "./dex.rb"
 
 class ExploreArea
-  include AreaMaker
+  include DexMaker
+  include Dex
 
-  def self.get_location(prompt="Where are you? ")
-    print prompt
-    AreaMaker::info + STDIN.gets.chomp.downcase.split(" ").join("_")
+  def initialize (attr_arr)
+    @attr_arr = attr_arr
   end
 
-  def self.set_location
-    @prompt = "What is the name of the new location? "
+  def set_location
     @dex = Dex::pokedex
     @pool = []
-    @area_file = File.open(self.get_location(@prompt), "r")
 
-    @specific = eval(@area_file.gets) # line 1: Array or false
-    if @specific.class == Array
-      @specific.map! { |num| @dex[num-1] }
-    else
-      @specific = []
-    end
+    @area_name =  @attr_arr[0].chomp.downcase.split(" ").join("_")
+    @specific = @attr_arr[1] # line 1: Array or false
+    @specific.map! { |num| @dex[num-1] }
+    @dex_file = $store + @area_name + "_dex" # line 2: String
 
-    @dex_file = AreaMaker::store + @area_file.gets.chomp # line 2: String
-    @size = eval(@area_file.gets) # line 3: Integer or false
-    @evo =  eval(@area_file.gets) # line 4: Proc or false
-    @types = eval(@area_file.gets) # line 5: Array or false
-    @legend = eval(@area_file.gets) # line 6: Booleon or nil
+    @size = @attr_arr[2] # line 3: Integer or false
+    @evo =  @attr_arr[3] # line 4: Proc or false
+    @types = @attr_arr[4] # line 5: Array or false
+    @legend = @attr_arr[5] # line 6: Booleon or nil
   end
 
-  def self.set_dex
-    self.set_location
+  def set_dex
     @pool = DexMaker::filter_dex(@dex, @evo, @types, @legend)
-    if @size == false
+    if @size == 0
       DexMaker::create_dex(@pool, @dex_file, @specific)
     else
       DexMaker::create_dex(@pool, @dex_file, @specific, @size)
     end
   end
-
-  self.set_dex
 end

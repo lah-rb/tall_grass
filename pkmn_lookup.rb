@@ -1,7 +1,7 @@
-require './area_maker.rb'
+require './dex.rb'
 
 class Lookup
-  include AreaMaker
+  include Dex
 
   def search_how
     print 'Look up by name or number? (name/#) '
