@@ -48,7 +48,6 @@ module DexMaker
     end
   end
 
-  # Where legendary is booleon, evolution is Proc, and types is an array
   def self.filter_dex(dex_raw, evolution, types, legendary)
     @filtered_dex = self.type_select(dex_raw, types)
     @filtered_dex = self.evo_select(@filtered_dex, evolution)
