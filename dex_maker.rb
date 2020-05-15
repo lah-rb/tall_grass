@@ -1,5 +1,7 @@
 module DexMaker
   $store = './dex_store/'
+  @refined_dex = []
+
   def self.fill_dex(dex_pool)
     @seed = rand(0...dex_pool.size)
     @specimen = dex_pool[@seed]
@@ -12,6 +14,7 @@ module DexMaker
 
   def self.limit_pool(dex_pool, pages)
     (0...pages).each { self.fill_dex(dex_pool) }
+    return @refined_dex
   end
 
   def self.type_select(dex_pool, type)
@@ -31,13 +34,7 @@ module DexMaker
   end
 
   def self.legend_select(dex_pool, legendary)
-    if legendary
-      dex_pool.select { |dex| dex[1][-1].match?(/["^"|!|#]/) }
-    elsif legendary == false
-      dex_pool.reject { |dex| dex[1][-1].match?(/["^"|!|#]/) }
-    else
-      return dex_pool
-    end
+    dex_pool.select { |dex| dex[1][-1].match?(/["^"|!|#]/) }
   end
 
   def self.evo_select(dex_pool, evolution)
@@ -49,10 +46,19 @@ module DexMaker
   end
 
   def self.filter_dex(dex_raw, evolution, types, legendary)
-    @filtered_dex = self.type_select(dex_raw, types)
-    @filtered_dex = self.evo_select(@filtered_dex, evolution)
-    @filtered_dex = self.legend_select(@filtered_dex, legendary)
-    return @filtered_dex
+    @type_dex = self.type_select(dex_raw, types)
+    @evo_dex = self.evo_select(@type_dex, evolution)
+    @legend_dex = self.legend_select(@type_dex, legendary)
+    case legendary
+    when 'only', 'o'
+      return @legend_dex
+    when 'yes', 'y'
+      return @evo_dex << @legend_dex
+    when 'no', 'n'
+      return @evo_dex - @legend_dex
+    else
+      return @evo_dex
+    end
   end
 
   def self.write_dex(refined_dex, file_name)
@@ -82,7 +88,6 @@ module DexMaker
   # Dex_pool is array, pages is integer, file is string, type is array
   def self.create_dex(dex_pool, file, specified, size=self.teaming)
     @additional_pages = size - specified.size
-    @refined_dex = []
     self.limit_pool(dex_pool, @additional_pages)
     @refined_dex += specified
     self.write_dex(@refined_dex, file)

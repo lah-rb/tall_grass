@@ -66,16 +66,8 @@ class DiscoverArea
     @types = get_info(self.prompt_mint(3)).split('-')
     @types = false if @types == []
     puts
-    @legend = get_info(self.prompt_mint(4))
+    @legend = get_info(self.prompt_mint(4)).downcase
     puts
-    case @legend.downcase
-    when 'yes', 'y'
-      @legend = true
-    when 'no', 'n'
-      @legend = false
-    else
-      @legend = nil
-    end
   end
 end
 
@@ -89,8 +81,3 @@ File.open("./dex_seed/" + attributes[0], "w") do |seed|
 end
 
 area = ExploreArea.new(attributes)
-area.set_location
-area.set_dex
-
-#next step is to create a a store file of the attributes array and a
-#refresh_area script to have the same attributes reapplied to the dex
