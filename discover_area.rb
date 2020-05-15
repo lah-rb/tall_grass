@@ -55,12 +55,12 @@ class DiscoverArea
     @area_name = get_info(self.prompt_mint(5)).chomp.downcase.split(" ").join("_")
     puts
     @specific = get_info(self.prompt_mint(0))
-    @specific = @specific.split('-').map (&:to_i)
+    @specific = @specific.split('-').map(&:to_i)
     puts
     @richness = get_info(self.prompt_mint(1)).to_i
     puts
     @evo = get_info(self.prompt_mint(2))
-    @evo = @evo.split('-').map (&:to_i)
+    @evo = @evo.split('-').map(&:to_i)
     @evo = evo_proc(@evo)
     puts
     @types = get_info(self.prompt_mint(3)).split('-')

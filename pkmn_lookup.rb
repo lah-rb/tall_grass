@@ -4,11 +4,13 @@ class Lookup
   include Dex
 
   def search_how
+    puts
     print 'Look up by name or number? (name/#) '
     STDIN.gets.downcase.chomp
   end
 
   def get_criteria
+    puts
     print 'What are you searching for? '
     STDIN.gets.capitalize.chomp
   end
@@ -27,25 +29,31 @@ class Lookup
     when 'name'
       begin
         @pkmn = dex.select do |p|
-                  if p[1][-1].match?(/["^"|!|#]/)
-                     p[1].chop == what
-                   else
-                     p[1] == what
-                   end
-                 end
-       @pkmn = @pkmn.flatten
+          if p[1][-1].match?(/["^"|!|#]/)
+           p[1].chop == what
+          else
+           p[1] == what
+          end
+        end
+        @pkmn = @pkmn.flatten
+        puts
         puts make_output(@pkmn[0], @pkmn[1], @pkmn[2], @pkmn[3], @pkmn[4])
+        puts
       rescue
         puts "That name does not exist. Please check for spelling."
+        puts
         exit
       end
     when '#', 'num', 'number'
       begin
         @seek = what.to_i - 1
+        puts
         puts make_output(dex[@seek][0], dex[@seek][1],
         dex[@seek][2], dex[@seek][3], dex[@seek][4])
+        puts
       rescue
         puts "That number appears to be out of the range of this pokedex."
+        puts
       end
     end
   end
