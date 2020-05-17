@@ -1,1 +1,0 @@
-["to_stern", [], 0, "Proc.new { |dex| dex[2].to_i == 1 }", false, false]

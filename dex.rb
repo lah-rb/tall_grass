@@ -1,6 +1,6 @@
 module Dex
 
-  def self.compile_dex(path)
+  def self.compile_dex(paths)
     @pokedex = []
     File.open(path, "r") do |entry|
       while record = entry.gets

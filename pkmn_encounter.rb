@@ -8,7 +8,12 @@ class Encounter
   def self.get_location(prompt="Where are you? ")
     puts
     print prompt
-    $store + STDIN.gets.chomp.downcase.split(" ").join("_") + "_dex"
+    @local = STDIN.gets.chomp.downcase.split(" ").join("_")
+    if @local == 'pokedex'
+      return $store + @local
+    else
+      return $store + @local + "_dex"
+    end
   end
 
   def self.provide_type
