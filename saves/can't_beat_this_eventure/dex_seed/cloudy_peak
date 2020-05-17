@@ -1,0 +1,1 @@
+["cloudy_peak", [176, 333, 334, 703], 6, "Proc.new { |dex| dex[2].to_i < 3 }", ["electric"], false]

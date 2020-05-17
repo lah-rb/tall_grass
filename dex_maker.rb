@@ -79,7 +79,7 @@ module DexMaker
     when (1..40)
       return 7
     when (41..86)
-      return 12 + rand(0..5) + rand(0..2)*5
+      return 12 + rand(0..5) + rand(0..2) * 5
     when (87..100)
       return 2 + rand(0..1)*20 + rand(0..2) * 10
     end
