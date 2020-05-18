@@ -54,4 +54,4 @@ class ManageEvents
 end
 
 manager = ManageEvents.new
-manager.reset_all
+manager.complete_event

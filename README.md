@@ -31,3 +31,20 @@ As is fitting for this project there are many pokedexes that can be accessed. Be
 * You will then be prompted with "Any specific type? (Hit return for no type)" where you can either enter a type or leave empty for no preference. The accepted types are as follows: Normal, Fire, Water, Grass, Electric, Ice, Fighting, Poison, Ground, Flying, Psychic, Bug, Rock, Ghost, Dragon, Dark, Steel, and Fairy.
 
 Note: For a random encounter from the entire pokedex type pokedex at the "Where are you?" prompt and leave the type prompt empty.
+
+### Managing story events
+In pkmndd.odt there are a series of events. The events_dex keeps track of these events and manage_events.rb shows the events dex in an interactive and human useful manner.
+* In the terminal change to the pkmndd directory and type: ruby manage_events.rb
+* When prompted with "Which mission has been completed? (hit return to exit)" enter the integer that corresponds to the event finished
+
+Note: The next time you use manage_events.rb you will see that the events status will have changed from incomplete to complete.
+
+### Gathering information on specific pokemon
+There are many (890) pokemon that you may run into while using tall_grass. As such there is a good chance that you will find one that you are unfamilar with. For detailed information I recomend you look at bublapedia at this url https://bulbapedia.bulbagarden.net/wiki/Main_Page. For basic information you may find tall_grass's pkmn_lookup.rb program useful.
+* In the terminal change to the pkmndd directory and type: ruby pkmn_lookup.rb
+* You will be prompted with "Look up by name or number? (name/#)" where you can enter 'name', '#', 'num', or 'number'
+* Next you will be prompted with "What are you searching for?" where you can enter either an integer if '#' was selected or the species name if 'name' was selected
+* If your input was '#' and '703' you will see this output: "No. 703 is Carbink which is at evolution stage 1 and is typed as Rock-Fairy."
+
+### Creating save states
+-- In progress
