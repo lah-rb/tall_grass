@@ -38,8 +38,8 @@ class Encounter
 
   def self.random_output(array)
     @seed = rand(0...array.size)
-    puts
     puts array.dig(@seed,1) + " No. " + array.dig(@seed,0)
+    puts
   end
 
   def self.set_location
@@ -48,8 +48,8 @@ class Encounter
     begin
       @area_dex = Dex::compile_dex(@area)
     rescue
-      puts
       puts "A file coordinating to that name was not found."
+      puts
       set_location
     end
   end
@@ -63,8 +63,8 @@ class Encounter
       @type_dex = DexMaker::type_select(@area_dex, [@type])
       # This error check assumes that the area does not contain the type provided
       if @type_dex.empty?
-        puts
         puts 'No Pokemon was found in that area with that type'
+        puts
         make_type_dex
       else
         self.random_output(@type_dex)

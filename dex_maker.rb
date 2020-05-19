@@ -5,29 +5,41 @@ module DexMaker
   def self.fill_dex(dex_pool)
     @seed = rand(0...dex_pool.size)
     @specimen = dex_pool[@seed]
-    if @refined_dex.none?(@specimen)
-      @refined_dex << @specimen
-    else
-      self.fill_dex(dex_pool)
-    end
+      if @refined_dex.none?(@specimen)
+        @refined_dex << @specimen
+      else
+        self.fill_dex(dex_pool)
+      end
   end
 
   def self.limit_pool(dex_pool, pages)
-    (0...pages).each { self.fill_dex(dex_pool) }
+    if dex_pool.size > pages
+      (0...pages).each { self.fill_dex(dex_pool) }
+    else
+      puts
+      puts "There were not enough pokemon which meet requirements to fill a pokedex of that size."
+      puts "The dex will be filled as much as possible"
+      (0...dex_pool.size).each { self.fill_dex(dex_pool) }
+    end
+
     return @refined_dex
   end
 
   def self.type_select(dex_pool, type)
     if type.class == Array
-      @method = type.shift if type[0] == false
       type.map!(&:capitalize)
+      @keep_types = type.take_while { |type| type != '|' }
+      @remove_types = type.drop_while { |type| type != '|' }
+      @remove_types.shift
 
-      if @method == false
-        dex_pool.reject {|dex| type.any?(dex[3]) || type.any?(dex[4])}
-      else
-        dex_pool.select {|dex| type.any?(dex[3]) || type.any?(dex[4])}
+      @type_digest = dex_pool.select do |dex|
+        @keep_types.any?(dex[3]) || @keep_types.any?(dex[4])
       end
 
+      @type_digest.reject! do |dex|
+        @remove_types.any?(dex[3]) || @remove_types.any?(dex[4])
+      end
+      return @type_digest
     else
       return dex_pool
     end
