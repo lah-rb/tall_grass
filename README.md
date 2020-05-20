@@ -12,14 +12,14 @@ Print all files in the game_play directory. Read and follow the pkmondd.odt narr
 
 ### Accessing the pokedex
 As is fitting for this project there are many pokedexes that can be accessed. Below are a few of the files and their intended purpose.
-* dex.rb parses the \*\_dex files to be used in other scripts. Require dex.rb in a new script and mix it into a class. Then use Dex::pokedex to access this dex. Dex::pokedex is an array or arrays order as follows: [[dex#,species,evolution_stage,primary_type,secondary_type]] and contains each of the base species relesed as of 03/03/2020.
+* dex.rb parses the \*\_dex files to be used in other scripts. Require dex.rb in a new script and mix Dex into a class. Then use Dex::pokedex to access this dex. Dex::pokedex is an array of arrays order as follows: [[dex#,species,evolution_stage,primary_type,secondary_type]] and contains each of the base species relesed as of 03/03/2020.
 * pokedex is the parsible complete pokedex used by dex.rb and should be accessed through dex.rb when writing new scripts. This is found in the dex_store directory.
-* pokedex.ods is the table top version of the pokedex file with the same information in a human usable format plus seen, captured, and bonded sections to act as a way to actively fill the dex. Additionally this file has a key for reading the classifying symbols that appear at the end of the species name. This is found in the game_play directory.
-* pokedexres files are intended to be read_only versions of older dexes incase reversion is wanted or nessary for the project later down the line. If access is desired please copy and rename the file then treat it like pokedex. This is found in the resevered directory.
-* \*\_dex files such as incubator_facility_dex are intended to keep track of the pokemon in a certain area encountered during the exploration process.
-* The counterpart to the \*\_dex files are the seed files such as incubator_facility. These are used by rediscover_area.rb to fill a \*\_dex file with new pokemon that fit the original requirements specified when the \*\_dex file was created.
+* pokedex.ods is the table top version of the pokedex file. It has the same information in a human usable format plus seen, captured, and bonded sections to act as a way to actively fill the dex. Additionally this file has a key for reading the classifying symbols that appear at the end of the species name. This is found in the game_play directory.
+* pokedexres files are intended to be read_only versions of older dexes incase reversion is wanted or nessary for the project later down the line. If access is desired please copy and rename the file then treat it like pokedex. These are found in the resevered directory.
+* \*\_dex files such as incubator_facility_dex are intended to keep track of the pokemon in a certain area encountered during the exploration process. These are found in the dex_store directory.
+* The counterpart to the \*\_dex files are the seed files such as incubator_facility. These are used by rediscover_area.rb to fill a \*\_dex file with new pokemon that fit the original requirements specified when the \*\_dex file was created.These are found in the dex_seeds directory.
 
-### Making a new_area dex
+### Making a new area_dex
 * In the terminal change to the pkmndd directory and type: ruby discover_area.rb
 * Answer the question when prompted. Be sure to follow input guides.
 * discover_area.rb creates a \*\_dex file with the name you decided to call the area and a seed file with the same name.
