@@ -47,4 +47,8 @@ There are many (890) pokemon that you may run into while using tall_grass. As su
 * If your input was '#' and '703' you will see this output: "No. 703 is Carbink which is at evolution stage 1 and is typed as Rock-Fairy."
 
 ### Creating save states
--- In progress
+* In the terminal change to the pkmndd directory and type: ruby pkmn_save.rb
+* You will be prompted to enter a saving or loading technique with "Would you like to start, overwrite, or load an advenure?"
+* Follow the input guide and select an option then hit return
+* If you chose to save new then you will be prompted with "Please give a name to this save:" then type the name wou wish to create your save under and hit return
+* If you chose to load or overwrite a list of avaliable saves will be displayed and you will be prompted with "Give the number of the save you wish to load||overwrite:" then type the number next to the save you need to use and hit return.

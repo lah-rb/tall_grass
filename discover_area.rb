@@ -76,10 +76,10 @@ class DiscoverArea
     @attributes << @evo
     puts
     @yes_types = get_info(self.prompt_mint(3)).split('-')
-    @yes_types = false if @yes_types == []
     puts
     @no_types = get_info(self.prompt_mint(6)).split('-')
     @types = @yes_types + ['|'] + @no_types
+    @types = false if @types == ['|']
     @attributes << @types
     puts
     @legend = get_info(self.prompt_mint(4)).downcase
@@ -95,7 +95,6 @@ end
 territory = DiscoverArea.new
 territory.enter_area
 attributes = territory.area_attributes
-p attributes
 
 File.open("./dex_seeds/" + attributes[0], "w") do |seed|
   seed.print attributes
