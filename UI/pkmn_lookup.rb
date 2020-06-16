@@ -1,4 +1,5 @@
-require './dex.rb'
+require 'fileutils'
+require_relative '../dex.rb'
 
 class Lookup
   include Dex
@@ -59,6 +60,7 @@ class Lookup
   end
 
   def run_lookup
+    FileUtils.cd('..')
     @dex = Dex::pokedex
     @lookup_by = search_how
     @lookup_what = get_criteria

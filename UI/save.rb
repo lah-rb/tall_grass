@@ -1,6 +1,9 @@
 require 'fileutils'
 
 class Save
+  FileUtils.cd('..')
+  private
+
   def mint_navigation_arr(source_parent, target_parent)
     @source_seeds = Dir[source_parent + "dex_seeds/*"]
     @source_store = Dir[source_parent + "dex_store/*"]
@@ -11,7 +14,7 @@ class Save
     return [@source_arr, @target_arr, source_parent, target_parent]
   end
 
-  def load_save_attr(load_or_save, save_name = 'temp')
+  def mint_load_save_arr(load_or_save, save_name = 'temp')
     case load_or_save
     when 's', 'o'
       @method = 'save' if load_or_save == 's'
@@ -27,16 +30,17 @@ class Save
     end
   end
 
-  def fill_save(ls_arr)
-    ls_arr[2].each do |target_file|
+  def fill_save(nav_arr)
+    # Wreck target directory
+    nav_arr[2].each do |target_file|
       @end_path = target_file.split("/").values_at(-2, -1).join("/")
-      @target_file = ls_arr[4] + @end_path
+      @target_file = nav_arr[4] + @end_path
       FileUtils.rm(@target_file)
     end
-
-    ls_arr[1].each do |source_file|
+    # Rewrite target directory
+    nav_arr[1].each do |source_file|
       @end_path = source_file.split("/").values_at(-2, -1).join("/")
-      @target_file = ls_arr[4] + @end_path
+      @target_file = nav_arr[4] + @end_path
       FileUtils.cp(source_file, @target_file )
     end
   end
@@ -49,6 +53,24 @@ class Save
     end
   end
 
+  def list_saves
+    @current_saves = Dir['./saves/*'].sort
+    puts
+    puts "List of current save states:"
+    if @current_saves.empty?
+      puts
+      puts "There are no existing saves. Let's make a new save."
+      new_save
+    else
+      @current_saves.each.with_index(1) do |save, count|
+        puts count.to_s + " - " + save.split("/").pop.gsub("_"," ")
+      end
+    end
+    return @current_saves
+  end
+
+  public
+
   def new_save
     puts
     print 'Please give a name to this save: '
@@ -59,62 +81,50 @@ class Save
     FileUtils.cd(@save_name)
     FileUtils.mkdir("dex_seeds")
     FileUtils.mkdir("dex_store")
-    FileUtils.cd("..")
-    FileUtils.cd("..")
+    FileUtils.cd("../..")
 
-    @ls_arr = load_save_attr('s', @save_name)
-    show_progress(@ls_arr[0])
-    fill_save(@ls_arr)
+    @save_arr = mint_load_save_arr('s', @save_name)
+    show_progress(@save_arr[0])
+    fill_save(@save_arr)
     puts 'Done!'
-  end
-
-  def list_saves
-    @current_saves = Dir['./saves/*'].sort
-    puts
-    puts "List of current save states:"
-    if @current_saves.empty?
-      puts
-      puts "There are no existing saves. Let's make a new save."
-      new_save
-    else
-      @count = 0
-      @current_saves.each do |save|
-        @count += 1
-        puts @count.to_s + " - " + save.split("/").pop.gsub("_"," ")
-      end
-    end
-    return @current_saves
   end
 
   def over_load(load_or_save)
     @current_saves = list_saves
     exit if @current_saves == []
-    @method = load_save_attr(load_or_save)[0]
+    @method = mint_load_save_arr(load_or_save)[0]
     puts
     print "Give the number of the save you wish to " + @method + ": "
-    @save_num = STDIN.gets.chomp.to_i
-    @save_name = @current_saves[@save_num - 1].split('/')[-1]
-    @ls_arr = load_save_attr(load_or_save, @save_name)
+    @save_num = STDIN.gets.chomp.to_i - 1
+    @save_name = @current_saves[@save_num].split('/')[-1]
+    @over_load_arr = mint_load_save_arr(load_or_save, @save_name)
     show_progress(@method)
-    fill_save(@ls_arr)
+    fill_save(@over_load_arr)
     puts "Done!"
   end
 end
 
-puts "Would you like to start, overwrite, or load an advenure?"
-print "Input options: "
-print "new or n - new save"
-print "over or o - overwrite save"
-puts "load or l - load save"
-@save_method = STDIN.gets.chomp.downcase
+def start_saving
+  puts "Would you like to start, overwrite, or load an advenure?"
+  print "Input options: "
+  print "new or n - new save"
+  print "over or o - overwrite save"
+  puts "load or l - load save"
+  @save_method = STDIN.gets.chomp.downcase
 
-case @save_method
-when 'new', 'n'
-  Save.new.new_save
-when 'over', 'o'
-  Save.new.over_load('o')
-when 'load', 'l'
-  Save.new.over_load('l')
-else
-  puts "I am sorry I don't know that input."
+  @save = Save.new
+
+  case @save_method
+  when 'new', 'n'
+    @save.new_save
+  when 'over', 'o'
+    @save.over_load('o')
+  when 'load', 'l'
+    @save.over_load('l')
+  else
+    puts "I am sorry I don't know that input."
+    start_saving
+  end
 end
+
+start_saving

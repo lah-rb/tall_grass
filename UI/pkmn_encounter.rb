@@ -1,14 +1,16 @@
-require './dex_maker.rb'
-require './dex.rb'
+require 'fileutils'
+require_relative '../dex_maker.rb'
+require_relative '../dex.rb'
 
 class Encounter
   include DexMaker
   include Dex
+  FileUtils.cd('..')
 
   def self.get_location(prompt="Where are you? ")
     puts
     print prompt
-    @local = STDIN.gets.chomp.downcase.split(" ").join("_")
+    @local = STDIN.gets.chomp.downcase.gsub(" ", "_")
     if @local == 'pokedex'
       return $store + @local
     else
@@ -18,6 +20,7 @@ class Encounter
 
   def self.provide_type
     puts
+    puts "Current location: #{@local.gsub('_', ' ')}"
     print "Any specific type? (Hit return for no type) "
     return STDIN.gets.chomp
   end

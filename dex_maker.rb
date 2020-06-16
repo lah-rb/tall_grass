@@ -1,6 +1,6 @@
 module DexMaker
   $store = './dex_store/'
-  @refined_dex = []
+  @refined_dex = Array.new
 
   def self.fill_dex(dex_pool)
     @seed = rand(0...dex_pool.size)
@@ -13,7 +13,7 @@ module DexMaker
   end
 
   def self.limit_pool(dex_pool, pages)
-    if dex_pool.size > pages
+    if dex_pool.size > pages && pages != 0
       (0...pages).each { self.fill_dex(dex_pool) }
     else
       puts
@@ -97,11 +97,18 @@ module DexMaker
     end
   end
 
+  def self.crush_empties
+    @refined_dex.reject! { |e| e.empty? }
+  end
+
   # Dex_pool is array, pages is integer, file is string, type is array
   def self.create_dex(dex_pool, file, specified, size=self.teaming)
+    self.crush_empties
     @additional_pages = size - specified.size
-    self.limit_pool(dex_pool, @additional_pages)
     @refined_dex += specified
+    self.crush_empties
+    self.limit_pool(dex_pool, @additional_pages) if @additional_pages != 0
+    self.crush_empties
     self.write_dex(@refined_dex, file)
   end
 end

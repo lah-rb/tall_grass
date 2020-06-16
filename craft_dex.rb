@@ -1,29 +1,32 @@
-require "./dex_maker.rb"
-require "./dex.rb"
+require_relative "dex_maker.rb"
+require_relative "dex.rb"
 
-class ExploreArea
+class CraftDex
   include DexMaker
   include Dex
 
   def initialize (attr_arr)
-    @@attr_arr = attr_arr
-    set_location
+    determine_area_qualities(attr_arr)
+    explore_area
     set_dex
   end
 
-  def set_location
+  def determine_area_qualities(attr_arr)
+    @area_qualities = attr_arr
+  end
+
+  def explore_area
     @dex = Dex::pokedex
     @pool = []
 
-    @area_name =  @@attr_arr[0] #String no spaces
+    @area_name =  @area_qualities[0] #String no spaces
     @dex_file = $store + @area_name + "_dex" #String
-    @specific = @@attr_arr[1] #Array or false
+    @specific = @area_qualities[1] #Array or false
     @specific.map! { |num| @dex[num-1] }
-    @size = @@attr_arr[2] #Integer or false
-    @evo =  eval(@@attr_arr[3]) #Proc or false in String
-    @types = @@attr_arr[4] #Array or false
-    @legend = @@attr_arr[5] #String
-
+    @size = @area_qualities[2] #Integer or false
+    @evo =  eval(@area_qualities[3]) #Proc or false in String
+    @types = @area_qualities[4] #Array or false
+    @legend = @area_qualities[5] #String
   end
 
   def set_dex

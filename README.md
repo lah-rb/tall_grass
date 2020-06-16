@@ -2,8 +2,10 @@
 ## Purpose of the repository
 This is a side project to help build programming skills and have some fun along the way. The primary purpose of tall_grass is to generate pokemon and relevant information for encounters during play. The secondary purpose of tall_grass is to act as a way to hold campaign relevant information such as a parsable pokedex, smaller area localized dexes, save states, and game play documents such as the play through narration and printable pokedex.
 
+Note: If the behavior of this program acts unexpectedly please contact me through github and I will work to fix it. Provided with no warrenty
+
 ## Requirements
-* Ruby 2.6.3 or newer must be installed (2.5.5 should still work)
+* Ruby 2.7.1 or newer must be installed
 
 ## Usage
 
@@ -20,34 +22,39 @@ As is fitting for this project there are many pokedexes that can be accessed. Be
 * The counterpart to the \*\_dex files are the seed files such as incubator_facility. These are used by rediscover_area.rb to fill a \*\_dex file with new pokemon that fit the original requirements specified when the \*\_dex file was created.These are found in the dex_seeds directory.
 
 ### Making a new area_dex
-* In the terminal change to the pkmndd directory and type: ruby discover_area.rb
+* In the terminal change to the tall_grass UI directory and type: ruby discovery.rb
 * Answer the question when prompted. Be sure to follow input guides.
 * discover_area.rb creates a \*\_dex file with the name you decided to call the area and a seed file with the same name.
-* If the behavior of this program acts unexpectedly please contact me through github and I will work to fix it.
+
+### Refreshing an old area_dex
+* In the terminal change to the tall_grass UI directory and type: ruby rediscovery.rb
+* When prompted type the name of an area that already exists. You can substitute underscores for spaces. tall_grass ships with the following areas which can be rediscovered along with any you create: cloudy_peak, incubator_facility, land_hoe, legends, and to_stern.
+* rediscover_area.rb overwrites the old \*\_dex file with a new one of the same name using the information stored in the seed file.
+Note: If you want to keep the old dex file and play with a revitialized file I suggest creating a save state as specified below.
 
 ### Encountering a pokemon
-* In the terminal change to the pkmndd directory and type: ruby pkmn_encounter.rb
+* In the terminal change to the tall_grass UI directory and type: ruby pkmn_encounter.rb
 * You will be prompted to enter an area with "Where are you?". You can type the name of the area in many manners. If the name of the area dex you want to access is incubator_facility the following are acceptable methods of entry: incubator_facility, incubator facility, Incubator Facility, INCUBATOR facility, or any combination of these styles.
 * You will then be prompted with "Any specific type? (Hit return for no type)" where you can either enter a type or leave empty for no preference. The accepted types are as follows: Normal, Fire, Water, Grass, Electric, Ice, Fighting, Poison, Ground, Flying, Psychic, Bug, Rock, Ghost, Dragon, Dark, Steel, and Fairy.
 
 Note: For a random encounter from the entire pokedex type pokedex at the "Where are you?" prompt and leave the type prompt empty.
 
 ### Managing story events
-In pkmndd.odt there are a series of events. The events_dex keeps track of these events and manage_events.rb shows the events dex in an interactive and human useful manner.
-* In the terminal change to the pkmndd directory and type: ruby manage_events.rb
+In pkmndd.odt there are a series of events. The events_dex keeps track of these events, events_manager interacts with the events_dex and coordinator.rb shows the events dex in an interactive and human useful manner.
+* In the terminal change to the tall_grass UI directory and type: ruby coordinator.rb
 * When prompted with "Which mission has been completed? (hit return to exit)" enter the integer that corresponds to the event finished
 
-Note: The next time you use manage_events.rb you will see that the events status will have changed from incomplete to complete.
+Note: The next time you use coordinator.rb you will see that the events status will have changed from incomplete to complete.
 
 ### Gathering information on specific pokemon
-There are many (890) pokemon that you may run into while using tall_grass. As such there is a good chance that you will find one that you are unfamilar with. For detailed information I recomend you look at bublapedia at this url https://bulbapedia.bulbagarden.net/wiki/Main_Page. For basic information you may find tall_grass's pkmn_lookup.rb program useful.
-* In the terminal change to the pkmndd directory and type: ruby pkmn_lookup.rb
+There are many (890) pokemon that you may run into while using tall_grass. As such there is a good chance that you will find one that you are unfamilar with. For detailed information I recommend you look at bublapedia at this url https://bulbapedia.bulbagarden.net/wiki/Main_Page. For basic information you may find tall_grass's pkmn_lookup.rb program useful.
+* In the terminal change to the tall_grass UI directory and type: ruby pkmn_lookup.rb
 * You will be prompted with "Look up by name or number? (name/#)" where you can enter 'name', '#', 'num', or 'number'
 * Next you will be prompted with "What are you searching for?" where you can enter either an integer if '#' was selected or the species name if 'name' was selected
 * If your input was '#' and '703' you will see this output: "No. 703 is Carbink which is at evolution stage 1 and is typed as Rock-Fairy."
 
 ### Creating save states
-* In the terminal change to the pkmndd directory and type: ruby pkmn_save.rb
+* In the terminal change to the tall_grass UI directory and type: ruby save.rb
 * You will be prompted to enter a saving or loading technique with "Would you like to start, overwrite, or load an advenure?"
 * Follow the input guide and select an option then hit return
 * If you chose to save new then you will be prompted with "Please give a name to this save:" then type the name wou wish to create your save under and hit return

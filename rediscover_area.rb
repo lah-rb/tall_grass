@@ -1,5 +1,14 @@
-require "./explore_area.rb"
-print "Where are you looking to explore again? "
-@seed = STDIN.gets.chomp.downcase.split(" ").join("_")
-File.open("./dex_seeds/" + @seed, "r") { |file| @attributes = file.gets }
-ExploreArea.new(eval(@attributes))
+require_relative "craft_dex.rb"
+
+class RediscoveredArea
+  def initialize(land_name)
+    @seed = land_name.chomp.downcase.gsub(" ", "_")
+    a_whole_new_world
+  end
+
+  def a_whole_new_world
+    File.open("./dex_seeds/" + @seed, "r") { |file| @attributes = file.gets }
+    CraftDex.new(eval(@attributes))
+    puts "#{@seed.gsub('_', ' ')} is like a whole new world!"
+  end
+end
