@@ -16,11 +16,11 @@ class CraftDex
   end
 
   def explore_area
-    @dex = Dex::pokedex
+    @dex = Dex.pokedex
     @pool = []
 
     @area_name =  @area_qualities[0] #String no spaces
-    @dex_file = $store + @area_name + "_dex" #String
+    @dex_file = './dex_store/' + @area_name + "_dex" #String
     @specific = @area_qualities[1] #Array or false
     @specific.map! { |num| @dex[num-1] }
     @size = @area_qualities[2] #Integer or false
@@ -30,7 +30,7 @@ class CraftDex
   end
 
   def set_dex
-    @pool = DexMaker::filter_dex(@dex, @evo, @types, @legend)
+    @pool = DexMaker.filter_dex(@dex, @evo, @types, @legend)
 
     if @pool[-1][0].class == Array
       @legend_pool = @pool.pop
@@ -42,9 +42,9 @@ class CraftDex
     end
 
     if @size == 0
-      DexMaker::create_dex(@pool, @dex_file, @specific)
+      DexMaker.create_dex(@pool, @dex_file, @specific)
     else
-      DexMaker::create_dex(@pool, @dex_file, @specific, @size)
+      DexMaker.create_dex(@pool, @dex_file, @specific, @size)
     end
   end
 end

@@ -4,8 +4,8 @@ require_relative 'dex_maker.rb'
 class EventManager
 
   def initialize
-    @events_path = $store + "events_dex"
-    @events = Dex::compile_dex(@events_path)
+    @events_path = './dex_store/' + "events_dex"
+    @events = Dex.compile_dex(@events_path)
   end
 
   def list_events
@@ -41,15 +41,15 @@ class EventManager
     if completed_event != 0
       completed_event -= 1
       @events[completed_event][1] = '$'
-      DexMaker::write_dex(@events, @events_path)
+      DexMaker.write_dex(@events, @events_path)
     end
   end
 
   def reset_all
-    @events = Dex::compile_dex(@events_path)
+    @events = Dex.compile_dex(@events_path)
     @events.each do |arr|
       arr[1] = '*'
     end
-    DexMaker::write_dex(@events, @events_path)
+    DexMaker.write_dex(@events, @events_path)
   end
 end

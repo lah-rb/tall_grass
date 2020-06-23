@@ -74,7 +74,7 @@ class Save
   def new_save
     puts
     print 'Please give a name to this save: '
-    @save_name = STDIN.gets.chomp.downcase.split(" ").join("_")
+    @save_name = $stdin.gets.chomp.downcase.split(" ").join("_")
 
     FileUtils.cd('./saves')
     FileUtils.mkdir(@save_name)
@@ -95,7 +95,7 @@ class Save
     @method = mint_load_save_arr(load_or_save)[0]
     puts
     print "Give the number of the save you wish to " + @method + ": "
-    @save_num = STDIN.gets.chomp.to_i - 1
+    @save_num = $stdin.gets.chomp.to_i - 1
     @save_name = @current_saves[@save_num].split('/')[-1]
     @over_load_arr = mint_load_save_arr(load_or_save, @save_name)
     show_progress(@method)
@@ -110,7 +110,7 @@ def start_saving
   print "new or n - new save"
   print "over or o - overwrite save"
   puts "load or l - load save"
-  @save_method = STDIN.gets.chomp.downcase
+  @save_method = $stdin.gets.chomp.downcase
 
   @save = Save.new
 

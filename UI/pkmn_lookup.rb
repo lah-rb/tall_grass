@@ -7,13 +7,13 @@ class Lookup
   def search_how
     puts
     print 'Look up by name or number? (name/#) '
-    STDIN.gets.downcase.chomp
+    $stdin.gets.downcase.chomp
   end
 
   def get_criteria
     puts
     print 'What are you searching for? '
-    STDIN.gets.capitalize.chomp
+    $stdin.gets.capitalize.chomp
   end
 
   def make_output(num, name, evo, type_1, type_2)
@@ -61,7 +61,7 @@ class Lookup
 
   def run_lookup
     FileUtils.cd('..')
-    @dex = Dex::pokedex
+    @dex = Dex.pokedex
     @lookup_by = search_how
     @lookup_what = get_criteria
     look_in_dex(@dex, @lookup_by, @lookup_what)

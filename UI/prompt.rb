@@ -2,7 +2,7 @@ module Prompt
   def get_info(prompt)
     puts
     print prompt
-    STDIN.gets.chomp
+    $stdin.gets.chomp
   end
 
   def prompt_store

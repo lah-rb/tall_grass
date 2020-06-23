@@ -1,6 +1,6 @@
 module Dex
 
-  def self.compile_dex(path)
+  def compile_dex(path)
     @pokedex = []
     File.open(path, "r") do |entry|
       while record = entry.gets
@@ -10,8 +10,10 @@ module Dex
     end
     @pokedex
   end
+  module_function :compile_dex
 
-  def self.pokedex
-    self.compile_dex("./dex_store/pokedex")
+  def pokedex
+    compile_dex("./dex_store/pokedex")
   end
+  module_function :pokedex
 end

@@ -18,7 +18,7 @@ class TestDexMakerFull < Minitest::Test
     @types = ["dark", "|", "dragon"]
     @legend = "y"
     @store = "./dex_store/test_dex"
-    @filtered = DexMaker::filter_dex(@dex, eval(@evo), @types, @legend)
+    @filtered = DexMaker.filter_dex(@dex, eval(@evo), @types, @legend)
     if @filtered[-1][0].class == Array
       @leg_hold = @filtered.pop
       @specific += @leg_hold
@@ -26,7 +26,7 @@ class TestDexMakerFull < Minitest::Test
   end
 
   def prep_dex
-    DexMaker::create_dex(@filtered, @store, @specific, @size)
+    DexMaker.create_dex(@filtered, @store, @specific, @size)
     @store_arr = File.open(@store, 'r').readlines
     @store_arr.map! { |a| a.chomp.split('-') }
     @rand_arr = @store_arr.reject { |item| [111, 222, 333, 444, 555, 666, 777, 888].include?(item[0].to_i)  }

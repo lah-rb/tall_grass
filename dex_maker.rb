@@ -1,31 +1,28 @@
 module DexMaker
-  $store = './dex_store/'
   @refined_dex = Array.new
 
-  def self.fill_dex(dex_pool)
+  def fill_dex(dex_pool)
     @seed = rand(0...dex_pool.size)
     @specimen = dex_pool[@seed]
-      if @refined_dex.none?(@specimen)
-        @refined_dex << @specimen
-      else
-        self.fill_dex(dex_pool)
-      end
+    @refined_dex.none?(@specimen) ? @refined_dex << @specimen : fill_dex(dex_pool)
   end
+  module_function :fill_dex
 
-  def self.limit_pool(dex_pool, pages)
-    if dex_pool.size > pages && pages != 0
-      (0...pages).each { self.fill_dex(dex_pool) }
+  def limit_pool(dex_pool, pages)
+    if dex_pool.size > pages
+      (0...pages).each { fill_dex(dex_pool) }
     else
       puts
       puts "There were not enough pokemon which meet requirements to fill a pokedex of that size."
       puts "The dex will be filled as much as possible"
-      (0...dex_pool.size).each { self.fill_dex(dex_pool) }
+      (0...dex_pool.size).each { fill_dex(dex_pool) }
     end
 
     return @refined_dex
   end
+  module_function :limit_pool
 
-  def self.type_select(dex_pool, type)
+  def type_select(dex_pool, type)
     if type.class == Array
       type.map!(&:capitalize)
       @keep_types = type.take_while { |type| type != '|' }
@@ -44,23 +41,26 @@ module DexMaker
       return dex_pool
     end
   end
+  module_function :type_select
 
-  def self.legend_select(dex_pool, legendary)
+  def legend_select(dex_pool, legendary)
     dex_pool.select { |dex| dex[1][-1].match?(/["^"|!|#]/) }
   end
+    module_function :legend_select
 
-  def self.evo_select(dex_pool, evolution)
+  def evo_select(dex_pool, evolution)
     if evolution
       dex_pool.select(&evolution)
     else
       return dex_pool
     end
   end
+  module_function :evo_select
 
-  def self.filter_dex(dex_raw, evolution, types, legendary)
-    @type_dex = self.type_select(dex_raw, types)
-    @evo_dex = self.evo_select(@type_dex, evolution)
-    @legend_dex = self.legend_select(@type_dex, legendary)
+  def filter_dex(dex_raw, evolution, types, legendary)
+    @type_dex = type_select(dex_raw, types)
+    @evo_dex = evo_select(@type_dex, evolution) if legendary.start_with? != 'o'
+    @legend_dex = legend_select(@type_dex, legendary) unless legendary.empty?
     case legendary
     when 'only', 'o'
       return @legend_dex
@@ -72,8 +72,9 @@ module DexMaker
       return @evo_dex
     end
   end
+  module_function :filter_dex
 
-  def self.write_dex(refined_dex, file_name)
+  def write_dex(refined_dex, file_name)
     File.open(file_name, 'w') do |new_dex|
       refined_dex.each do |entry|
         @line = ""
@@ -84,31 +85,37 @@ module DexMaker
       end
     end
   end
+  module_function :write_dex
 
-  def self.teaming
+  def teaming
     base = rand(1..100)
     case base
     when (1..40)
       return 7
     when (41..86)
-      return 12 + rand(0..5) + rand(0..2) * 5
-    when (87..100)
-      return 2 + rand(0..1)*20 + rand(0..2) * 10
+      return 12 + rand(0..8) + rand(0..2) * 5
+    when (87..96)
+      return rand(0..1)*10 + rand(0..1)*20 + rand(0..3) * 10
+    when (97..100)
+      return 1
     end
   end
+  module_function :teaming
 
-  def self.crush_empties
+  def crush_empties
     @refined_dex.reject! { |e| e.empty? }
   end
+  module_function :crush_empties
 
   # Dex_pool is array, pages is integer, file is string, type is array
-  def self.create_dex(dex_pool, file, specified, size=self.teaming)
-    self.crush_empties
+  def create_dex(dex_pool, file, specified, size=teaming)
+    crush_empties
     @additional_pages = size - specified.size
     @refined_dex += specified
-    self.crush_empties
-    self.limit_pool(dex_pool, @additional_pages) if @additional_pages != 0
-    self.crush_empties
-    self.write_dex(@refined_dex, file)
+    crush_empties
+    limit_pool(dex_pool, @additional_pages) if @additional_pages != 0
+    crush_empties
+    write_dex(@refined_dex, file)
   end
+  module_function :create_dex
 end
