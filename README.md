@@ -14,7 +14,7 @@ Print all files in the game_play directory. Read and follow the pkmondd.odt narr
 
 ### Accessing the pokedex
 As is fitting for this project there are many pokedexes that can be accessed. Below are a few of the files and their intended purpose.
-* dex.rb parses the \*\_dex files to be used in other scripts. Require dex.rb in a new script and mix Dex into a class. Then use Dex::pokedex to access this dex. Dex::pokedex is an array of arrays order as follows: [[dex#,species,evolution_stage,primary_type,secondary_type]] and contains each of the base species relesed as of 03/03/2020.
+* dex.rb parses the \*\_dex files to be used in other scripts. Require dex.rb in a new script and mix Dex into a class. Then use Dex.pokedex to access this dex. Dex.pokedex is an array of Structs order as follows: [<num,name,evo,prime_type,second_type>] and contains each of the base species relesed as of 03/03/2020.
 * pokedex is the parsible complete pokedex used by dex.rb and should be accessed through dex.rb when writing new scripts. This is found in the dex_store directory.
 * pokedex.ods is the table top version of the pokedex file. It has the same information in a human usable format plus seen, captured, and bonded sections to act as a way to actively fill the dex. Additionally this file has a key for reading the classifying symbols that appear at the end of the species name. This is found in the game_play directory.
 * pokedexres files are intended to be read_only versions of older dexes incase reversion is wanted or nessary for the project later down the line. If access is desired please copy and rename the file then treat it like pokedex. These are found in the resevered directory.

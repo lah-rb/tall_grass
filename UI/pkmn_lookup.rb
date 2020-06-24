@@ -4,13 +4,13 @@ require_relative '../dex.rb'
 class Lookup
   include Dex
 
-  def search_how
+  def name_or_num
     puts
     print 'Look up by name or number? (name/#) '
     $stdin.gets.downcase.chomp
   end
 
-  def get_criteria
+  def get_pkmn
     puts
     print 'What are you searching for? '
     $stdin.gets.capitalize.chomp
@@ -18,27 +18,28 @@ class Lookup
 
   def make_output(num, name, evo, type_1, type_2)
     @info_string =
-    "No. #{num} is \
+    "No. #{num.to_s} is \
     #{name} which is at evolution stage \
-    #{evo} and is typed as \
+    #{evo.to_s} and is typed as \
     #{type_1}#{"-" + type_2 if type_2 != '%'}."
     return @info_string.split("  ").join
   end
 
-  def look_in_dex(dex, search_means, what)
+  def look_in_dex(dex, search_means, seek)
     case search_means
-    when 'name'
+    when 'name', 'nam'
       begin
-        @pkmn = dex.select do |p|
-          if p[1][-1].match?(/["^"|!|#]/)
-           p[1].chop == what
+        @pkmn = dex.select do |poke|
+          if poke.name.match?(/["^"|!|#]/)
+           poke.name.chop == seek
           else
-           p[1] == what
+           poke.name == seek
           end
         end
-        @pkmn = @pkmn.flatten
+        @pkmn = @pkmn[0]
         puts
-        puts make_output(@pkmn[0], @pkmn[1], @pkmn[2], @pkmn[3], @pkmn[4])
+        puts make_output(@pkmn.num, @pkmn.name, @pkmn.evo,
+           @pkmn.prime_type, @pkmn.second_type)
         puts
       rescue
         puts "That name does not exist. Please check for spelling."
@@ -47,10 +48,11 @@ class Lookup
       end
     when '#', 'num', 'number'
       begin
-        @seek = what.to_i - 1
         puts
-        puts make_output(dex[@seek][0], dex[@seek][1],
-        dex[@seek][2], dex[@seek][3], dex[@seek][4])
+        @pkmn = dex.select { |poke| poke.num == seek.to_i }
+        @pkmn = @pkmn[0]
+        puts make_output(@pkmn.num, @pkmn.name, @pkmn.evo,
+           @pkmn.prime_type, @pkmn.second_type)
         puts
       rescue
         puts "That number appears to be out of the range of this pokedex."
@@ -62,9 +64,9 @@ class Lookup
   def run_lookup
     FileUtils.cd('..')
     @dex = Dex.pokedex
-    @lookup_by = search_how
-    @lookup_what = get_criteria
-    look_in_dex(@dex, @lookup_by, @lookup_what)
+    @lookup_by = name_or_num
+    @seek_which = get_pkmn
+    look_in_dex(@dex, @lookup_by, @seek_which)
   end
 
 end

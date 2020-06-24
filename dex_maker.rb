@@ -1,5 +1,8 @@
 module DexMaker
-  @refined_dex = Array.new
+  def set_refine
+    @refined_dex = Array.new
+  end
+  module_function :set_refine
 
   def fill_dex(dex_pool)
     @seed = rand(0...dex_pool.size)
@@ -77,11 +80,8 @@ module DexMaker
   def write_dex(refined_dex, file_name)
     File.open(file_name, 'w') do |new_dex|
       refined_dex.each do |entry|
-        @line = ""
-        (0...entry.size).each do
-          @line += entry.shift + "-"
-        end
-        new_dex.puts("#{@line.chop}")
+        @line = entry.to_a.join('-')
+        new_dex.puts("#{@line}")
       end
     end
   end
@@ -102,19 +102,12 @@ module DexMaker
   end
   module_function :teaming
 
-  def crush_empties
-    @refined_dex.reject! { |e| e.empty? }
-  end
-  module_function :crush_empties
-
-  # Dex_pool is array, pages is integer, file is string, type is array
+  # dex_pool: array, file: string, specified: array, size: intger
   def create_dex(dex_pool, file, specified, size=teaming)
-    crush_empties
+    set_refine
     @additional_pages = size - specified.size
     @refined_dex += specified
-    crush_empties
     limit_pool(dex_pool, @additional_pages) if @additional_pages != 0
-    crush_empties
     write_dex(@refined_dex, file)
   end
   module_function :create_dex

@@ -22,6 +22,7 @@ class TestEventsManager < Minitest::Test
   def test_reset
     assert @coordinator.reset_all
     File.open("./dex_store/events_dex", "r") { |file| @first_line = file.gets.chomp }
+    p @first_line
     assert_equal '*', @first_line[-1]
   end
 end

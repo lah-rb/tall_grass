@@ -15,11 +15,7 @@ class Encounter
     puts
     print prompt
     @local = $stdin.gets.chomp.downcase.gsub(" ", "_")
-    if @local == 'pokedex'
-      return './dex_store/' + @local
-    else
-      return './dex_store/' + @local + "_dex"
-    end
+    @local == 'pokedex' ? './dex_store/' + @local : './dex_store/' + @local + "_dex"
   end
 
   def provide_type
@@ -43,9 +39,9 @@ class Encounter
     end
   end
 
-  def random_output(array)
-    @seed = rand(0...array.size)
-    puts array.dig(@seed,1) + " No. " + array.dig(@seed,0)
+  def random_output(dex)
+    @seed = rand(0...dex.size)
+    puts dex[@seed].name + " No. " + dex[@seed].num.to_s
     puts
   end
 
@@ -67,8 +63,8 @@ class Encounter
     if @type.chomp.empty?
       random_output(@area_dex)
     else
-      @type_dex = DexMaker::type_select(@area_dex, [@type])
-      # This error check assumes that the area does not contain the type provided
+      @type_dex = DexMaker.type_select(@area_dex, [@type])
+      # This error check assumes that the area does not contain the type provide
       if @type_dex.empty?
         puts 'No Pokemon was found in that area with that type'
         puts

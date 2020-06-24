@@ -10,7 +10,7 @@ class TestDexMakerFull < Minitest::Test
     @types_arr = ["Grass", "Poison", "Fire", "Water", "Bug", "Normal",
        "Electric", "Ground", "Fairy", "Fighting", "Psychic", "Rock",
         "Ghost", "Ice", "Dragon", "Dark", "Steel", "Flying"]
-    @dex = Dex::pokedex
+    @dex = Dex.pokedex
     @specific = [111, 222, 333, 444, 555, 666, 777, 888]
     @specific.map! { |num| @dex[num-1] }
     @size =  15
@@ -19,7 +19,7 @@ class TestDexMakerFull < Minitest::Test
     @legend = "y"
     @store = "./dex_store/test_dex"
     @filtered = DexMaker.filter_dex(@dex, eval(@evo), @types, @legend)
-    if @filtered[-1][0].class == Array
+    if @filtered[-1][0].class == Dex::Entry
       @leg_hold = @filtered.pop
       @specific += @leg_hold
     end

@@ -17,7 +17,7 @@ class TestDiscoverArea < Minitest::Test
 
   def test_good_seed
     assert_equal(["test", [111, 222, 333, 444, 555, 666, 777, 888], 10,
-       "Proc.new { |dex| dex[2].to_i == 1 || dex[2].to_i == 3 }",
+       "Proc.new { |dex| dex.evo == 1 || dex.evo == 3 }",
         ["dark", "|", "dragon"], "y"], eval(@attributes))
   end
 end

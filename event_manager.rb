@@ -5,7 +5,7 @@ class EventManager
 
   def initialize
     @events_path = './dex_store/' + "events_dex"
-    @events = Dex.compile_dex(@events_path)
+    @events = Dex.compile_dex(@events_path, true)
   end
 
   def list_events
@@ -46,7 +46,7 @@ class EventManager
   end
 
   def reset_all
-    @events = Dex.compile_dex(@events_path)
+    @events = Dex.compile_dex(@events_path, true)
     @events.each do |arr|
       arr[1] = '*'
     end

@@ -11,17 +11,17 @@ class DiscoverArea
   def evo_proc(evo_arr)
     case evo_arr
     when [1]
-      return 'Proc.new { |dex| dex[2].to_i == 1 }'
+      return 'Proc.new { |dex| dex.evo == 1 }'
     when [2]
-      return 'Proc.new { |dex| dex[2].to_i == 2 }'
+      return 'Proc.new { |dex| dex.evo == 2 }'
     when [3]
-      return 'Proc.new { |dex| dex[2].to_i == 3 }'
+      return 'Proc.new { |dex| dex.evo == 3 }'
     when [1, 2], [2, 1]
-      return 'Proc.new { |dex| dex[2].to_i < 3 }'
+      return 'Proc.new { |dex| dex.evo < 3 }'
     when [2, 3], [3, 2]
-      return 'Proc.new { |dex| dex[2].to_i > 1 }'
+      return 'Proc.new { |dex| dex.evo > 1 }'
     when [1,3], [3, 1]
-      return 'Proc.new { |dex| dex[2].to_i == 1 || dex[2].to_i == 3 }'
+      return 'Proc.new { |dex| dex.evo == 1 || dex.evo == 3 }'
     else
       return 'false'
     end
