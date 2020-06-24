@@ -59,3 +59,13 @@ There are many (890) pokemon that you may run into while using tall_grass. As su
 * Follow the input guide and select an option then hit return
 * If you chose to save new then you will be prompted with "Please give a name to this save:" then type the name wou wish to create your save under and hit return
 * If you chose to load or overwrite, a list of avaliable saves will be displayed and you will be prompted with "Give the number of the save you wish to load||overwrite:" then type the number next to the save you need to use and hit return.
+
+## In the works
+* The Lookup and Encounter classes share quite a bit of functionality and should be rewritten so that on class inherits from the other.
+* Separate pkmn_lookup.rb, pkmn_encounter.rb, and save.rb UI methods from backend methods and implement tests for backend methods.
+* Refactor Lookup and Encounter to mixin Prompt and use its UI functionality.
+* EventManager should be able to add new events to the events dex. Coordinator should be updated to reflect the new functionality. (low priority)
+* DexMaker should have its legend_select method abstracted so that the user can request fossil, baby, myth, legend, and ultra beast distinctions separately. Discovery should be updated to reflect the new functionality.
+* Look into new methods for evo_select in DexMaker and a_whole_new_world in RediscoveredArea to avoid using eval(). (low priority)
+* Update DiscoverArea and CraftDex to take a Struct in interpret_observations and explore_area respectively for expressiveness. Discovery should be updated to reflect the new functionality.
+* Sort all classes public and private methods.

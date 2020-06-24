@@ -5,7 +5,7 @@ class CraftDex
   include DexMaker
   include Dex
 
-  def initialize (attr_arr)
+  def initialize(attr_arr)
     determine_area_qualities(attr_arr)
     explore_area
     set_dex
@@ -31,13 +31,12 @@ class CraftDex
 
   def set_dex
     @pool = DexMaker.filter_dex(@dex, @evo, @types, @legend)
-
-    if @pool[-1][0].class == Array
+    if @pool[-1][0].class == Dex::Entry
       @legend_pool = @pool.pop
       if @legend_pool.size <= 3
         @specific += @legend_pool
       elsif @legend_pool.size > 3
-        @specific += DexMaker::limit_pool(@legend_pool, rand(1..3))
+        @specific += DexMaker.limit_pool(@legend_pool, rand(1..3))
       end
     end
 

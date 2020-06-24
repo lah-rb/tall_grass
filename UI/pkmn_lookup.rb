@@ -16,12 +16,20 @@ class Lookup
     $stdin.gets.capitalize.chomp
   end
 
-  def make_output(num, name, evo, type_1, type_2)
+  def make_output(num, name, evo, type_1, type_2, method)
+    case method
+    when :name
+      @first = name
+      @second = "pokedex entry No." + num.to_s
+    when :number
+      @first = "Pokedex entry No." + num.to_s
+      @second = name
+    end
     @info_string =
-    "No. #{num.to_s} is \
-    #{name} which is at evolution stage \
+    "#{@first} is \
+    #{@second}. This pokemon is at evolution stage \
     #{evo.to_s} and is typed as \
-    #{type_1}#{"-" + type_2 if type_2 != '%'}."
+    #{type_1}#{"-" + type_2 unless type_2 == '%'}."
     return @info_string.split("  ").join
   end
 
@@ -29,17 +37,16 @@ class Lookup
     case search_means
     when 'name', 'nam'
       begin
-        @pkmn = dex.select do |poke|
-          if poke.name.match?(/["^"|!|#]/)
+        @pkmn = dex.find do |poke|
+          if poke.name.match?(/["^"|!|#|*|~]/)
            poke.name.chop == seek
           else
            poke.name == seek
           end
         end
-        @pkmn = @pkmn[0]
         puts
         puts make_output(@pkmn.num, @pkmn.name, @pkmn.evo,
-           @pkmn.prime_type, @pkmn.second_type)
+           @pkmn.prime_type, @pkmn.second_type, :name)
         puts
       rescue
         puts "That name does not exist. Please check for spelling."
@@ -49,10 +56,9 @@ class Lookup
     when '#', 'num', 'number'
       begin
         puts
-        @pkmn = dex.select { |poke| poke.num == seek.to_i }
-        @pkmn = @pkmn[0]
+        @pkmn = dex.find { |poke| poke.num == seek.to_i }
         puts make_output(@pkmn.num, @pkmn.name, @pkmn.evo,
-           @pkmn.prime_type, @pkmn.second_type)
+           @pkmn.prime_type, @pkmn.second_type, :number)
         puts
       rescue
         puts "That number appears to be out of the range of this pokedex."

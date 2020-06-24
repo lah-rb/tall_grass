@@ -5,7 +5,11 @@ class DiscoverArea
     @attributes ||= []
     interpret_observations(observation_arr)
     plant_area_seed
-    CraftDex.new(area_seed_arr)
+    CraftDex.new(area_seed)
+  end
+
+  class PlanterBox < File
+    alias_method :plant, :print
   end
 
   def evo_proc(evo_arr)
@@ -53,13 +57,13 @@ class DiscoverArea
     @attributes << @legend
   end
 
-  def area_seed_arr
+  def area_seed
     return @attributes
   end
 
   def plant_area_seed
-    File.open("./dex_seeds/" + area_seed_arr[0], "w") do |seed|
-      seed.print area_seed_arr
+    PlanterBox.open("./dex_seeds/" + area_seed[0], "w") do |soil|
+      soil.plant area_seed
     end
   end
 end
