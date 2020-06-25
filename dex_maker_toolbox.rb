@@ -1,4 +1,4 @@
-module DexMaker
+module DexMakerToolbox
   def set_refine
     @refined_dex = Array.new
   end

@@ -11,9 +11,9 @@ guard :minitest do
   def file_watch
     [
     'dex.rb',
-    'dex_maker.rb',
+    'dex_maker_toolbox.rb',
     'discover_area.rb',
-    'craft_dex.rb',
+    'dex_craftsman.rb',
     'event_manager.rb',
     'pkmn_encounter.rb',
     'rediscover_area.rb'

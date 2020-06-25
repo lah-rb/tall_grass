@@ -1,9 +1,9 @@
 require 'fileutils'
-require_relative '../dex_maker.rb'
+require_relative '../dex_maker_toolbox.rb'
 require_relative '../dex.rb'
 
 class Encounter
-  include DexMaker
+  include DexMakerToolbox
   include Dex
   FileUtils.cd('..')
 
@@ -63,7 +63,7 @@ class Encounter
     if @type.chomp.empty?
       random_output(@area_dex)
     else
-      @type_dex = DexMaker.type_select(@area_dex, [@type])
+      @type_dex = DexMakerToolbox.type_select(@area_dex, [@type])
       # This error check assumes that the area does not contain the type provide
       if @type_dex.empty?
         puts 'No Pokemon was found in that area with that type'

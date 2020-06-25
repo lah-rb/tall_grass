@@ -1,4 +1,4 @@
-require_relative "craft_dex.rb"
+require_relative "dex_craftsman.rb"
 
 class RediscoveredArea
   def initialize(land_name)
@@ -8,7 +8,7 @@ class RediscoveredArea
 
   def a_whole_new_world
     File.open("./dex_seeds/" + @seed, "r") { |file| @attributes = file.gets }
-    CraftDex.new(eval(@attributes))
+    DexCraftsman.new(eval(@attributes))
     puts "#{@seed.gsub('_', ' ')} is like a whole new world!"
   end
 end

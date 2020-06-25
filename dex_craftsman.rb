@@ -1,9 +1,9 @@
-require_relative "dex_maker.rb"
+require_relative "dex_maker_toolbox.rb"
 require_relative "dex.rb"
 
-class CraftDex
-  include DexMaker
+class DexCraftsman
   include Dex
+  include DexMakerToolbox
 
   def initialize(attr_arr)
     determine_area_qualities(attr_arr)
@@ -30,20 +30,20 @@ class CraftDex
   end
 
   def set_dex
-    @pool = DexMaker.filter_dex(@dex, @evo, @types, @legend)
+    @pool = DexMakerToolbox.filter_dex(@dex, @evo, @types, @legend)
     if @pool[-1][0].class == Dex::Entry
       @legend_pool = @pool.pop
       if @legend_pool.size <= 3
         @specific += @legend_pool
       elsif @legend_pool.size > 3
-        @specific += DexMaker.limit_pool(@legend_pool, rand(1..3))
+        @specific += DexMakerToolbox.limit_pool(@legend_pool, rand(1..3))
       end
     end
 
     if @size == 0
-      DexMaker.create_dex(@pool, @dex_file, @specific)
+      DexMakerToolbox.create_dex(@pool, @dex_file, @specific)
     else
-      DexMaker.create_dex(@pool, @dex_file, @specific, @size)
+      DexMakerToolbox.create_dex(@pool, @dex_file, @specific, @size)
     end
   end
 end

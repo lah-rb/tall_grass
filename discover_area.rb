@@ -1,11 +1,11 @@
-require_relative 'craft_dex.rb'
+require_relative 'dex_craftsman.rb'
 
 class DiscoverArea
   def initialize(observation_arr)
     @attributes ||= []
     interpret_observations(observation_arr)
     plant_area_seed
-    CraftDex.new(area_seed)
+    DexCraftsman.new(area_seed)
   end
 
   class PlanterBox < File

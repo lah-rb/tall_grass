@@ -1,5 +1,5 @@
 require_relative 'dex.rb'
-require_relative 'dex_maker.rb'
+require_relative 'dex_maker_toolbox.rb'
 
 class EventManager
 
@@ -41,7 +41,7 @@ class EventManager
     if completed_event != 0
       completed_event -= 1
       @events[completed_event][1] = '$'
-      DexMaker.write_dex(@events, @events_path)
+      DexMakerToolbox.write_dex(@events, @events_path)
     end
   end
 
@@ -50,6 +50,6 @@ class EventManager
     @events.each do |arr|
       arr[1] = '*'
     end
-    DexMaker.write_dex(@events, @events_path)
+    DexMakerToolbox.write_dex(@events, @events_path)
   end
 end
