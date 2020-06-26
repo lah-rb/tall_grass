@@ -8,6 +8,8 @@ class EventManager
     @events = Dex.compile_dex(@events_path, true)
   end
 
+  private
+
   def list_events
     @events.each.with_index(1) do |event, i|
       @title = event[0].split("_")
@@ -36,6 +38,8 @@ class EventManager
       puts i.to_s + ': ' + @title + @completeness
     end
   end
+
+  public
 
   def complete_event(completed_event = 0)
     if completed_event != 0

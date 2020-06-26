@@ -6,6 +6,8 @@ class RediscoveredArea
     a_whole_new_world
   end
 
+  public
+
   def a_whole_new_world
     File.open("./dex_seeds/" + @seed, "r") { |file| @attributes = file.gets }
     DexCraftsman.new(eval(@attributes))

@@ -68,4 +68,3 @@ There are many (890) pokemon that you may run into while using tall_grass. As su
 * DexMaker should have its legend_select method abstracted so that the user can request fossil, baby, myth, legend, and ultra beast distinctions separately. Discovery should be updated to reflect the new functionality.
 * Look into new methods for evo_select in DexMaker and a_whole_new_world in RediscoveredArea to avoid using eval(). (low priority)
 * Update DiscoverArea and CraftDex to take a Struct in interpret_observations and explore_area respectively for expressiveness. Discovery should be updated to reflect the new functionality.
-* Sort all classes public and private methods.

@@ -8,6 +8,8 @@ class DiscoverArea
     DexCraftsman.new(area_seed)
   end
 
+  private
+
   class PlanterBox < File
     alias_method :plant, :print
   end

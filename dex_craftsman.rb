@@ -11,6 +11,8 @@ class DexCraftsman
     set_dex
   end
 
+  private
+
   def determine_area_qualities(attr_arr)
     @area_qualities = attr_arr
   end

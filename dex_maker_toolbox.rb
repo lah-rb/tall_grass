@@ -1,8 +1,14 @@
 module DexMakerToolbox
-  def set_refine
-    @refined_dex = Array.new
+  public
+  # dex_pool: array, file: string, specified: array, size: intger
+  def create_dex(dex_pool, file, specified, size=teaming)
+    set_refine
+    @additional_pages = size - specified.size
+    @refined_dex += specified
+    limit_pool(dex_pool, @additional_pages) if @additional_pages != 0
+    write_dex(@refined_dex, file)
   end
-  module_function :set_refine
+  module_function :create_dex
 
   def fill_dex(dex_pool)
     @seed = rand(0...dex_pool.size)
@@ -87,6 +93,8 @@ module DexMakerToolbox
   end
   module_function :write_dex
 
+  private
+
   def teaming
     base = rand(1..100)
     case base
@@ -102,13 +110,9 @@ module DexMakerToolbox
   end
   module_function :teaming
 
-  # dex_pool: array, file: string, specified: array, size: intger
-  def create_dex(dex_pool, file, specified, size=teaming)
-    set_refine
-    @additional_pages = size - specified.size
-    @refined_dex += specified
-    limit_pool(dex_pool, @additional_pages) if @additional_pages != 0
-    write_dex(@refined_dex, file)
+  def set_refine
+    @refined_dex = Array.new
   end
-  module_function :create_dex
+  module_function :set_refine
+
 end
