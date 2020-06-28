@@ -26,14 +26,15 @@ class DexCraftsman
     @specific = @area_qualities[1] #Array or false
     @specific.map! { |num| @dex[num-1] }
     @size = @area_qualities[2] #Integer or false
-    @evo =  eval(@area_qualities[3]) #Proc or false in String
+    @evo = @area_qualities[3] #eval(@area_qualities[3]) #Proc or false in String
     @types = @area_qualities[4] #Array or false
     @legend = @area_qualities[5] #String
   end
 
   def set_dex
     @pool = DexMakerToolbox.filter_dex(@dex, @evo, @types, @legend)
-    if @pool[-1][0].class == Dex::Entry
+
+    if @pool[-1].class == Array
       @legend_pool = @pool.pop
       if @legend_pool.size <= 3
         @specific += @legend_pool

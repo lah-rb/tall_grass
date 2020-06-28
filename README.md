@@ -19,7 +19,7 @@ As is fitting for this project there are many pokedexes that can be accessed. Be
 * pokedex.ods is the table top version of the pokedex file. It has the same information in a human usable format plus seen, captured, and bonded sections to act as a way to actively fill the dex. Additionally this file has a key for reading the classifying symbols that appear at the end of the species name. This is found in the game_play directory.
 * pokedexres files are intended to be read_only versions of older dexes incase reversion is wanted or nessary for the project later down the line. If access is desired please copy and rename the file then treat it like pokedex. These are found in the resevered directory.
 * \*\_dex files such as incubator_facility_dex are intended to keep track of the pokemon in a certain area encountered during the exploration process. These are found in the dex_store directory.
-* The counterpart to the \*\_dex files are the seed files such as incubator_facility. These are used by rediscover_area.rb to fill a \*\_dex file with new pokemon that fit the original requirements specified when the \*\_dex file was created.These are found in the dex_seeds directory.
+* The counterpart to the \*\_dex files are the seed files such as incubator_facility.rb. These are used by rediscover_area.rb to fill a \*\_dex file with new pokemon that fit the original requirements specified when the \*\_dex file was created.These are found in the dex_seeds directory.
 
 ### Making a new area_dex
 * In the terminal change to the tall_grass UI directory and type: ruby discovery.rb
@@ -66,5 +66,5 @@ There are many (890) pokemon that you may run into while using tall_grass. As su
 * Refactor Lookup and Encounter to mixin Prompt and use its UI functionality.
 * EventManager should be able to add new events to the events dex. Coordinator should be updated to reflect the new functionality. (low priority)
 * DexMaker should have its legend_select method abstracted so that the user can request fossil, baby, myth, legend, and ultra beast distinctions separately. Discovery should be updated to reflect the new functionality.
-* Look into new methods for evo_select in DexMaker and a_whole_new_world in RediscoveredArea to avoid using eval(). (low priority)
 * Update DiscoverArea and CraftDex to take a Struct in interpret_observations and explore_area respectively for expressiveness. Discovery should be updated to reflect the new functionality.
+* Review Licensing and possibly change from current.

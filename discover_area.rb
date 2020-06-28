@@ -1,43 +1,22 @@
 require_relative 'dex_craftsman.rb'
+require_relative 'evo.rb'
+require_relative 'gardener.rb'
 
 class DiscoverArea
   def initialize(observation_arr)
     @attributes ||= []
     interpret_observations(observation_arr)
-    plant_area_seed
-    DexCraftsman.new(area_seed)
+    note_attributes
+    DexCraftsman.new(@attributes)
   end
 
   private
-
-  class PlanterBox < File
-    alias_method :plant, :print
-  end
-
-  def evo_proc(evo_arr)
-    case evo_arr
-    when [1]
-      return 'Proc.new { |dex| dex.evo == 1 }'
-    when [2]
-      return 'Proc.new { |dex| dex.evo == 2 }'
-    when [3]
-      return 'Proc.new { |dex| dex.evo == 3 }'
-    when [1, 2], [2, 1]
-      return 'Proc.new { |dex| dex.evo < 3 }'
-    when [2, 3], [3, 2]
-      return 'Proc.new { |dex| dex.evo > 1 }'
-    when [1,3], [3, 1]
-      return 'Proc.new { |dex| dex.evo == 1 || dex.evo == 3 }'
-    else
-      return 'false'
-    end
-  end
 
   def interpret_observations(observation_arr)
     # observation_arr:
     # [name, specific, richness, evo, yes, no, legend] All strings
 
-    @name = observation_arr[0].chomp.downcase.split(" ").join("_")
+    @name = observation_arr[0].chomp.downcase.gsub(" ", "_")
     @attributes << @name
 
     @specific = observation_arr[1].split('-').map(&:to_i)
@@ -46,7 +25,8 @@ class DiscoverArea
     @richness = observation_arr[2].to_i
     @attributes << @richness
 
-    @evo = evo_proc(observation_arr[3].split('-').map(&:to_i))
+    @ints_arr = observation_arr[3].split('-').map(&:to_i)
+    @evo = Evo.new(@ints_arr)
     @attributes << @evo
 
     @yes_types = observation_arr[4].split('-')
@@ -59,13 +39,9 @@ class DiscoverArea
     @attributes << @legend
   end
 
-  def area_seed
-    return @attributes
-  end
-
-  def plant_area_seed
-    PlanterBox.open("./dex_seeds/" + area_seed[0], "w") do |soil|
-      soil.plant area_seed
-    end
+  def note_attributes
+    @seed = @attributes.dup
+    @seed[3] = @ints_arr
+    Gardener.new.plant_area_seed(@seed)
   end
 end

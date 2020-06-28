@@ -13,7 +13,12 @@ module DexMakerToolbox
   def fill_dex(dex_pool)
     @seed = rand(0...dex_pool.size)
     @specimen = dex_pool[@seed]
-    @refined_dex.none?(@specimen) ? @refined_dex << @specimen : fill_dex(dex_pool)
+    begin
+      @refined_dex.none?(@specimen) ? @refined_dex << @specimen : fill_dex(dex_pool)
+    rescue(NoMethodError)
+      set_refine
+      fill_dex(dex_pool)
+    end
   end
   module_function :fill_dex
 
@@ -38,13 +43,18 @@ module DexMakerToolbox
       @remove_types = type.drop_while { |type| type != '|' }
       @remove_types.shift
 
-      @type_digest = dex_pool.select do |dex|
-        @keep_types.any?(dex[3]) || @keep_types.any?(dex[4])
+      unless @keep_types.empty?
+        @type_digest = dex_pool.select do |dex|
+          @keep_types.any?(dex[3]) || @keep_types.any?(dex[4])
+        end
+      else
+        @type_digest = dex_pool
       end
 
       @type_digest.reject! do |dex|
-        @remove_types.any?(dex[3]) || @remove_types.any?(dex[4])
+        @remove_types.any?(dex.prime_type) || @remove_types.any?(dex.second_type)
       end
+
       return @type_digest
     else
       return dex_pool
@@ -58,8 +68,9 @@ module DexMakerToolbox
     module_function :legend_select
 
   def evo_select(dex_pool, evolution)
-    if evolution
-      dex_pool.select(&evolution)
+    unless evolution.instance_variables.include?(:@no_exec)
+      evolution.push_local_to_class
+      dex_pool.select(&evolution.class)
     else
       return dex_pool
     end

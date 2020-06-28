@@ -42,7 +42,7 @@ class EventManager
   public
 
   def complete_event(completed_event = 0)
-    if completed_event != 0
+    unless completed_event == 0
       completed_event -= 1
       @events[completed_event][1] = '$'
       DexMakerToolbox.write_dex(@events, @events_path)

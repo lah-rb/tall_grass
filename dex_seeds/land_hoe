@@ -1,1 +1,0 @@
-["land_hoe", [], 11, "Proc.new { |dex| dex.evo == 1 }", ["rock", "water", "ground"], "no"]

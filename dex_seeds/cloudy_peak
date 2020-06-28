@@ -1,1 +1,0 @@
-["cloudy_peak", [176, 333, 334, 703], 6, "Proc.new { |dex| dex.evo < 3 }", ["electric", "|", "ghost", "dark", "bug", "ground"], "no"]

@@ -1,10 +1,11 @@
 require 'test_helper'
 require 'fileutils'
-require_relative'../dex_craftsman.rb'
+require_relative '../dex_craftsman.rb'
+require_relative '../evo.rb'
 
 class TestDexCraftsman < Minitest::Test
   def setup
-    @seed = ["test", [111, 222, 333, 444, 555, 666, 777, 888], 10, "Proc.new { |dex| dex[2].to_i == 1 || dex[2].to_i == 3 }", ["dark", "|", "dragon"], "y"]
+    @seed = ["test", [111, 222, 333, 444, 555, 666, 777, 888], 10, Evo.new([1,3]), ["dark", "|", "dragon"], "y"]
   end
 
   def teardown
