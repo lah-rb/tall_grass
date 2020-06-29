@@ -4,8 +4,14 @@ require_relative '../dex_craftsman.rb'
 require_relative '../evo.rb'
 
 class TestDexCraftsman < Minitest::Test
+
+  Island = Struct.new(:name, :specific, :abundance, :evo, :type, :legend)
+
   def setup
-    @seed = ["test", [111, 222, 333, 444, 555, 666, 777, 888], 10, Evo.new([1,3]), ["dark", "|", "dragon"], "y"]
+    @seed = Island.new(
+      "test", [111, 222, 333, 444, 555, 666, 777, 888], 10,
+       Evo.new([1,3]), ["dark", "|", "dragon"], "y"
+     )
   end
 
   def teardown

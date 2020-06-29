@@ -5,6 +5,9 @@ require_relative '../discover_area.rb'
 # [name, specific, richness, evo, yes, no, legend]
 class Discovery
   include Prompt
+  public
+
+  Observations = Struct.new(:name, :specific, :abundance, :evo, :yes, :no, :legend)
 
   def initialize
     FileUtils.cd('..')
@@ -25,7 +28,10 @@ class Discovery
 
     @legend = get_info(prompt_mint(4))
     puts
-    DiscoverArea.new([@name, @specific, @richness, @evo, @yes_types, @no_types, @legend])
+
+    DiscoverArea.new(
+      Observations.new(@name, @specific, @richness, @evo, @yes_types, @no_types, @legend)
+    )
   end
 end
 

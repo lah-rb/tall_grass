@@ -5,48 +5,37 @@ class DexCraftsman
   include Dex
   include DexMakerToolbox
 
-  def initialize(attr_arr)
-    determine_area_qualities(attr_arr)
-    explore_area
-    set_dex
+  def initialize(area)
+    @area = area
+    setup_workbench
+    fill_and_bind_dex
   end
 
   private
 
-  def determine_area_qualities(attr_arr)
-    @area_qualities = attr_arr
-  end
-
-  def explore_area
+  def setup_workbench
     @dex = Dex.pokedex
     @pool = []
-
-    @area_name =  @area_qualities[0] #String no spaces
-    @dex_file = './dex_store/' + @area_name + "_dex" #String
-    @specific = @area_qualities[1] #Array or false
-    @specific.map! { |num| @dex[num-1] }
-    @size = @area_qualities[2] #Integer or false
-    @evo = @area_qualities[3] #eval(@area_qualities[3]) #Proc or false in String
-    @types = @area_qualities[4] #Array or false
-    @legend = @area_qualities[5] #String
+    @dex_file = './dex_store/' + @area.name + "_dex" #String
+    @area.specific.map! { |num| @dex[num-1] }
   end
 
-  def set_dex
-    @pool = DexMakerToolbox.filter_dex(@dex, @evo, @types, @legend)
+  def fill_and_bind_dex
+    @pool = DexMakerToolbox.filter_dex(@dex, @area.evo, @area.type, @area.legend)
 
     if @pool[-1].class == Array
       @legend_pool = @pool.pop
       if @legend_pool.size <= 3
-        @specific += @legend_pool
+        @area.specific += @legend_pool
       elsif @legend_pool.size > 3
-        @specific += DexMakerToolbox.limit_pool(@legend_pool, rand(1..3))
+        @area.specific += DexMakerToolbox.limit_pool(@legend_pool, rand(1..3))
       end
     end
 
     if @size == 0
-      DexMakerToolbox.create_dex(@pool, @dex_file, @specific)
+      DexMakerToolbox.create_dex(@pool, @dex_file, @area.specific)
     else
-      DexMakerToolbox.create_dex(@pool, @dex_file, @specific, @size)
+      DexMakerToolbox.create_dex(@pool, @dex_file, @area.specific, @area.abundance)
     end
   end
 end

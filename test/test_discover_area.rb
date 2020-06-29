@@ -1,12 +1,14 @@
 require 'test_helper'
 require 'fileutils'
-require_relative'../discover_area.rb'
+require_relative '../discover_area.rb'
 
 class TestDiscoverArea < Minitest::Test
+  Observations = Struct.new(:name, :specific, :abundance, :evo, :yes, :no, :legend)
+
   def setup
-    @area_arr = ["test", "111-222-333-444-555-666-777-888",
-       "10", "1-3", "dark", "dragon", "y"]
-    DiscoverArea.new(@area_arr)
+    @obs = Observations.new("test", "111-222-333-444-555-666-777-888",
+       "10", "1-3", "dark", "dragon", "y")
+    DiscoverArea.new(@obs)
     require_relative "../dex_seeds/test.rb"
   end
 

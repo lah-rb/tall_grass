@@ -1,47 +1,47 @@
 require_relative 'dex_craftsman.rb'
 require_relative 'evo.rb'
-require_relative 'gardener.rb'
 
 class DiscoverArea
-  def initialize(observation_arr)
+  public
+  Island = Struct.new(:name, :specific, :abundance, :evo, :type, :legend)
+
+  def initialize(observations)
     @attributes ||= []
-    interpret_observations(observation_arr)
+    interpret(observations)
     note_attributes
-    DexCraftsman.new(@attributes)
+    DexCraftsman.new(Island.new(@name, @specific, @richness, @evo, @types, @legend))
   end
 
   private
 
-  def interpret_observations(observation_arr)
-    # observation_arr:
-    # [name, specific, richness, evo, yes, no, legend] All strings
+  def interpret(observations)
 
-    @name = observation_arr[0].chomp.downcase.gsub(" ", "_")
-    @attributes << @name
+    @name = observations.name.chomp.downcase.gsub(" ", "_")
 
-    @specific = observation_arr[1].split('-').map(&:to_i)
-    @attributes << @specific
+    @specific = observations.specific.split('-').map(&:to_i)
 
-    @richness = observation_arr[2].to_i
-    @attributes << @richness
+    @richness = observations.abundance.to_i
 
-    @ints_arr = observation_arr[3].split('-').map(&:to_i)
+    @ints_arr = observations.evo.split('-').map(&:to_i)
     @evo = Evo.new(@ints_arr)
-    @attributes << @evo
 
-    @yes_types = observation_arr[4].split('-')
-    @no_types = observation_arr[5].split('-')
+    @yes_types = observations.yes.split('-')
+    @no_types = observations.no.split('-')
     @types = @yes_types + ['|'] + @no_types
     @types = false if @types == ['|']
-    @attributes << @types
 
-    @legend = observation_arr[6].downcase
-    @attributes << @legend
+    @legend = observations.legend.downcase
   end
 
   def note_attributes
-    @seed = @attributes.dup
-    @seed[3] = @ints_arr
-    Gardener.new.plant_area_seed(@seed)
+    File.open("./dex_seeds/" + @name + '.rb', "w") do |line|
+      line.puts "class NativeFruit"
+      line.puts "  def seed"
+      line.print "    "
+      line.print [@name, @specific, @richness, @ints_arr, @types, @legend]
+      line.print "\n"
+      line.puts "  end"
+      line.puts "end"
+    end
   end
 end
