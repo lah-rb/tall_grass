@@ -16,7 +16,7 @@ class DexCraftsman
   def setup_workbench
     @dex = Dex.pokedex
     @pool = []
-    @dex_file = './dex_store/' + @area.name + "_dex" #String
+    @dex_file = './dex_store/' + @area.name + "_dex"
     @area.specific.map! { |num| @dex[num-1] }
   end
 
@@ -32,7 +32,7 @@ class DexCraftsman
       end
     end
 
-    if @size == 0
+    if @area.abundance == 0
       DexMakerToolbox.create_dex(@pool, @dex_file, @area.specific)
     else
       DexMakerToolbox.create_dex(@pool, @dex_file, @area.specific, @area.abundance)

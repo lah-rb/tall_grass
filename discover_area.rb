@@ -15,7 +15,6 @@ class DiscoverArea
   private
 
   def interpret(observations)
-
     @name = observations.name.chomp.downcase.gsub(" ", "_")
 
     @specific = observations.specific.split('-').map(&:to_i)

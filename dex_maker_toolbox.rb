@@ -5,22 +5,10 @@ module DexMakerToolbox
     set_refine
     @additional_pages = size - specified.size
     @refined_dex += specified
-    limit_pool(dex_pool, @additional_pages) if @additional_pages != 0
+    limit_pool(dex_pool, @additional_pages) unless @additional_pages == 0
     write_dex(@refined_dex, file)
   end
   module_function :create_dex
-
-  def fill_dex(dex_pool)
-    @seed = rand(0...dex_pool.size)
-    @specimen = dex_pool[@seed]
-    begin
-      @refined_dex.none?(@specimen) ? @refined_dex << @specimen : fill_dex(dex_pool)
-    rescue(NoMethodError)
-      set_refine
-      fill_dex(dex_pool)
-    end
-  end
-  module_function :fill_dex
 
   def limit_pool(dex_pool, pages)
     if dex_pool.size > pages
@@ -36,16 +24,16 @@ module DexMakerToolbox
   end
   module_function :limit_pool
 
-  def type_select(dex_pool, type)
-    if type.class == Array
-      type.map!(&:capitalize)
-      @keep_types = type.take_while { |type| type != '|' }
-      @remove_types = type.drop_while { |type| type != '|' }
+  def type_select(dex_pool, type_arr)
+    if type_arr.class == Array
+      type_arr.map!(&:capitalize)
+      @keep_types = type_arr.take_while { |type| type != '|' }
+      @remove_types = type_arr.drop_while { |type| type != '|' }
       @remove_types.shift
 
       unless @keep_types.empty?
         @type_digest = dex_pool.select do |dex|
-          @keep_types.any?(dex[3]) || @keep_types.any?(dex[4])
+          @keep_types.any?(dex.prime_type) || @keep_types.any?(dex.second_type)
         end
       else
         @type_digest = dex_pool
@@ -63,7 +51,7 @@ module DexMakerToolbox
   module_function :type_select
 
   def legend_select(dex_pool, legendary)
-    dex_pool.select { |dex| dex[1][-1].match?(/["^"|!|#]/) }
+    dex_pool.select { |dex| dex.name[-1].match?(/["^"|!|#]/) }
   end
     module_function :legend_select
 
@@ -126,4 +114,15 @@ module DexMakerToolbox
   end
   module_function :set_refine
 
+  def fill_dex(dex_pool)
+    @seed = rand(0...dex_pool.size)
+    @specimen = dex_pool[@seed]
+    begin
+      @refined_dex.none?(@specimen) ? @refined_dex << @specimen : fill_dex(dex_pool)
+    rescue(NoMethodError)
+      set_refine
+      fill_dex(dex_pool)
+    end
+  end
+  module_function :fill_dex
 end

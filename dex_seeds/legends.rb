@@ -1,5 +1,5 @@
 class NativeFruit
   def seed
-     ["legends", [], 4, [], false, "only"]
+    ["legends", [], 5, [], false, "o"]
   end
 end
