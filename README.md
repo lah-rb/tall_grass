@@ -62,7 +62,7 @@ There are many (890) pokemon that you may run into while using tall_grass. As su
 
 ## In the works
 * The DexShelf and TallGrass classes share quite a bit of functionality and should be rewritten so that one class inherits from the other.
-* Refactor Lookup and Encounter to mixin Prompt and use its UI functionality.
+* Implement tests for Dexshelf and TallGrass
 * Make the tall_grass directory the user interface and stack backend functions in a subdirectory.
 * DexMaker should have its legend_select method abstracted so that the user can request fossil, baby, myth, legend, and ultra beast distinctions separately. Discovery should be updated to reflect the new functionality.
 * Review Licensing and possibly change from current.

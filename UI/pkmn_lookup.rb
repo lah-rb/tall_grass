@@ -1,7 +1,9 @@
 require 'fileutils'
+require_relative 'prompt.rb'
 require_relative '../dex_shelf.rb'
 
 class Lookup
+  include Prompt
   public
 
   def initialize()
@@ -16,15 +18,11 @@ class Lookup
   private
 
   def name_or_num
-    puts
-    print 'Look up by name or number? (name/#) '
-    $stdin.gets.downcase.chomp
+    get_info('Look up by name or number? (name/#) ').downcase
   end
 
   def get_pkmn
-    puts
-    print 'What are you searching for? '
-    $stdin.gets.capitalize.chomp
+    get_info('What are you searching for? ').capitalize
   end
 end
 

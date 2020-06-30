@@ -1,30 +1,26 @@
 require 'fileutils'
+require_relative 'prompt.rb'
 require_relative '../tall_grass.rb'
 
 class Encounter
+  include Prompt
+
   def initialize()
     FileUtils.cd('..')
     @tall_grass = TallGrass.new
   end
 
   def get_location
-    puts
-    print "Where are you? "
-    @local = $stdin.gets.chomp.downcase.gsub(" ", "_")
+    @local = get_info("Where are you? ").downcase.gsub(" ", "_")
     @local == 'pokedex' ? './dex_store/' + @local : './dex_store/' + @local + "_dex"
   end
 
   def provide_type
-    puts
-    puts "Current location: #{@local.gsub('_', ' ')}"
-    print "Any specific type? (Hit return for no type) "
-    return $stdin.gets.chomp
+    get_info(prompt_mint(8))
   end
 
   def continue?(statement="Continue? (y/return) ")
-    puts
-    print statement
-    @continue = $stdin.gets.chomp.downcase
+    @continue = get_info(statement).downcase
     case @continue
     when 'y', 'yes'
       return true
@@ -36,8 +32,18 @@ class Encounter
   end
 
   def encountering
-    @tall_grass.set_location(get_location) if caller.size == 1 || continue?("Would you like a new location? (y/return) ")
-    @tall_grass.make_type_dex(provide_type)
+    begin
+      @tall_grass.set_location(get_location) if caller.size == 1 || continue?("Would you like a new location? (y/return) ")
+    rescue
+      display('A file coordinating to that name was not found.')
+      @tall_grass.set_location(get_location)
+    end
+
+    unless @tall_grass.make_type_dex(provide_type)
+      display('No Pokemon was found in that area with that type.')
+      @tall_grass.make_type_dex(provide_type)
+    end
+    
     encountering if continue?("Would you like to have another encounter? (y/return) ")
   end
 end

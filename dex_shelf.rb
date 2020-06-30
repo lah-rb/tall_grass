@@ -22,10 +22,8 @@ class DexShelf
         puts
         puts make_output(@pkmn.num, @pkmn.name, @pkmn.evo,
            @pkmn.prime_type, @pkmn.second_type, :name)
-        puts
       rescue
         puts "That name does not exist. Please check for spelling."
-        puts
         exit
       end
     when '#', 'num', 'number'
@@ -34,10 +32,8 @@ class DexShelf
         @pkmn = @dex.find { |poke| poke.num == seek.to_i }
         puts make_output(@pkmn.num, @pkmn.name, @pkmn.evo,
            @pkmn.prime_type, @pkmn.second_type, :number)
-        puts
       rescue
         puts "That number appears to be out of the range of this pokedex."
-        puts
       end
     end
   end

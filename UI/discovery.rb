@@ -9,7 +9,7 @@ class Discovery
 
   Observations = Struct.new(:name, :specific, :abundance, :evo, :yes, :no, :legend)
 
-  def initialize
+  def initialize()
     FileUtils.cd('..')
   end
 
@@ -35,5 +35,4 @@ class Discovery
   end
 end
 
-new_island = Discovery.new
-new_island.observe_area
+Discovery.new.observe_area

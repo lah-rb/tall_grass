@@ -1,9 +1,22 @@
 module Prompt
+  public
+
   def get_info(prompt)
     puts
     print prompt
     $stdin.gets.chomp
   end
+
+  def display(message)
+    puts
+    puts message
+  end
+
+  def prompt_mint(num)
+    prompt_store[num].split("      ").join
+  end
+
+  private
 
   def prompt_store
     ["Do you see any specific pokemon?
@@ -29,10 +42,8 @@ module Prompt
        Input example: water-fire-grass
        If any type maybe here hit return. ", #6
       'Which mission has been completed?
-       (type reset to clear events or hit return to exit) '] #7
-  end
-
-  def prompt_mint(num)
-    @prompt = prompt_store[num].split("      ").join
+       (type reset to clear events or hit return to exit) ', #7
+      "Current location: #{@local.gsub('_', ' ')}
+       Any specific type? (Hit return for no type) "] #8
   end
 end
