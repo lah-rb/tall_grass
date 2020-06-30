@@ -7,6 +7,7 @@ class TestRediscoverArea < Minitest::Test
     @land_hoe = "./dex_store/land_hoe_dex"
     @original = "./dex_store/original"
     FileUtils.cp(@land_hoe, @original)
+    FileUtils.cd('..')
     @seed = 'land hoe'
   end
 

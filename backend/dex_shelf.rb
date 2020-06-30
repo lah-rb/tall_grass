@@ -1,3 +1,4 @@
+require 'fileutils'
 require_relative 'dex.rb'
 
 class DexShelf
@@ -5,6 +6,7 @@ class DexShelf
   include Dex
 
   def initialize
+    FileUtils.cd('backend')
     @dex = Dex.pokedex
   end
 

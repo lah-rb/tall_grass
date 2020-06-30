@@ -1,9 +1,11 @@
+require 'fileutils'
 require_relative 'dex.rb'
 require_relative 'dex_maker_toolbox.rb'
 
 class EventManager
   public
   def initialize
+    FileUtils.cd('backend')
     @events_path = './dex_store/' + "events_dex"
     @events = Dex.compile_dex(@events_path, true)
   end

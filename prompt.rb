@@ -42,7 +42,7 @@ module Prompt
        Input example: water-fire-grass
        If any type maybe here hit return. ", #6
       'Which mission has been completed?
-       (type reset to clear events or hit return to exit) ', #7
+      (type reset to clear events or hit return to exit) ', #7
       "Current location: #{var.gsub('_', ' ')}
        Any specific type? (Hit return for no type) "] #8
   end

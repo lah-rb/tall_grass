@@ -6,6 +6,7 @@ class TestDiscoverArea < Minitest::Test
   Observations = Struct.new(:name, :specific, :abundance, :evo, :yes, :no, :legend)
 
   def setup
+    FileUtils.cd('..')
     @obs = Observations.new("test", "111-222-333-444-555-666-777-888",
        "10", "1-3", "dark", "dragon", "y")
     DiscoverArea.new(@obs)

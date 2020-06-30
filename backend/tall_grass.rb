@@ -1,9 +1,14 @@
+require 'fileutils'
 require_relative 'dex_maker_toolbox.rb'
 require_relative 'dex.rb'
 
 class TallGrass
   include DexMakerToolbox
   include Dex
+
+  def initialize()
+    FileUtils.cd('backend')
+  end
 
   def random_output(dex)
     @seed = rand(0...dex.size)

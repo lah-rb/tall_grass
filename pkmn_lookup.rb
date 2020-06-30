@@ -1,13 +1,11 @@
-require 'fileutils'
 require_relative 'prompt.rb'
-require_relative '../dex_shelf.rb'
+require_relative './backend/dex_shelf.rb'
 
 class Lookup
   include Prompt
   public
 
   def initialize()
-    FileUtils.cd('..')
     @dex_shelf = DexShelf.new
   end
 

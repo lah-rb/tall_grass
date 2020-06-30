@@ -1,8 +1,11 @@
 require 'fileutils'
 
 class SaveManager
-  FileUtils.cd('..')
   public
+
+  def initialize()
+    FileUtils.cd('backend')
+  end
 
   def new_save(save_name)
     @save_name = save_name

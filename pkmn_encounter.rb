@@ -1,12 +1,10 @@
-require 'fileutils'
 require_relative 'prompt.rb'
-require_relative '../tall_grass.rb'
+require_relative './backend/tall_grass.rb'
 
 class Encounter
   include Prompt
 
   def initialize()
-    FileUtils.cd('..')
     @tall_grass = TallGrass.new
   end
 

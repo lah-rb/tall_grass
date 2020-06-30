@@ -1,13 +1,11 @@
-require 'fileutils'
 require_relative 'prompt.rb'
-require_relative '../event_manager.rb'
+require_relative './backend/event_manager.rb'
 
 
 class Coordinator
   include Prompt
 
   def initialize
-    FileUtils.cd('..')
     @planner = EventManager.new
     which_event
   end

@@ -1,3 +1,4 @@
+require 'fileutils'
 require_relative "dex_craftsman.rb"
 require_relative "evo.rb"
 
@@ -5,6 +6,7 @@ class RediscoveredArea
   Island = Struct.new(:name, :specific, :abundance, :evo, :type, :legend)
 
   def initialize(land_name)
+    FileUtils.cd('backend')
     @seed_path = './dex_seeds/' + land_name.chomp.downcase.gsub(' ', '_') + '.rb'
     require_relative @seed_path
     @native_fruit = NativeFruit.new.seed.dup

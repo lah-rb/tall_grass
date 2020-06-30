@@ -1,4 +1,4 @@
-require_relative '../save_manager.rb'
+require_relative './backend/save_manager.rb'
 
 class Save
   public

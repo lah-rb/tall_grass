@@ -1,6 +1,5 @@
-require 'fileutils'
 require_relative 'prompt.rb'
-require_relative '../discover_area.rb'
+require_relative './backend/discover_area.rb'
 
 # [name, specific, richness, evo, yes, no, legend]
 class Discovery
@@ -8,10 +7,6 @@ class Discovery
   public
 
   Observations = Struct.new(:name, :specific, :abundance, :evo, :yes, :no, :legend)
-
-  def initialize()
-    FileUtils.cd('..')
-  end
 
   def observe_area
     @name = get_info(prompt_mint(5))

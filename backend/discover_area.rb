@@ -1,3 +1,4 @@
+require 'fileutils'
 require_relative 'dex_craftsman.rb'
 require_relative 'evo.rb'
 
@@ -7,6 +8,7 @@ class DiscoverArea
 
   def initialize(observations)
     @attributes ||= []
+    FileUtils.cd('backend')
     interpret(observations)
     note_attributes
     DexCraftsman.new(Island.new(@name, @specific, @richness, @evo, @types, @legend))

@@ -5,6 +5,7 @@ require_relative '../event_manager.rb'
 class TestEventsManager < Minitest::Test
   def setup
     FileUtils.cp("./dex_store/events_dex", "./dex_store/original")
+    FileUtils.cd('..')
     @coordinator = EventManager.new
   end
 
