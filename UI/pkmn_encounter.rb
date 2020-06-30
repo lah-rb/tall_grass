@@ -16,7 +16,7 @@ class Encounter
   end
 
   def provide_type
-    get_info(prompt_mint(8))
+    get_info(prompt_mint(8, @local))
   end
 
   def continue?(statement="Continue? (y/return) ")
@@ -43,7 +43,7 @@ class Encounter
       display('No Pokemon was found in that area with that type.')
       @tall_grass.make_type_dex(provide_type)
     end
-    
+
     encountering if continue?("Would you like to have another encounter? (y/return) ")
   end
 end

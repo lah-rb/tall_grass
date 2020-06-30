@@ -2,13 +2,11 @@ require_relative 'dex.rb'
 require_relative 'dex_maker_toolbox.rb'
 
 class EventManager
-
+  public
   def initialize
     @events_path = './dex_store/' + "events_dex"
     @events = Dex.compile_dex(@events_path, true)
   end
-
-  private
 
   def list_events
     @events.each.with_index(1) do |event, i|
@@ -38,8 +36,6 @@ class EventManager
       puts i.to_s + ': ' + @title + @completeness
     end
   end
-
-  public
 
   def complete_event(completed_event = 0)
     unless completed_event == 0

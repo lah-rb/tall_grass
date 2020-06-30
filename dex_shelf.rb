@@ -24,7 +24,6 @@ class DexShelf
            @pkmn.prime_type, @pkmn.second_type, :name)
       rescue
         puts "That name does not exist. Please check for spelling."
-        exit
       end
     when '#', 'num', 'number'
       begin

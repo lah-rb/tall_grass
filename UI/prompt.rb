@@ -12,13 +12,13 @@ module Prompt
     puts message
   end
 
-  def prompt_mint(num)
-    prompt_store[num].split("      ").join
+  def prompt_mint(num, var = '')
+    prompt_store(var)[num].split("      ").join
   end
 
   private
 
-  def prompt_store
+  def prompt_store(var)
     ["Do you see any specific pokemon?
       Input by pokedex number: 1-2-3
       If there are no specific pokemon hit return. ", #0
@@ -43,7 +43,7 @@ module Prompt
        If any type maybe here hit return. ", #6
       'Which mission has been completed?
        (type reset to clear events or hit return to exit) ', #7
-      "Current location: #{@local.gsub('_', ' ')}
+      "Current location: #{var.gsub('_', ' ')}
        Any specific type? (Hit return for no type) "] #8
   end
 end

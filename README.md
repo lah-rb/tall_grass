@@ -61,7 +61,6 @@ There are many (890) pokemon that you may run into while using tall_grass. As su
 * If you chose to load or overwrite, a list of avaliable saves will be displayed and you will be prompted with "Give the number of the save you wish to load||overwrite:" then type the number next to the save you need to use and hit return.
 
 ## In the works
-* The DexShelf and TallGrass classes share quite a bit of functionality and should be rewritten so that one class inherits from the other.
 * Implement tests for Dexshelf and TallGrass
 * Make the tall_grass directory the user interface and stack backend functions in a subdirectory.
 * DexMaker should have its legend_select method abstracted so that the user can request fossil, baby, myth, legend, and ultra beast distinctions separately. Discovery should be updated to reflect the new functionality.
