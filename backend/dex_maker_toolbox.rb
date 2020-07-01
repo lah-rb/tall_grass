@@ -24,6 +24,38 @@ module DexMakerToolbox
   end
   module_function :limit_pool
 
+  def filter_dex(dex_raw, evolution, types, distinct, priority)
+    @only_dex = []
+    @reject_dex = []
+    @type_dex = type_select(dex_raw, types)
+    @evo_dex = evo_select(@type_dex, evolution)
+    @reject_dex = distinctions_select(@type_dex, distinct[2]) if distinct[2]
+    @thinned_dex = @evo_dex - @reject_dex
+
+    case distinct[0]
+    when false
+      case distinct[1]
+      when false
+        return @thinned_dex
+      else
+        case priority
+        when 'd'
+          @thinned_dex << distinctions_select(@type_dex, distinct[1])
+        when 'e'
+          @thinned_dex << evo_select(distinctions_select(@type_dex, distinct[1]), evolution)
+        end
+      end
+    else
+      case priority
+      when 'd'
+        return distinctions_select(@type_dex, distinct[0])
+      when 'e'
+        return evo_select(distinctions_select(@type_dex, distinct[0]), evolution)
+      end
+    end
+  end
+  module_function :filter_dex
+
   def type_select(dex_pool, type_arr)
     if type_arr.class == Array
       type_arr.map!(&:capitalize)
@@ -50,11 +82,6 @@ module DexMakerToolbox
   end
   module_function :type_select
 
-  def legend_select(dex_pool, legendary)
-    dex_pool.select { |dex| dex.name[-1].match?(/["^"|!|#]/) }
-  end
-    module_function :legend_select
-
   def evo_select(dex_pool, evolution)
     unless evolution.instance_variables.include?(:@no_exec)
       evolution.push_local_to_class
@@ -65,22 +92,10 @@ module DexMakerToolbox
   end
   module_function :evo_select
 
-  def filter_dex(dex_raw, evolution, types, legendary)
-    @type_dex = type_select(dex_raw, types)
-    @evo_dex = evo_select(@type_dex, evolution) if legendary.start_with? != 'o'
-    @legend_dex = legend_select(@type_dex, legendary) unless legendary.empty?
-    case legendary
-    when 'only', 'o'
-      return @legend_dex
-    when 'yes', 'y'
-      return @evo_dex << @legend_dex
-    when 'no', 'n'
-      return @evo_dex - @legend_dex
-    else
-      return @evo_dex
-    end
+  def distinctions_select(dex_pool, regexp)
+    dex_pool.select { |dex| dex.name[-1].match?(regexp) }
   end
-  module_function :filter_dex
+  module_function :distinctions_select
 
   def write_dex(refined_dex, file_name)
     File.open(file_name, 'w') do |new_dex|

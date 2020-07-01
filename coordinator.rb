@@ -12,7 +12,7 @@ class Coordinator
 
   def which_event
     @planner.list_events
-    @completed_event = get_info(prompt_mint(7))
+    @completed_event = get_info(prompt_mint(5))
     case @completed_event
     when 'r', 'c', 'reset', 'clear'
       @planner.reset_all

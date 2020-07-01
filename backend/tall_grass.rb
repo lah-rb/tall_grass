@@ -26,7 +26,7 @@ class TallGrass
       random_output(@area_dex)
     else
       @type_dex = DexMakerToolbox.type_select(@area_dex, [type])
-      # This error check assumes that the area does not contain the type provide
+      # This error check assumes that the area does not contain the type provided
       if @type_dex.empty?
         return false
       else

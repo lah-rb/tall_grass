@@ -14,7 +14,7 @@ class Encounter
   end
 
   def provide_type
-    get_info(prompt_mint(8, @local))
+    get_info(prompt_mint(6, @local))
   end
 
   def continue?(statement="Continue? (y/return) ")

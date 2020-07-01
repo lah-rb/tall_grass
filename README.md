@@ -62,5 +62,6 @@ There are many (890) pokemon that you may run into while using tall_grass. As su
 
 ## In the works
 * Implement tests for Dexshelf, TallGrass, and SaveManager.
-* DexMaker should have its legend_select method abstracted so that the user can request fossil, baby, myth, legend, and ultra beast distinctions separately.
+* Restructure DexMakerToolbox tests so that each of the standard dexes are tested against for greater robustness.
+* SaveManager should be able to delete saves.
 * EventManager should be able to add new events to the events dex. Coordinator should be updated to reflect the new functionality. (low priority)

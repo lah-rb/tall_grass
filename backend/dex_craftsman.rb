@@ -21,7 +21,7 @@ class DexCraftsman
   end
 
   def fill_and_bind_dex
-    @pool = DexMakerToolbox.filter_dex(@dex, @area.evo, @area.type, @area.legend)
+    @pool = DexMakerToolbox.filter_dex(@dex, @area.evo, @area.type, @area.distinct, @area.priority)
 
     if @pool[-1].class == Array
       @legend_pool = @pool.pop

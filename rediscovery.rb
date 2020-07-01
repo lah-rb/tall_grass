@@ -6,8 +6,7 @@ class Rediscovery
   include Prompt
 
   def reobserve_area
-    @land_name = get_info("Where are you looking to explore again? ")
-    RediscoveredArea.new(@land_name)
+    RediscoveredArea.new(get_info("Where are you looking to explore again? "))
   end
 end
 

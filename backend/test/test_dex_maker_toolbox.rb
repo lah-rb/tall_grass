@@ -4,8 +4,6 @@ require_relative '../dex.rb'
 require_relative '../dex_maker_toolbox.rb'
 require_relative '../evo.rb'
 
-# seed equalivant: ["test", [111, 222, 333, 444, 555, 666, 777, 888], 10, "Proc.new { |dex| dex[2].to_i == 1 || dex[2].to_i == 3 }", ["dark", "|", "dragon"], "y"]
-
 class TestDexMakerToolbox < Minitest::Test
   def setup
     @types_arr = ["Grass", "Poison", "Fire", "Water", "Bug", "Normal",
@@ -17,9 +15,10 @@ class TestDexMakerToolbox < Minitest::Test
     @size =  15
     @evo = Evo.new([1, 3])
     @types = ["dark", "|", "dragon"]
-    @legend = "y"
+    @distinct = [false, /[!|"^"]/, /[*|~|#]/]
+    @priority = 'd'
     @store = "./dex_store/test_dex"
-    @filtered = DexMakerToolbox.filter_dex(@dex, @evo, @types, @legend)
+    @filtered = DexMakerToolbox.filter_dex(@dex, @evo, @types, @distinct, @priority)
     if @filtered[-1][0].class == Dex::Entry
       @leg_hold = @filtered.pop
       @specific += @leg_hold

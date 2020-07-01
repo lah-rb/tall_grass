@@ -1,17 +1,20 @@
 require 'fileutils'
 require_relative 'dex_craftsman.rb'
 require_relative 'evo.rb'
+require_relative 'distinctions.rb'
 
 class DiscoverArea
   public
-  Island = Struct.new(:name, :specific, :abundance, :evo, :type, :legend)
+  Island = Struct.new(:name, :specific, :abundance, :evo, :type, :distinct, :priority)
+  Include = Struct.new(:baby, :fossil, :beast, :legend, :myth)
 
   def initialize(observations)
     @attributes ||= []
     FileUtils.cd('backend')
     interpret(observations)
     note_attributes
-    DexCraftsman.new(Island.new(@name, @specific, @richness, @evo, @types, @legend))
+    @island = Island.new(@name, @specific, @richness, @evo, @types, @distinct, @priority)
+    DexCraftsman.new(@island)
   end
 
   private
@@ -31,7 +34,23 @@ class DiscoverArea
     @types = @yes_types + ['|'] + @no_types
     @types = false if @types == ['|']
 
-    @legend = observations.legend.downcase
+    @baby = observations.baby.downcase[0] unless observations.baby.empty?
+
+    @fossil = observations.fossil.downcase[0] unless observations.fossil.empty?
+
+    @beast = observations.beast.downcase[0] unless observations.beast.empty?
+
+    @legend = observations.legend.downcase[0] unless observations.legend.empty?
+
+    @myth = observations.myth.downcase[0] unless observations.myth.empty?
+
+    unless observations.priority.empty?
+      @priority = observations.priority.downcase[0]
+    else
+      @priority = 'd'
+    end
+
+    @distinct = Distinctions.new(Include.new(@baby, @fossil, @beast, @legend, @myth)).convert_to_regex
   end
 
   def note_attributes
@@ -39,7 +58,7 @@ class DiscoverArea
       line.puts "class NativeFruit"
       line.puts "  def seed"
       line.print "    "
-      line.print [@name, @specific, @richness, @ints_arr, @types, @legend]
+      line.print [@name, @specific, @richness, @ints_arr, @types, @distinct, @priority]
       line.print "\n"
       line.puts "  end"
       line.puts "end"
