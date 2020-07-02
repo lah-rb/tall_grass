@@ -15,13 +15,14 @@ class DexCraftsman
 
   def setup_workbench
     @dex = Dex.pokedex
-    @pool = []
     @dex_file = './dex_store/' + @area.name + "_dex"
     @area.specific.map! { |num| @dex[num-1] }
   end
 
   def fill_and_bind_dex
-    @pool = DexMakerToolbox.filter_dex(@dex, @area.evo, @area.type, @area.distinct, @area.priority)
+    @pool = DexMakerToolbox.filter_dex(
+      @dex, @area.evo, @area.type, @area.distinct, @area.priority
+    )
 
     if @pool[-1].class == Array
       @legend_pool = @pool.pop

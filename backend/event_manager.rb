@@ -48,10 +48,10 @@ class EventManager
   end
 
   def reset_all
-    @events = Dex.compile_dex(@events_path, true)
-    @events.each do |arr|
-      arr[1] = '*'
+    @events = Dex.compile_dex(@events_path, true).reduce([]) do |reset_dex, old_dex|
+      reset_dex << [old_dex[0], ['*']]
     end
+    
     DexMakerToolbox.write_dex(@events, @events_path)
   end
 end

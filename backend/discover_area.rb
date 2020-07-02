@@ -9,12 +9,12 @@ class DiscoverArea
   Include = Struct.new(:baby, :fossil, :beast, :legend, :myth)
 
   def initialize(observations)
-    @attributes ||= []
     FileUtils.cd('backend')
     interpret(observations)
     note_attributes
-    @island = Island.new(@name, @specific, @richness, @evo, @types, @distinct, @priority)
-    DexCraftsman.new(@island)
+    DexCraftsman.new(
+      Island.new(@name, @specific, @richness, @evo, @types, @distinct, @priority)
+    )
   end
 
   private

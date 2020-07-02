@@ -25,8 +25,6 @@ module DexMakerToolbox
   module_function :limit_pool
 
   def filter_dex(dex_raw, evolution, types, distinct, priority)
-    @only_dex = []
-    @reject_dex = []
     @type_dex = type_select(dex_raw, types)
     @evo_dex = evo_select(@type_dex, evolution)
     @reject_dex = distinctions_select(@type_dex, distinct[2]) if distinct[2]
@@ -100,8 +98,8 @@ module DexMakerToolbox
   def write_dex(refined_dex, file_name)
     File.open(file_name, 'w') do |new_dex|
       refined_dex.each do |entry|
-        @line = entry.to_a.join('-')
-        new_dex.puts("#{@line}")
+        @line_data = entry.to_a.join('-')
+        new_dex.puts("#{@line_data}")
       end
     end
   end

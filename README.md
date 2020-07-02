@@ -69,11 +69,17 @@ There are many (890) pokemon that you may run into while using tall_grass. As su
 Note: If you choose to overwrite or load a save you may lose other unsaved game data. It is always a good idea to create a new save if in doubt.
 
 ## In the works
+/# - Relevance to tall_grass
+| - Skill required for improvement
+
 * Implement tests for Dexshelf, TallGrass, Evo, Distinctions, and SaveManager. #Testing |Devs
 * Restructure DexMakerToolbox tests so that each of the standard dexes are tested against for greater robustness. #Design |Devs
 * Update DexShelf to accept species or s as a way to look in the dex by name. #Design |Devs
+* While Distinctions works it really needs to be DRYied out. #Design |Devs
+* Come up with a better name for the Struct that Distinctions expects. #Design |Devs
 * SaveManager should be able to delete saves. #Feature |Devs
 * Examine current dependantcies between objects in tall_grass and look to minimize with restructuring. (Use ) #Design |Devs
+* Add user input for how many yes distinction pokemon are included in the area. #Feature |Devs
 * Implement tall_grass as an executable terminal app with a UI engine t' boot! #Implementation |Devs
 * Create an items generator using the items found in items_dex.ods. #Feature |Devs
 * Refactor Prompt into an exclusive input-output interface for tall_grass

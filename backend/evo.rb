@@ -6,9 +6,9 @@ class Evo
 
   def self.to_proc
     if @@compair_against
-      Proc.new { |dex| @@compairson_method.bind(dex.evo).call(@@compair_against) }
+      Proc.new { |entry| @@compairson_method.bind(entry.evo).call(@@compair_against) }
     else
-      Proc.new { |dex| @@compairson_method.bind(dex.evo).call }
+      Proc.new { |entry| @@compairson_method.bind(entry.evo).call }
     end
   end
 
