@@ -1,7 +1,16 @@
 require 'test_helper'
-require_relative'../dex.rb'
+require 'fileutils'
+require './backend/dex.rb'
 
 class TestDex < Minitest::Test
+  def setup
+    FileUtils.cd('backend')
+  end
+
+  def teardown
+    FileUtils.cd('..')
+  end
+
   def test_dex_has_entries
     assert Dex.pokedex[0]
     assert Dex.pokedex[889]

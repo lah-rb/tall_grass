@@ -1,12 +1,12 @@
 module DexMakerToolbox
   public
-  # dex_pool: array, file: string, specified: array, size: intger
-  def create_dex(dex_pool, file, specified, size=teaming)
+  # dex_pool: array, file_name: string, specified: array, size: intger
+  def create_dex(dex_pool, file_name, specified, size=teaming)
     set_refine
     @additional_pages = size - specified.size
     @refined_dex += specified
     limit_pool(dex_pool, @additional_pages) unless @additional_pages == 0
-    write_dex(@refined_dex, file)
+    write_dex(@refined_dex, file_name)
   end
   module_function :create_dex
 

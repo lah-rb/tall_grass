@@ -8,22 +8,13 @@ guard :minitest do
   watch(%r{^lib/(.*/)?([^/]+)\.rb$})     { |m| "test/#{m[1]}test_#{m[2]}.rb" }
   watch(%r{^test/test_helper\.rb$})      { 'test' }
 
-  def file_watch
-    [
-    'dex.rb',
-    'dex_maker_toolbox.rb',
-    'discover_area.rb',
-    'dex_craftsman.rb',
-    'event_manager.rb',
-    'pkmn_encounter.rb',
-    'rediscover_area.rb'
-    ]
-  end
-  @watch_arr = file_watch
+end
 
-  @watch_arr.each do |file|
-    watch(file) do
-      'test/test_' + file
-    end
-  end
+__END__
+begining the conversion from minitest to rspec
+
+guard :rspec, cmd: 'bundle exec rspec' do
+  watch(%r{^spec/.+_spec\.rb$})
+  watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
+  watch('spec/spec_helper.rb')  { "spec" }
 end

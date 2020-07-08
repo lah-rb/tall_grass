@@ -1,9 +1,10 @@
 require 'test_helper'
 require 'fileutils'
-require_relative'../rediscover_area.rb'
+require'./backend/rediscover_area.rb'
 
 class TestRediscoverArea < Minitest::Test
   def setup
+    FileUtils.cd('backend')
     @land_hoe = "./dex_store/land_hoe_dex"
     @original = "./dex_store/original"
     FileUtils.cp(@land_hoe, @original)
@@ -14,6 +15,7 @@ class TestRediscoverArea < Minitest::Test
   def teardown
     FileUtils.cp(@original, @land_hoe)
     FileUtils.rm(@original)
+    FileUtils.cd('..')
   end
 
   def test_finds_area_again
