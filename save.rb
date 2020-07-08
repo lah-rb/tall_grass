@@ -3,22 +3,28 @@ require_relative './backend/save_manager.rb'
 class Save
   public
 
-  def start_saving
+  def initialize
     puts "Would you like to start, overwrite, or load an advenure?"
     print "Input options: "
     print "new or n - new save"
     print "over or o - overwrite save"
     puts "load or l - load save"
-    @save_method = $stdin.gets.chomp.downcase
+    @save_method = $stdin.gets.chomp.chr.downcase
 
     @save = SaveManager.new
 
     case @save_method
-    when 'new', 'n'
-      @save.new_save(new_save_input)
-    when 'over', 'o'
+    when 'n'
+      begin
+        @save.new_save(new_save_input)
+      rescue(Errno::EEXIST)
+        puts 'That file name already exists. Please pick new name.'
+        @save.list_saves
+        @save.new_save(new_save_input)
+      end
+    when 'o'
       @save.over_load('o', over_input)
-    when 'load', 'l'
+    when 'l'
       @save.over_load('l', load_input)
     else
       puts
@@ -64,4 +70,4 @@ class Save
   end
 end
 
-Save.new.start_saving
+Save.new

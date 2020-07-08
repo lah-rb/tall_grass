@@ -10,7 +10,12 @@ class SaveManager
   def new_save(save_name)
     @save_name = save_name
     FileUtils.cd('./saves')
-    FileUtils.mkdir(@save_name)
+    begin
+      FileUtils.mkdir(@save_name)
+    rescue
+      FileUtils.cd('..')
+      raise(Errno::EEXIST)
+    end
     FileUtils.cd(@save_name)
     FileUtils.mkdir("dex_seeds")
     FileUtils.mkdir("dex_store")

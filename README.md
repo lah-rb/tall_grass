@@ -15,7 +15,7 @@ Print all files in the game_play directory. Read and follow the pkmondd.odt narr
 ### Accessing the pokedex
 As is fitting for this project there are many pokedexes that can be accessed. Below we list these files and their intended purpose:
 
-* dex.rb parses the \*\_dex files to be used in other scripts. Require dex.rb in a new script and mix Dex into a class. Then use Dex.pokedex to access the complete pokedex or Dex.compile_dex to access any other dex. Dex.pokedex is an array of Structs ordered as follows: [<Entry:Struct :num, :name, :evo, :prime_type, :second_type>] and contains each of the base species relesed as of 03/03/2020. This is found in the backend directory.
+* dex.rb parses the \*\_dex files to be used in other scripts. Require dex.rb in a new script and mix Dex into a class. Then use Dex.pokedex to access the complete pokedex or Dex.compile_dex to access any other dex. Dex.pokedex is an array of Structs ordered as follows: [#<struct Dex::Entry :num, :name, :evo, :prime_type, :second_type>] and contains each of the base species relesed as of 03/03/2020. This is found in the backend directory.
 * pokedex is the parsible complete pokedex used by dex.rb and should only be accessed through dex.rb when writing new scripts. This is found in the ./backend/dex_store directory.
 * pokedex.ods is the table top version of the complete pokedex. It has the same information as pokedex in a physical ready format with additional columns for keeping track of pokemon seen, captured, and bonded with. This is ment to serve as pokedex that players can fill out as their adventure unfolds. Additionally this file has a key for reading the distinction symbols that appear at the end of the species name. This is found in the game_play directory.
 * pokedexres* files are intended to be read_only pokedex for archival purposes. These are kept for the case where reversion is warrented for the project later down the line. If access is desired please copy the file to the dex_store directory, rename it, and then treat it like pokedex. These are found in the ./backend/resevered directory.
@@ -72,6 +72,7 @@ Note: If you choose to overwrite or load a save you may lose other unsaved game 
 /# - Relevance to tall_grass
 | - Skill required for improvement
 
+* If practical, switch testing suite to Rspec #Testing |Devs
 * Implement tests for Dexshelf, TallGrass, Evo, Distinctions, and SaveManager. #Testing |Devs
 * Restructure DexMakerToolbox tests so that each of the standard dexes are tested against for greater robustness. #Design |Devs
 * Update DexShelf to accept species or s as a way to look in the dex by name. #Design |Devs

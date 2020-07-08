@@ -13,7 +13,7 @@ module Prompt
   end
 
   def prompt_mint(num, variable_string = '')
-    prompt_store(variable_string)[num].gsub('      ', '')
+    prompt_store(variable_string.to_s)[num].gsub('      ', '')
   end
 
   private
@@ -57,7 +57,15 @@ module Prompt
       Input options:
       dist or d - prefer keeping distinctions over evolution stage #default
       evo or e - prefer keeping evolution stage over distinctions
-      return - accept the default. " #8
+      return - accept the default. ", #8
+
+      "While we encourage you to have eggs in your D&D night, \
+      you don't really need us to generate them (Do you?!?).
+      tall_grass just helps you decide what goes in the egg, \
+      so don't ask us for stage 0 pokemon from now on.", #9
+
+      "This program only considers evolution stages 1-3. #{variable_string} \
+      contains a number not within this range." #10
     ]
   end
 end

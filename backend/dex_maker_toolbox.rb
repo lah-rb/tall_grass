@@ -25,6 +25,7 @@ module DexMakerToolbox
   module_function :limit_pool
 
   def filter_dex(dex_raw, evolution, types, distinct, priority)
+    @reject_dex = []
     @type_dex = type_select(dex_raw, types)
     @evo_dex = evo_select(@type_dex, evolution)
     @reject_dex = distinctions_select(@type_dex, distinct[2]) if distinct[2]
@@ -81,12 +82,7 @@ module DexMakerToolbox
   module_function :type_select
 
   def evo_select(dex_pool, evolution)
-    unless evolution.instance_variables.include?(:@no_exec)
-      evolution.push_local_to_class
-      dex_pool.select(&evolution.class)
-    else
-      return dex_pool
-    end
+    return dex_pool.select(&evolution.class)
   end
   module_function :evo_select
 

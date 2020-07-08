@@ -26,26 +26,26 @@ class DiscoverArea
 
     @richness = observations.abundance.to_i
 
-    @ints_arr = observations.evo.split('-').map(&:to_i)
-    @evo = Evo.new(@ints_arr)
+    @stages_arr = observations.evo.split('-').map(&:to_i)
+    @evo = Evo.new(@stages_arr)
 
     @yes_types = observations.yes.split('-')
     @no_types = observations.no.split('-')
     @types = @yes_types + ['|'] + @no_types
     @types = false if @types == ['|']
 
-    @baby = observations.baby.downcase[0] unless observations.baby.empty?
+    @baby = observations.baby.chr.downcase unless observations.baby.empty?
 
-    @fossil = observations.fossil.downcase[0] unless observations.fossil.empty?
+    @fossil = observations.fossil.chr.downcase unless observations.fossil.empty?
 
-    @beast = observations.beast.downcase[0] unless observations.beast.empty?
+    @beast = observations.beast.chr.downcase unless observations.beast.empty?
 
-    @legend = observations.legend.downcase[0] unless observations.legend.empty?
+    @legend = observations.legend.chr.downcase unless observations.legend.empty?
 
-    @myth = observations.myth.downcase[0] unless observations.myth.empty?
+    @myth = observations.myth.chr.downcase unless observations.myth.empty?
 
     unless observations.priority.empty?
-      @priority = observations.priority.downcase[0]
+      @priority = observations.priority.chr.downcase
     else
       @priority = 'd'
     end
@@ -58,7 +58,7 @@ class DiscoverArea
       line.puts "class NativeFruit"
       line.puts "  def seed"
       line.print "    "
-      line.print [@name, @specific, @richness, @ints_arr, @types, @distinct, @priority]
+      line.print [@name, @specific, @richness, @stages_arr, @types, @distinct, @priority]
       line.print "\n"
       line.puts "  end"
       line.puts "end"
