@@ -1,74 +1,40 @@
 class Distinctions
-  # selector: baby, fossil, beast, legend, myth
-  def initialize(selector)
-    @selector = selector
-    @only_parser = ''
-    @grab_parser = ''
-    @drop_parser = ''
+  # decision: baby, fossil, beast, legend, myth
+  def initialize(decision)
+    @decision = decision
+    @only_parser = '['
+    @grab_parser = '['
+    @drop_parser = '['
+  end
+
+  def open_shut(subject, regexp_comp)
+    case subject
+    when 'o'
+      @only_parser += regexp_comp
+    when 'y'
+      @grab_parser += regexp_comp
+    when 'n'
+      @drop_parser += regexp_comp
+    end
+  end
+
+  def finish_regexp(partial_regexp)
+    partial_regexp.slice!(-1)
+    partial_regexp += ']'
+    partial_regexp.size == 1 ? false : Regexp.new(partial_regexp)
   end
 
   def convert_to_regex
-    @only_parser += '['
-    @grab_parser += '['
-    @drop_parser += '['
+    open_shut(@decision.baby, '*|')
+    open_shut(@decision.fossil, '~|')
+    open_shut(@decision.beast, '#|')
+    open_shut(@decision.legend, '!|')
+    open_shut(@decision.myth, '"^"|')
 
-    case @selector.baby
-    when 'o'
-      @only_parser += '*|'
-    when 'y'
-      @grab_parser += '*|'
-    when 'n'
-      @drop_parser += '*|'
-    end
-
-    case @selector.fossil
-    when 'o'
-      @only_parser += '~|'
-    when 'y'
-      @grab_parser += '~|'
-    when 'n'
-      @drop_parser += '~|'
-    end
-
-    case @selector.beast
-    when 'o'
-      @only_parser += '#|'
-    when 'y'
-      @grab_parser += '#|'
-    when 'n'
-      @drop_parser += '#|'
-    end
-
-    case @selector.legend
-    when 'o'
-      @only_parser += '!|'
-    when 'y'
-      @grab_parser += '!|'
-    when 'n'
-      @drop_parser += '!|'
-    end
-
-    case @selector.myth
-    when 'o'
-      @only_parser += '"^"|'
-    when 'y'
-      @grab_parser += '"^"|'
-    when 'n'
-      @drop_parser += '"^"|'
-    end
-
-    @only_parser.slice!(-1)
-    @grab_parser.slice!(-1)
-    @drop_parser.slice!(-1)
-
-    @only_parser += ']'
-    @grab_parser += ']'
-    @drop_parser += ']'
-
-    @only_parser.size == 1 ? @only_parser = false : @only_parser = Regexp.new(@only_parser)
-    @grab_parser.size == 1 ? @grab_parser = false : @grab_parser = Regexp.new(@grab_parser)
-    @drop_parser.size == 1 ? @drop_parser = false : @drop_parser = Regexp.new(@drop_parser)
-
-    return [@only_parser, @grab_parser, @drop_parser]
+    [
+      finish_regexp(@only_parser),
+      finish_regexp(@grab_parser),
+      finish_regexp(@drop_parser)
+    ]
   end
 end

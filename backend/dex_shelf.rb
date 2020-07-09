@@ -12,7 +12,7 @@ class DexShelf
 
   def look_in_dex(search_means, seek)
     case search_means
-    when 'name', 'nam'
+    when :name
       begin
         @pkmn = @dex.find do |poke|
           if poke.name.match?(/["^"|!|#|*|~]/)
@@ -27,12 +27,12 @@ class DexShelf
       rescue
         puts "That name does not exist. Please check for spelling."
       end
-    when '#', 'num', 'number'
+    when :num
       begin
         puts
         @pkmn = @dex.find { |poke| poke.num == seek.to_i }
         puts make_output(@pkmn.num, @pkmn.name, @pkmn.evo,
-           @pkmn.prime_type, @pkmn.second_type, :number)
+           @pkmn.prime_type, @pkmn.second_type, :num)
       rescue
         puts "That number appears to be out of the range of this pokedex."
       end
@@ -46,7 +46,7 @@ class DexShelf
     when :name
       @first = name
       @second = "pokedex entry No." + num.to_s
-    when :number
+    when :num
       @first = "Pokedex entry No." + num.to_s
       @second = name
     end

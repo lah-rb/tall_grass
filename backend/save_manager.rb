@@ -1,6 +1,8 @@
 require 'fileutils'
+require_relative '../prompt.rb'
 
 class SaveManager
+  include Prompt
   public
 
   def initialize()
@@ -8,8 +10,8 @@ class SaveManager
   end
 
   def new_save(save_name)
-    @save_name = save_name
-    FileUtils.cd('./saves')
+    @save_name = save_name.gsub('/', '')
+    FileUtils.cd('saves')
     begin
       FileUtils.mkdir(@save_name)
     rescue
@@ -21,28 +23,39 @@ class SaveManager
     FileUtils.mkdir("dex_store")
     FileUtils.cd("../..")
 
-    @save_arr = mint_load_save_arr('s', @save_name)
-    show_progress(@save_arr[0])
+    @save_arr = mint_load_save_arr(:new, @save_name)
+    display(progress(@save_arr[0]))
     fill_save(@save_arr)
     puts 'Done!'
   end
 
   def over_load(load_or_save, save_num)
     @method = mint_load_save_arr(load_or_save)[0]
-    @save_name = current_saves[save_num].split('/')[-1]
+    @save_name = get_save_name(save_num)
     @over_load_arr = mint_load_save_arr(load_or_save, @save_name)
-    show_progress(@method)
+    display(progress(@method))
     fill_save(@over_load_arr)
-    puts "Done!"
+    puts 'Done!'
+  end
+
+  def delete_save(save_num)
+    @save_name = get_save_name(save_num)
+    display(progress('delete'))
+    FileUtils.cd('saves')
+    FileUtils.rm_r(@save_name, secure: true)
+    puts 'Done!'
   end
 
   def current_saves
     Dir['./saves/*'].sort
   end
 
+  def get_save_name(save_num)
+    return current_saves[save_num].split('/')[-1]
+  end
+
   def list_saves
-    puts
-    puts "List of current save states:"
+    display "List of current save states:"
     current_saves.each.with_index(1) do |save, count|
       puts count.to_s + " - " + save.split("/").pop.gsub("_"," ")
     end
@@ -63,13 +76,13 @@ class SaveManager
 
   def mint_load_save_arr(load_or_save, save_name = 'temp')
     case load_or_save
-    when 's', 'o'
-      @method = 'save' if load_or_save == 's'
-      @method = 'overwrite' if load_or_save == 'o'
+    when :new, :overwrite
+      @method = 'save' if load_or_save == :new
+      @method = 'overwrite' if load_or_save == :overwrite
       @source_parent = "./"
       @target_parent = "./saves/" + save_name + "/"
       [@method] + mint_navigation_arr(@source_parent, @target_parent)
-    when 'l'
+    when :load
       @method = 'load'
       @source_parent = "./saves/" + save_name + "/"
       @target_parent = "./"
@@ -92,11 +105,11 @@ class SaveManager
     end
   end
 
-  def show_progress(action)
+  def progress(action)
     if action[-1] == 'e'
-      puts action.capitalize.chop + 'ing ' + @save_name.gsub("_"," ") + '...'
+      action.capitalize.chop + 'ing ' + @save_name.gsub("_"," ") + '...'
     else
-      puts action.capitalize + 'ing ' + @save_name.gsub("_"," ") + '...'
+      action.capitalize + 'ing ' + @save_name.gsub("_"," ") + '...'
     end
   end
 end

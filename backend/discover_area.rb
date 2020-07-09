@@ -6,7 +6,7 @@ require_relative 'distinctions.rb'
 class DiscoverArea
   public
   Island = Struct.new(:name, :specific, :abundance, :evo, :type, :distinct, :priority)
-  Include = Struct.new(:baby, :fossil, :beast, :legend, :myth)
+  UserRequests = Struct.new(:baby, :fossil, :beast, :legend, :myth)
 
   def initialize(observations)
     FileUtils.cd('backend')
@@ -50,7 +50,8 @@ class DiscoverArea
       @priority = 'd'
     end
 
-    @distinct = Distinctions.new(Include.new(@baby, @fossil, @beast, @legend, @myth)).convert_to_regex
+    @distinct = Distinctions.new(
+      UserRequests.new(@baby, @fossil, @beast, @legend, @myth)).convert_to_regex
   end
 
   def note_attributes

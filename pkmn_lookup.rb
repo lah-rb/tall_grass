@@ -16,7 +16,12 @@ class Lookup
   private
 
   def name_or_num
-    get_info('Look up by name or number? (name/#) ').downcase
+    case get_info('Look up by name or number? (name/#) ').downcase
+    when 's', 'species', 'name'
+      return :name
+    when '#', 'num', 'number'
+      return :num
+    end
   end
 
   def get_pkmn

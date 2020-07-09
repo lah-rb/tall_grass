@@ -2,7 +2,7 @@
 ## Purpose of the repository
 This is a side project to help build programming skills and have some fun along the way. The primary purpose of tall_grass is to generate pokemon and relevant information for encounters during play. The secondary purpose of tall_grass is to act as a way to hold campaign relevant information such as a parsable pokedex, smaller area localized dexes, save states, and game play documents such as the play through narration and printable pokedex.
 
-Note: If the behavior of this program acts unexpectedly please contact me through github and I will work to fix it. Provided with no warrenty. Unsure of compatability with windows.
+Note: If the behavior of this program acts unexpectedly please contact me through github and I will work to fix it. Provided with no warrenty. Unsure of compatability with Windows.
 
 ## Requirements
 * Ruby 2.7.1 or newer must be installed
@@ -55,37 +55,35 @@ Note: The next time you use coordinator.rb you will see that the events status w
 There are many (890) pokemon that you may run into while using tall_grass. As such, there is a good chance that you will find one that you are unfamilar with. For detailed information I recommend you use bublapedia at this url https://bulbapedia.bulbagarden.net/wiki/Main_Page. For basic information (number, name, evolution stage, primary type, and secondary type) you may find tall_grass's pkmn_lookup.rb program useful.
 
 * In the terminal change to the tall_grass directory and type: ruby pkmn_lookup.rb
-* You will be prompted with "Look up by name or number? (name/#)" where you can enter 'nam', 'name', '#', 'num', or 'number'
+* You will be prompted with "Look up by name or number? (name/#)" where you can enter 's', 'species', 'name', '#', 'num', or 'number'
 * Next you will be prompted with "What are you searching for?" where you can enter either an integer if '#' was selected or the species name if 'name' was selected
 * If your input was '#' and '703' you will see this output: "No. 703 is Carbink which is at evolution stage 1 and is typed as Rock-Fairy."
 
 ### Creating save states
 * In the terminal change to the tall_grass directory and type: ruby save.rb
-* You will be prompted to enter a saving or loading technique with "Would you like to start, overwrite, or load an advenure?"
+* You will be prompted to enter a saving or loading technique with "Would you like to start, overwrite, load, or delete an advenure?"
 * Follow the input guide and select an option then hit return
 * If you choose to save new then you will be prompted with "Please give a name to this save:" then type the name wou wish to create your save under and hit return
-* If you choose to load or overwrite, a list of avaliable saves will be displayed and you will be prompted with "Give the number of the save you wish to load||overwrite:" then type the number next to the save you need to use and hit return.
+* If you choose to overwrite, load, or delete a list of avaliable saves will be displayed and you will be prompted with "Give the number of the save you wish to overwrite||load||delete:" then type the number next to the save you need to use and hit return.
+* Deleting a save will then prompt you with confirmation "Are you sure that you want to DELETE adventure? This action cannot be undone. (Y/n)" where you must type "Y" in order to complete the deletion.
 
 Note: If you choose to overwrite or load a save you may lose other unsaved game data. It is always a good idea to create a new save if in doubt.
+Note: If you delete a save you will lose data. That is the whole point...
 
 ## In the works
-\# - Relevance to tall_grass\n
+\# - Relevance to tall_grass   
 | - Skill required for improvement
 
-* If practical, switch testing suite to Rspec #Testing |Devs
+* Switch testing suite to Rspec #Testing |Devs
 * Implement tests for Dexshelf, TallGrass, Evo, Distinctions, and SaveManager. #Testing |Devs
-* Restructure DexMakerToolbox tests so that each of the standard dexes are tested against for greater robustness. #Design |Devs
-* Update DexShelf to accept species or s as a way to look in the dex by name. #Design |Devs
-* While Distinctions works it really needs to be DRYied out. #Design |Devs
-* Come up with a better name for the Struct that Distinctions expects. #Design |Devs
-* SaveManager should be able to delete saves. #Feature |Devs
+* Restructure DexMakerToolbox tests so that each of the standard dexes are tested against for greater robustness. #Testing |Devs
 * Examine current dependantcies between objects in tall_grass and look to minimize with restructuring. (Use sequence diagrams) #Design |Devs
 * Add user input for how many yes distinction pokemon are included in the area. #Feature |Devs
 * Implement tall_grass as an executable terminal app with a UI engine t' boot! #Implementation |Devs
 * Create an items generator using the items found in items_dex.ods. #Feature |Devs
 * Refactor Prompt into an exclusive input-output interface for tall_grass #Design |Devs
 * Create tall_grass specific character sheet based of Professor Redwood's Description in pkmndd.odt. #Tabletop |Art,Game
-* Figure out and fill in relative strengths as a guide for dungeon master decisions. #Design |Game
+* Figure out and fill in relative strengths as a guide for dungeon master decisions. (low priority) #Design |Game
 * Create more missions to recieve from Professor Redwood. (long term) #Tabletop |Story,Game
 * Add more status move mechanics to status_moves. (long term) #Design |Game
 * Determine most appropriate packaging for tall_grass distribution. (low priority) #Implementation |Devs

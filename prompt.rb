@@ -65,7 +65,17 @@ module Prompt
       so don't ask us for stage 0 pokemon from now on.", #9
 
       "This program only considers evolution stages 1-3. #{variable_string} \
-      contains a number not within this range." #10
+      contains a number not within this range.", #10
+
+      "Would you like to start, overwrite, load, or delete an advenure?
+      Input options:
+      new or n - new save
+      over or o - overwrite save
+      load or l - load save
+      delete or d - permanently delete save. ", #11
+
+      "Are you sure that you want to DELETE #{variable_string}?
+      This action cannot be undone. (Y/n) " #12
     ]
   end
 end

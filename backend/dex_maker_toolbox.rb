@@ -1,7 +1,7 @@
 module DexMakerToolbox
   public
   # dex_pool: array, file_name: string, specified: array, size: intger
-  def create_dex(dex_pool, file_name, specified, size=teaming)
+  def create_dex(dex_pool, file_name, specified, size = teaming)
     set_refine
     @additional_pages = size - specified.size
     @refined_dex += specified
