@@ -1,5 +1,13 @@
+require_relative '../prompt.rb'
+
 module DexMakerToolbox
   public
+
+  class PromptWrapper
+    include Prompt
+  end
+  Terminal = PromptWrapper.new
+
   # dex_pool: array, file_name: string, specified: array, size: intger
   def create_dex(dex_pool, file_name, specified, size = teaming)
     set_refine
@@ -11,12 +19,10 @@ module DexMakerToolbox
   module_function :create_dex
 
   def limit_pool(dex_pool, pages)
-    if dex_pool.size > pages
+    if dex_pool.size >= pages
       (0...pages).each { fill_dex(dex_pool) }
     else
-      puts
-      puts "There were not enough pokemon which meet requirements to fill a pokedex of that size."
-      puts "The dex will be filled as much as possible"
+      Terminal.display(Terminal.prompt_mint(13))
       (0...dex_pool.size).each { fill_dex(dex_pool) }
     end
 
@@ -25,31 +31,41 @@ module DexMakerToolbox
   module_function :limit_pool
 
   def filter_dex(dex_raw, evolution, types, distinct, priority)
-    @reject_dex = []
     @type_dex = type_select(dex_raw, types)
+    @tribal_dex = distinctions_select(@type_dex, distinct[0]) if distinct[0]
+    @keep_dex = distinctions_select(@type_dex, distinct[1]) if distinct[1]
     @evo_dex = evo_select(@type_dex, evolution)
-    @reject_dex = distinctions_select(@type_dex, distinct[2]) if distinct[2]
-    @thinned_dex = @evo_dex - @reject_dex
+    @evo_dex -= distinctions_select(@type_dex, distinct[2]) if distinct[2]
 
     case distinct[0]
     when false
       case distinct[1]
       when false
-        return @thinned_dex
+        return @evo_dex
       else
         case priority
         when 'd'
-          @thinned_dex << distinctions_select(@type_dex, distinct[1])
+          @evo_dex << @keep_dex
         when 'e'
-          @thinned_dex << evo_select(distinctions_select(@type_dex, distinct[1]), evolution)
+          @evo_dex << evo_select(@keep_dex, evolution)
         end
       end
     else
-      case priority
-      when 'd'
-        return distinctions_select(@type_dex, distinct[0])
-      when 'e'
-        return evo_select(distinctions_select(@type_dex, distinct[0]), evolution)
+      case distinct[1]
+      when false
+        case priority
+        when 'd'
+          return @tribal_dex
+        when 'e'
+          return evo_select(@tribal_dex, evolution)
+        end
+      else
+        case priority
+        when 'd'
+          return @tribal_dex << @keep_dex
+        when 'e'
+          return evo_select(@tribal_dex << @keep_dex, evolution)
+        end
       end
     end
   end

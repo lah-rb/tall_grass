@@ -1,8 +1,10 @@
 require 'fileutils'
 require_relative 'dex.rb'
+require_relative '../prompt.rb'
 
 class DexShelf
   public
+  include Prompt
   include Dex
 
   def initialize
@@ -13,28 +15,28 @@ class DexShelf
   def look_in_dex(search_means, seek)
     case search_means
     when :name
-      begin
-        @pkmn = @dex.find do |poke|
-          if poke.name.match?(/["^"|!|#|*|~]/)
-           poke.name.chop == seek
-          else
-           poke.name == seek
-          end
+      @pkmn = @dex.find do |poke|
+        if poke.name.match?(/["^"|!|#|*|~]/)
+         poke.name.chop == seek
+        else
+         poke.name == seek
         end
-        puts
-        puts make_output(@pkmn.num, @pkmn.name, @pkmn.evo,
-           @pkmn.prime_type, @pkmn.second_type, :name)
+      end
+      begin
+        display(
+          make_output(@pkmn.num, @pkmn.name, @pkmn.evo,
+          @pkmn.prime_type, @pkmn.second_type, :name))
       rescue
-        puts "That name does not exist. Please check for spelling."
+        display "That name does not exist. Please check for spelling."
       end
     when :num
+      @pkmn = @dex.find { |poke| poke.num == seek.to_i }
       begin
-        puts
-        @pkmn = @dex.find { |poke| poke.num == seek.to_i }
-        puts make_output(@pkmn.num, @pkmn.name, @pkmn.evo,
-           @pkmn.prime_type, @pkmn.second_type, :num)
+        display(
+          make_output(@pkmn.num, @pkmn.name, @pkmn.evo,
+          @pkmn.prime_type, @pkmn.second_type, :num))
       rescue
-        puts "That number appears to be out of the range of this pokedex."
+        display "That number appears to be out of the range of this pokedex."
       end
     end
   end

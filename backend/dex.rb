@@ -1,5 +1,4 @@
 module Dex
-  public
   Entry = Struct.new(:num, :name, :evo, :prime_type, :second_type)
 
   def compile_dex(path, special_dex = false)

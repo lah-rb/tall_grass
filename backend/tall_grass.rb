@@ -1,8 +1,10 @@
 require 'fileutils'
 require_relative 'dex_maker_toolbox.rb'
 require_relative 'dex.rb'
+require_relative '../prompt.rb'
 
 class TallGrass
+  include Prompt
   include DexMakerToolbox
   include Dex
 
@@ -12,8 +14,7 @@ class TallGrass
 
   def random_output(dex)
     @seed = rand(0...dex.size)
-    puts
-    puts dex[@seed].name + " No. " + dex[@seed].num.to_s
+    display(dex[@seed].name + " No. " + dex[@seed].num.to_s)
     return true
   end
 

@@ -20,6 +20,9 @@ As is fitting for this project there are many pokedexes that can be accessed. Be
 * pokedex.ods is the table top version of the complete pokedex. It has the same information as pokedex in a physical ready format with additional columns for keeping track of pokemon seen, captured, and bonded with. This is ment to serve as pokedex that players can fill out as their adventure unfolds. Additionally this file has a key for reading the distinction symbols that appear at the end of the species name. This is found in the game_play directory.
 * pokedexres* files are intended to be read_only pokedex for archival purposes. These are kept for the case where reversion is warrented for the project later down the line. If access is desired please copy the file to the dex_store directory, rename it, and then treat it like pokedex. These are found in the ./backend/resevered directory.
 * \*\_dex files, such as incubator_facility_dex, are intended to keep track of the pokemon that can be encountered in a certain area during the exploration process. These are found in the ./backend/dex_store directory.
+    - Additionally some of these dex files were designed for specific purposes during game play.
+    - events_dex tracks completion of story events. Because this dex takes a special form it should only be accessed through coordinator.rb
+    - npc_dex makes a pokedex of a random size and contents. While this can be treated like any other \*\_dex file, it's intended purpose is to simulate non-playable-character's (NPC) pokemon found in public areas such as areanas, pokemarts, pokecenters, and other places seen as fit to the Dungeon Master (DM).
 * The counterpart to the \*\_dex files are the seed files such as incubator_facility.rb. These are used by rediscover_area.rb to fill a \*\_dex file with new pokemon that fit the original requirements specified when the \*\_dex file was created with discovery.rb. These are found in the ./backend/dex_seeds directory.
 
 ### Making a new area_dex
@@ -65,7 +68,7 @@ There are many (890) pokemon that you may run into while using tall_grass. As su
 * Follow the input guide and select an option then hit return
 * If you choose to save new then you will be prompted with "Please give a name to this save:" then type the name wou wish to create your save under and hit return
 * If you choose to overwrite, load, or delete a list of avaliable saves will be displayed and you will be prompted with "Give the number of the save you wish to overwrite||load||delete:" then type the number next to the save you need to use and hit return.
-* Deleting a save will then prompt you with confirmation "Are you sure that you want to DELETE adventure? This action cannot be undone. (Y/n)" where you must type "Y" in order to complete the deletion.
+* Choosing to delete a save called "adventure" will then prompt you with confirmation "Are you sure that you want to DELETE adventure? This action cannot be undone. (Y/n)" where you must type "Y" in order to complete the deletion.
 
 Note: If you choose to overwrite or load a save you may lose other unsaved game data. It is always a good idea to create a new save if in doubt.
 Note: If you delete a save you will lose data. That is the whole point...
@@ -80,11 +83,12 @@ Note: If you delete a save you will lose data. That is the whole point...
 * Examine current dependantcies between objects in tall_grass and look to minimize with restructuring. (Use sequence diagrams) #Design |Devs
 * Add user input for how many yes distinction pokemon are included in the area. #Feature |Devs
 * Implement tall_grass as an executable terminal app with a UI engine t' boot! #Implementation |Devs
+* Implement a directory manager module, so classes don't need to worry about what directory they are working in. #Implementation |Devs
 * Create an items generator using the items found in items_dex.ods. #Feature |Devs
-* Refactor Prompt into an exclusive input-output interface for tall_grass #Design |Devs
 * Create tall_grass specific character sheet based of Professor Redwood's Description in pkmndd.odt. #Tabletop |Art,Game
 * Figure out and fill in relative strengths as a guide for dungeon master decisions. (low priority) #Design |Game
 * Create more missions to recieve from Professor Redwood. (long term) #Tabletop |Story,Game
+* Improve error handling at the UI level. (long term) #Design |Devs
 * Add more status move mechanics to status_moves. (long term) #Design |Game
 * Determine most appropriate packaging for tall_grass distribution. (low priority) #Implementation |Devs
 * EventManager should be able to add new events to the events dex. Coordinator should be updated to reflect the new functionality. (low priority) #Feature |Devs

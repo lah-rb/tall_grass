@@ -33,7 +33,10 @@ class Save
   private
 
   def insure_correct(save_num)
-    case get_info(prompt_mint(12, @save.get_save_name(save_num)))
+    @confirmation = get_info(
+      prompt_mint(12, file_name_to_title(@save.get_save_name(save_num)))
+    )
+    case @confirmation
     when 'Y'
       return save_num
     else

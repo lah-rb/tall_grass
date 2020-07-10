@@ -1,9 +1,11 @@
 require 'fileutils'
 require_relative 'dex.rb'
 require_relative 'dex_maker_toolbox.rb'
+require_relative '../prompt.rb'
 
 class EventManager
-  public
+  include Prompt
+
   def initialize
     FileUtils.cd('backend')
     @events_path = './dex_store/' + "events_dex"
@@ -11,21 +13,8 @@ class EventManager
   end
 
   def list_events
-    @events.each.with_index(1) do |event, i|
-      @title = event[0].split("_")
-
-      @title.each do |word|
-        case word
-        when @title[0]
-          word.capitalize!
-        when 'a', 'an', 'the', 'and', 'but', 'or', 'nor', 'for', 'as', 'at', 'by', 'in', 'of', 'on', 'to'
-          word
-        else
-          word.capitalize!
-        end
-      end
-
-      @title = @title.join(" ")
+    @interpreted = @events.each.map do |event|
+      @title = file_name_to_title(event[0])
 
       case event[1]
       when '*'
@@ -33,10 +22,10 @@ class EventManager
       when '$'
         @completeness = ' - complete'
       end
-
-      puts
-      puts i.to_s + ': ' + @title + @completeness
+      event = @title + @completeness
     end
+
+    display_list(@interpreted, 'Current events:')
   end
 
   def complete_event(completed_event = 0)
@@ -51,7 +40,7 @@ class EventManager
     @events = Dex.compile_dex(@events_path, true).reduce([]) do |reset_dex, old_dex|
       reset_dex << [old_dex[0], ['*']]
     end
-    
+
     DexMakerToolbox.write_dex(@events, @events_path)
   end
 end

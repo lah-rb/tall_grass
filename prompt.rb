@@ -16,7 +16,41 @@ module Prompt
     prompt_store(variable_string.to_s)[num].gsub('      ', '')
   end
 
+    def file_name_to_title(file_name)
+      @title = file_name.split("_")
+
+      @title.each do |word|
+        case word
+        when @title[0]
+          word.capitalize!
+        when *articles_conjunctions_prepositions
+          word
+        else
+          word.capitalize!
+        end
+      end
+
+      return @title.join(" ")
+    end
+
+    def display_list(display_arr,descriptor_string, index_start = 1)
+      display descriptor_string
+      display_arr.each.with_index(index_start) do |item, index|
+        puts index.to_s + ": " + item
+      end
+    end
+
   private
+
+  def articles_conjunctions_prepositions
+    [
+      "a", "an", "the", "am", "is", "was", "were", "be", "being", "been",
+      "and", "but", "or", "nor", "for", "yet", "so",
+      "amid", "anti", "as", "at", "by", "down", "from", "in",
+      "into", "like", "near", "of", "off", "on", "onto", "over", "past", "per",
+      "plus", "save", "than", "to", "up", "upon", "via", "with"
+    ]
+  end
 
   def prompt_store(variable_string)
     [
@@ -75,7 +109,10 @@ module Prompt
       delete or d - permanently delete save. ", #11
 
       "Are you sure that you want to DELETE #{variable_string}?
-      This action cannot be undone. (Y/n) " #12
+      This action cannot be undone. (Y/n) ", #12
+
+      "There were not enough pokemon which meet requirements to fill \
+      a pokedex of that size. The dex will be filled as much as possible" #13
     ]
   end
 end

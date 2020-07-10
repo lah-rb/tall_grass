@@ -55,10 +55,8 @@ class SaveManager
   end
 
   def list_saves
-    display "List of current save states:"
-    current_saves.each.with_index(1) do |save, count|
-      puts count.to_s + " - " + save.split("/").pop.gsub("_"," ")
-    end
+    @saves = current_saves.map { |save| file_name_to_title(save.split("/").pop) }
+    display_list(@saves, "List of current save states:")
     return current_saves
   end
 
@@ -107,9 +105,9 @@ class SaveManager
 
   def progress(action)
     if action[-1] == 'e'
-      action.capitalize.chop + 'ing ' + @save_name.gsub("_"," ") + '...'
+      action.capitalize.chop + 'ing ' + file_name_to_title(@save_name) + '...'
     else
-      action.capitalize + 'ing ' + @save_name.gsub("_"," ") + '...'
+      action.capitalize + 'ing ' + file_name_to_title(@save_name) + '...'
     end
   end
 end
