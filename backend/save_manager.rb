@@ -1,27 +1,29 @@
 require 'fileutils'
+require_relative '../dir_manager.rb'
 require_relative '../prompt.rb'
 
 class SaveManager
   include Prompt
+  prepend FileUtils
   public
 
   def initialize()
-    FileUtils.cd('backend')
+    DirManager.new('backend')
   end
 
   def new_save(save_name)
     @save_name = save_name.gsub('/', '')
-    FileUtils.cd('saves')
+    cd('saves')
     begin
-      FileUtils.mkdir(@save_name)
+      mkdir(@save_name)
     rescue
-      FileUtils.cd('..')
+      cd('..')
       raise(Errno::EEXIST)
     end
-    FileUtils.cd(@save_name)
-    FileUtils.mkdir("dex_seeds")
-    FileUtils.mkdir("dex_store")
-    FileUtils.cd("../..")
+    cd(@save_name)
+    mkdir("dex_seeds")
+    mkdir("dex_store")
+    cd("../..")
 
     @save_arr = mint_load_save_arr(:new, @save_name)
     display(progress(@save_arr[0]))
@@ -41,8 +43,8 @@ class SaveManager
   def delete_save(save_num)
     @save_name = get_save_name(save_num)
     display(progress('delete'))
-    FileUtils.cd('saves')
-    FileUtils.rm_r(@save_name, secure: true)
+    cd('saves')
+    rm_r(@save_name, secure: true)
     puts 'Done!'
   end
 
@@ -51,7 +53,11 @@ class SaveManager
   end
 
   def get_save_name(save_num)
-    return current_saves[save_num].split('/')[-1]
+    unless current_saves[save_num].nil?
+      return current_saves[save_num].split('/')[-1]
+    else
+      return -1
+    end
   end
 
   def list_saves
@@ -93,13 +99,13 @@ class SaveManager
     nav_arr[2].each do |target_file|
       @end_path = target_file.split("/").values_at(-2, -1).join("/")
       @target_file = nav_arr[4] + @end_path
-      FileUtils.rm(@target_file)
+      rm(@target_file)
     end
     # Rewrite target directory
     nav_arr[1].each do |source_file|
       @end_path = source_file.split("/").values_at(-2, -1).join("/")
       @target_file = nav_arr[4] + @end_path
-      FileUtils.cp(source_file, @target_file)
+      cp(source_file, @target_file)
     end
   end
 

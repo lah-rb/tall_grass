@@ -1,4 +1,4 @@
-require 'fileutils'
+require_relative '../dir_manager.rb'
 require_relative 'dex_maker_toolbox.rb'
 require_relative 'dex.rb'
 require_relative '../prompt.rb'
@@ -9,7 +9,7 @@ class TallGrass
   include Dex
 
   def initialize()
-    FileUtils.cd('backend')
+    DirManager.new('backend')
   end
 
   def random_output(dex)

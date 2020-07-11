@@ -1,12 +1,15 @@
 require 'test_helper'
 require 'fileutils'
-require './backend/dex.rb'
-require './backend/dex_maker_toolbox.rb'
-require './backend/evo.rb'
+require_relative '../dir_manager.rb'
+require_relative '../backend/dex.rb'
+require_relative '../backend/dex_maker_toolbox.rb'
+require_relative '../backend/evo.rb'
 
 class TestDexMakerToolbox < Minitest::Test
+  prepend FileUtils
+
   def setup
-    FileUtils.cd('./backend')
+    DirManager.new('backend')
     @types_arr = ["Grass", "Poison", "Fire", "Water", "Bug", "Normal",
        "Electric", "Ground", "Fairy", "Fighting", "Psychic", "Rock",
         "Ghost", "Ice", "Dragon", "Dark", "Steel", "Flying"]
@@ -68,10 +71,6 @@ class TestDexMakerToolbox < Minitest::Test
       assert_includes  [entry[3], entry[4]], 'Dark'
       refute_includes [entry[3], entry[4]], 'Dragon'
     end
-    FileUtils.rm('./dex_store/test_dex')
-  end
-
-  def teardown
-    FileUtils.cd('..')
+    rm('./dex_store/test_dex')
   end
 end

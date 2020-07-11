@@ -1,19 +1,19 @@
-require 'fileutils'
+require_relative '../dir_manager.rb'
 require_relative 'dex_craftsman.rb'
 require_relative 'evo.rb'
 require_relative 'distinctions.rb'
 
-class DiscoverArea
+class Discovery
   public
-  Island = Struct.new(:name, :specific, :abundance, :evo, :type, :distinct, :priority)
-  UserRequests = Struct.new(:baby, :fossil, :beast, :legend, :myth)
+  Environment = Struct.new(:name, :specific, :abundance, :evo, :type, :distinct, :priority)
+  Fauna = Struct.new(:baby, :fossil, :beast, :legend, :myth)
 
   def initialize(observations)
-    FileUtils.cd('backend')
+    DirManager.new('backend')
     interpret(observations)
     note_attributes
     DexCraftsman.new(
-      Island.new(@name, @specific, @richness, @evo, @types, @distinct, @priority)
+      Environment.new(@name, @specific, @richness, @evo, @types, @distinct, @priority)
     )
   end
 
@@ -51,7 +51,7 @@ class DiscoverArea
     end
 
     @distinct = Distinctions.new(
-      UserRequests.new(@baby, @fossil, @beast, @legend, @myth)).convert_to_regex
+      Fauna.new(@baby, @fossil, @beast, @legend, @myth)).convert_to_regex
   end
 
   def note_attributes

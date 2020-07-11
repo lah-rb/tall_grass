@@ -1,14 +1,15 @@
-require 'fileutils'
-require_relative 'dex.rb'
+require_relative '../dir_manager.rb'
 require_relative '../prompt.rb'
+require_relative 'dex.rb'
 
 class DexShelf
-  public
   include Prompt
   include Dex
 
+  public
+
   def initialize
-    FileUtils.cd('backend')
+    DirManager.new('backend')
     @dex = Dex.pokedex
   end
 

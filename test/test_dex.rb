@@ -1,14 +1,13 @@
 require 'test_helper'
 require 'fileutils'
-require './backend/dex.rb'
+require_relative '../dir_manager.rb'
+require_relative '../backend/dex.rb'
 
 class TestDex < Minitest::Test
-  def setup
-    FileUtils.cd('backend')
-  end
+  prepend FileUtils
 
-  def teardown
-    FileUtils.cd('..')
+  def setup
+    DirManager.new('backend')
   end
 
   def test_dex_has_entries

@@ -1,13 +1,15 @@
-require_relative 'prompt.rb'
-require_relative './backend/discover_area.rb'
+require_relative '../dir_manager.rb'
+require_relative '../prompt.rb'
+require_relative '../backend/discovery.rb'
 
-class Discovery
+class Pioneer
   include Prompt
-  public
 
   Observations = Struct.new(:name, :specific, :abundance, :evo, :yes, :no, :baby, :fossil, :beast, :legend, :myth, :priority)
 
-  def observe_area
+  def initialize
+    DirManager.new('tall_grass')
+
     @name = get_info("What do you want to call this new area? ")
 
     @specific = get_info(prompt_mint(0))
@@ -32,10 +34,8 @@ class Discovery
 
     @priority = get_info(prompt_mint(8))
 
-    DiscoverArea.new(
+    Discovery.new(
       Observations.new(@name, @specific, @richness, @evo, @yes_types, @no_types, @baby, @fossil, @beast, @legend, @myth, @priority)
     )
   end
 end
-
-Discovery.new.observe_area

@@ -1,3 +1,4 @@
+require_relative '../dir_manager.rb'
 require_relative "dex_maker_toolbox.rb"
 require_relative "dex.rb"
 
@@ -7,6 +8,7 @@ class DexCraftsman
 
   def initialize(area)
     @area = area
+    DirManager.new('backend')
     setup_workbench
     fill_and_bind_dex
   end

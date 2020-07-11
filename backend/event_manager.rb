@@ -1,13 +1,13 @@
-require 'fileutils'
+require_relative '../dir_manager.rb'
+require_relative '../prompt.rb'
 require_relative 'dex.rb'
 require_relative 'dex_maker_toolbox.rb'
-require_relative '../prompt.rb'
 
 class EventManager
   include Prompt
 
   def initialize
-    FileUtils.cd('backend')
+    DirManager.new('backend')
     @events_path = './dex_store/' + "events_dex"
     @events = Dex.compile_dex(@events_path, true)
   end

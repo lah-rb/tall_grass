@@ -1,11 +1,14 @@
-require_relative 'prompt.rb'
-require_relative './backend/tall_grass.rb'
+require_relative '../dir_manager.rb'
+require_relative '../prompt.rb'
+require_relative '../backend/tall_grass.rb'
 
 class Encounter
   include Prompt
 
   def initialize()
+    DirManager.new('tall_grass')
     @tall_grass = TallGrass.new
+    encountering(true)
   end
 
   def get_location
@@ -29,9 +32,9 @@ class Encounter
     end
   end
 
-  def encountering
+  def encountering(new_encounter)
     begin
-      @tall_grass.set_location(get_location) if caller.size == 1 || continue?("Would you like a new location? (y/return) ")
+      @tall_grass.set_location(get_location) if new_encounter || continue?("Would you like a new location? (y/return) ")
     rescue
       display('A file coordinating to that name was not found.')
       @tall_grass.set_location(get_location)
@@ -42,8 +45,6 @@ class Encounter
       @tall_grass.make_type_dex(provide_type)
     end
 
-    encountering if continue?("Would you like to have another encounter? (y/return) ")
+    encountering(false) if continue?("Would you like to have another encounter? (y/return) ")
   end
 end
-
-Encounter.new.encountering

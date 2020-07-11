@@ -1,19 +1,20 @@
 require 'test_helper'
 require 'fileutils'
+require_relative '../dir_manager.rb'
 require './backend/event_manager.rb'
 
 class TestEventsManager < Minitest::Test
+  prepend FileUtils
+
   def setup
-    FileUtils.cd('backend')
-    FileUtils.cp("./dex_store/events_dex", "./dex_store/original")
-    FileUtils.cd('..')
+    DirManager.new('backend')
+    cp("./dex_store/events_dex", "./dex_store/original")
     @coordinator = EventManager.new
   end
 
   def teardown
-    FileUtils.cp("./dex_store/original", "./dex_store/events_dex")
-    FileUtils.rm("./dex_store/original")
-    FileUtils.cd('..')
+    cp("./dex_store/original", "./dex_store/events_dex")
+    rm("./dex_store/original")
   end
 
   def test_for_completition
