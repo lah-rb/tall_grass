@@ -27,7 +27,7 @@ and contains each of the base species relesed as of 03/03/2020. This is found in
     - npc_dex makes a pokedex of a random size and contents. While this can be treated like any other \*\_dex file, it's intended purpose is to simulate non-playable-character's (NPC) pokemon found in public areas such as areanas, pokemarts, pokecenters, and other places seen as fit to the Dungeon Master (DM).
 * The counterpart to the \*\_dex files are the seed files such as incubator_facility.rb. These are used by rediscover_area.rb to fill a \*\_dex file with new pokemon that fit the original requirements specified when the \*\_dex file was created with discovery.rb. These are found in the ./backend/dex_seeds directory.
 
-### Using tall_grass
+### Starting tall_grass
 * In the terminal change to the tall_grass directory and type: ruby run.rb
 * You will be prompted with a warm welcome and an input options list. Type the option coresponding to what you want to do with tall_grass.
 

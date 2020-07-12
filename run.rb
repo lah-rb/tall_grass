@@ -1,6 +1,6 @@
 require_relative 'dir_manager.rb'
 require_relative 'prompt.rb'
-Dir['user_interface/*'].each { |script| require_relative script }
+Dir['frontend/*'].each { |script| require_relative script }
 
 class Runner
   include Prompt
