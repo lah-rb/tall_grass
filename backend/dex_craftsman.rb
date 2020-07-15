@@ -8,7 +8,8 @@ class DexCraftsman
 
   def initialize(area)
     @area = area
-    DirManager.new('backend')
+    @director = DirManager.new
+    @director.request_dir('backend')
     setup_workbench
     fill_and_bind_dex
   end

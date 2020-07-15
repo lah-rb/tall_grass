@@ -9,7 +9,8 @@ class DexShelf
   public
 
   def initialize
-    DirManager.new('backend')
+    @director = DirManager.new
+    @director.request_dir('backend')
     @dex = Dex.pokedex
   end
 

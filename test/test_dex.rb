@@ -7,7 +7,8 @@ class TestDex < Minitest::Test
   prepend FileUtils
 
   def setup
-    DirManager.new('backend')
+    @director = DirManager.new
+    @director.request_dir('backend')
   end
 
   def test_dex_has_entries

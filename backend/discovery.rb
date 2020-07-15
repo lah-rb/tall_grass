@@ -9,7 +9,8 @@ class Discovery
   Fauna = Struct.new(:baby, :fossil, :beast, :legend, :myth)
 
   def initialize(observations)
-    DirManager.new('backend')
+    @director = DirManager.new
+    @director.request_dir('backend')
     interpret(observations)
     note_attributes
     DexCraftsman.new(

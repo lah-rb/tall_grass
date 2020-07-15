@@ -7,7 +7,8 @@ class EventManager
   include Prompt
 
   def initialize
-    DirManager.new('backend')
+    @director = DirManager.new
+    @director.request_dir('backend')
     @events_path = './dex_store/' + "events_dex"
     @events = Dex.compile_dex(@events_path, true)
   end

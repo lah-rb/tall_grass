@@ -7,7 +7,8 @@ class TestEventsManager < Minitest::Test
   prepend FileUtils
 
   def setup
-    DirManager.new('backend')
+    @director = DirManager.new
+    @director.request_dir('backend')
     cp("./dex_store/events_dex", "./dex_store/original")
     @coordinator = EventManager.new
   end

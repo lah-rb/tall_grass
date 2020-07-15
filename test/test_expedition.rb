@@ -7,7 +7,8 @@ class TestExpedition < Minitest::Test
   prepend FileUtils
 
   def setup
-    DirManager.new('backend')
+    @director = DirManager.new
+    @director.request_dir('backend')
     @land_hoe = "./dex_store/land_hoe_dex"
     @original = "./dex_store/original"
     cp(@land_hoe, @original)

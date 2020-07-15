@@ -9,7 +9,8 @@ class TestDexMakerToolbox < Minitest::Test
   prepend FileUtils
 
   def setup
-    DirManager.new('backend')
+    @director = DirManager.new
+    @director.request_dir('backend')
     @types_arr = ["Grass", "Poison", "Fire", "Water", "Bug", "Normal",
        "Electric", "Ground", "Fairy", "Fighting", "Psychic", "Rock",
         "Ghost", "Ice", "Dragon", "Dark", "Steel", "Flying"]

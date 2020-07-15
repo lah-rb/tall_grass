@@ -1,4 +1,3 @@
-require_relative '../dir_manager.rb'
 require_relative '../prompt.rb'
 require_relative '../backend/event_manager.rb'
 
@@ -7,7 +6,6 @@ class Coordinator
   include Prompt
 
   def initialize
-    DirManager.new('tall_grass')
     @planner = EventManager.new
     which_event
   end

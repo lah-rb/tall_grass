@@ -6,7 +6,8 @@ class Expedition
   Environment = Struct.new(:name, :specific, :abundance, :evo, :type, :distinct, :priority)
 
   def initialize(land_name)
-    DirManager.new('backend')
+    @director = DirManager.new
+    @director.request_dir('backend')
 
     @seed_path = './dex_seeds/' + land_name.chomp.downcase.gsub(' ', '_') + '.rb'
     require_relative @seed_path
@@ -20,6 +21,5 @@ class Expedition
         @name, @specific, @abundance, @evolutions, @types, @distinct, @priority
       )
     )
-    puts
   end
 end

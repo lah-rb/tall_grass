@@ -7,38 +7,64 @@ module Prompt
     $stdin.gets.chomp
   end
 
+  def get_location(local_statement = "Where are you? ", file_sort = /^.*[_]/, is_dex = true)
+    @all_locals = Dir[@store + '*'].sort.map do |dir|
+      dir.split('/')[-1][file_sort]
+    end
+    @all_locals -= [nil, 'events_', 'pokedex']
+    display_list(
+      @all_locals.map { |local| file_name_to_title(local.slice(0...-1)) },
+      'Areas currently known:')
+    @local = get_info(local_statement).downcase.gsub(" ", "_")
+    case @local.to_i
+    when 0
+      if is_dex
+        @local == 'pokedex' ? @store + @local : @store + @local + '_dex'
+      else
+        @local
+      end
+    else
+      @local = @all_locals.map { |local| local.slice(0...-1) }[@local.to_i - 1]
+      if is_dex
+        @store + @local + '_dex'
+      else
+        @local
+      end
+    end
+  end
+
   def display(message)
     puts
     puts message
   end
 
+  def display_list(display_arr,descriptor_string, index_start = 1)
+    display descriptor_string
+    display_arr.each.with_index(index_start) do |item, index|
+      puts index.to_s + ": " + item
+    end
+  end
+
+  def file_name_to_title(file_name)
+    @title = file_name.split("_")
+
+    @title.each do |word|
+      case word
+      when @title[0]
+        word.capitalize!
+      when *articles_bverbs_conjunctions_prepositions
+        word
+      else
+        word.capitalize!
+      end
+    end
+
+    return @title.join(" ")
+  end
+
   def prompt_mint(num, variable_string = '')
     prompt_store(variable_string.to_s)[num].gsub('      ', '')
   end
-
-    def file_name_to_title(file_name)
-      @title = file_name.split("_")
-
-      @title.each do |word|
-        case word
-        when @title[0]
-          word.capitalize!
-        when *articles_bverbs_conjunctions_prepositions
-          word
-        else
-          word.capitalize!
-        end
-      end
-
-      return @title.join(" ")
-    end
-
-    def display_list(display_arr,descriptor_string, index_start = 1)
-      display descriptor_string
-      display_arr.each.with_index(index_start) do |item, index|
-        puts index.to_s + ": " + item
-      end
-    end
 
   private
 
@@ -47,8 +73,8 @@ module Prompt
       "a", "an", "the", "am", "is", "was", "were", "be", "being", "been",
       "and", "but", "or", "nor", "for", "yet", "so",
       "amid", "anti", "as", "at", "by", "down", "from", "in",
-      "into", "like", "near", "of", "off", "on", "onto", "over", "past", "per",
-      "plus", "save", "than", "to", "up", "upon", "via", "with"
+      "into", "like", "near", "of", "off", "on", "onto", "over", "per",
+      "than", "to", "up", "upon", "via", "with"
     ]
   end
 
@@ -123,7 +149,10 @@ module Prompt
       Refresh an Area Dex - r or refresh
       Manage  Story Event - m or manage
       Gather Pokemon Info - i or info
-      (Hit return to exit) " #14
+      (Hit return to exit) ", #14
+
+      "https://www.random.org/integers/?\
+      num=1&min=1&max=#{variable_string}&col=1&base=10&format=plain&rnd=new" #15
     ]
   end
 end

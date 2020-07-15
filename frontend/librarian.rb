@@ -1,4 +1,3 @@
-require_relative '../dir_manager.rb'
 require_relative '../prompt.rb'
 require_relative '../backend/dex_shelf.rb'
 
@@ -7,7 +6,6 @@ class Librarian
   public
 
   def initialize()
-    DirManager.new('tall_grass')
     DexShelf.new.look_in_dex(name_or_num, get_pkmn)
   end
 

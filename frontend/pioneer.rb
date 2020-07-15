@@ -1,4 +1,3 @@
-require_relative '../dir_manager.rb'
 require_relative '../prompt.rb'
 require_relative '../backend/discovery.rb'
 
@@ -8,7 +7,6 @@ class Pioneer
   Observations = Struct.new(:name, :specific, :abundance, :evo, :yes, :no, :baby, :fossil, :beast, :legend, :myth, :priority)
 
   def initialize
-    DirManager.new('tall_grass')
 
     @name = get_info("What do you want to call this new area? ")
 

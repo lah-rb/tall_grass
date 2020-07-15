@@ -8,7 +8,8 @@ class SaveManager
   public
 
   def initialize()
-    DirManager.new('backend')
+    @director = DirManager.new
+    @director.request_dir('backend')
   end
 
   def new_save(save_name)

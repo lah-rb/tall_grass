@@ -15,7 +15,8 @@ class Runner
   end
 
   def run
-    DirManager.new('tall_grass')
+    @director = DirManager.new
+    @director.request_dir('tall_grass')
 
     case get_info(prompt_mint(14)).chr.downcase
     when 'e'

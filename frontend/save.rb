@@ -1,4 +1,3 @@
-require_relative '../dir_manager.rb'
 require_relative '../prompt.rb'
 require_relative '../backend/save_manager.rb'
 
@@ -7,7 +6,6 @@ class Save
   public
 
   def initialize
-    DirManager.new('tall_grass')
     @save_method = get_info(prompt_mint(11)).chr.downcase
     @save = SaveManager.new
 

@@ -4,11 +4,11 @@ module Dex
   def compile_dex(path, special_dex = false)
     File.open(path, "r") do |file_dex|
       file_dex.reduce([]) do |exec_dex, line|
-        @name, @number, @evolution_stage, @primary_type, @secondary_type \
+        @number, @name, @evolution_stage, @primary_type, @secondary_type \
         = line.chomp.split('-')
 
         @new_page = Entry.new(
-          @name.to_i, @number, @evolution_stage.to_i, @primary_type, @secondary_type
+          @number.to_i, @name, @evolution_stage.to_i, @primary_type, @secondary_type
         )
 
         exec_dex.push(@new_page) unless special_dex

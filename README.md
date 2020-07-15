@@ -34,7 +34,7 @@ and contains each of the base species relesed as of 03/03/2020. This is found in
 
 ### Encountering a Pokemon
 * Select 'e' or 'encounter' in run.rb
-* You will be prompted to enter an area with "Where are you?". You can type the name of the area in many manners. If the name of the area dex you want to access is incubator_facility the following are acceptable methods of entry: incubator_facility, incubator facility, Incubator Facility, INCUBATOR facility, or any combination of these styles.
+* You will be prompted to enter an area with "Where are you?". You can type the name of the area in many manners. If the name of the area dex you want to access is incubator_facility the following are acceptable methods of entry: incubator_facility, incubator facility, Incubator Facility, INCUBATOR facility, or any combination of these styles. You can also enter the number next to the area on the list.
 * You will then be prompted with "Any specific type? (Hit return for no type)" where you can either enter a type or leave empty for no preference. The accepted types are as follows: Normal, Fire, Water, Grass, Electric, Ice, Fighting, Poison, Ground, Flying, Psychic, Bug, Rock, Ghost, Dragon, Dark, Steel, and Fairy.
 * Next you will be prompted with "Would you like to have another encounter? (y/return)" where return escapes the program and y takes you through another encounter.
 * When you decide to have another encounter you will be prompted with "Would you like a new location? (y/return)" where return keep you in the area that you last specified and y takes you back to the original prompt.
@@ -59,7 +59,7 @@ Note: If you delete a save you will lose data. That is the whole point...
 
 ### Refreshing an Area Dex
 * Select 'r' or 'refresh' in run.rb
-* When prompted type the name of an area that already exists. You can substitute underscores for spaces and vice versa. tall_grass ships with the following areas which can be rediscovered along with any you create: cloudy_peak, incubator_facility, land_hoe, legends, pkmn_lottery, and to_stern.
+* When prompted type the name of an area that already exists. You can substitute underscores for spaces and vice versa. tall_grass ships with the following areas which can be rediscovered along with any you create: cloudy_peak, incubator_facility, land_hoe, legends, pkmn_lottery, and to_stern. You can also enter the number next to the area on the list.
 * rediscover_area.rb overwrites the old \*\_dex file with a new one of the same name using the information stored in the seed file.
 
 Note: If you want to keep the old dex file and play with a revitialized file I suggest creating a save state as specified above.
@@ -90,13 +90,13 @@ There are many (890) pokemon that you may run into while using tall_grass. As su
 * Implement tests for dex_seeds and \*\_dex files considered to be standard #Testing |Devs
 * Examine current dependantcies between objects in tall_grass and look to minimize with restructuring. (Use sequence diagrams) #Design |Devs
 * Add user input for how many yes distinction pokemon are included in the area. #Feature |Devs
-* Implement tall_grass as an executable terminal app with a UI engine t' boot! #Implementation |Devs
-* Implement a directory manager module, so classes don't need to worry about what directory they are working in. #Implementation |Devs
+* Implement tall_grass as an executable terminal app #Implementation |Devs
+* Package tall_grass as an snap! #Distro |Devs
+* Prompt's get_location method is overly complicated. It should be simplified. #Design |Devs
 * Create an items generator using the items found in items_dex.ods. #Feature |Devs
-* Create tall_grass specific character sheet based of Professor Redwood's Description in pkmndd.odt. #Tabletop |Art,Game
-* Figure out and fill in relative strengths as a guide for dungeon master decisions. (low priority) #Design |Game
+* Create tall_grass specific character sheet based of Professor Redwood's interview in pkmndd.odt. #Tabletop |Art,Game
 * Create more missions to recieve from Professor Redwood. (long term) #Tabletop |Story,Game
 * Improve error handling at the UI level. (long term) #Design |Devs
 * Add more status move mechanics to status_moves. (long term) #Design |Game
-* Determine most appropriate packaging for tall_grass distribution. (low priority) #Implementation |Devs
+* Figure out and fill in relative strengths as a guide for dungeon master decisions. (low priority) #Design |Game
 * EventManager should be able to add new events to the events dex. Coordinator should be updated to reflect the new functionality. (low priority) #Feature |Devs
