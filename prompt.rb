@@ -11,7 +11,7 @@ module Prompt
     @all_locals = Dir[@store + '*'].sort.map do |dir|
       dir.split('/')[-1][file_sort]
     end
-    @all_locals -= [nil, 'events_', 'pokedex']
+    @all_locals -= [nil, 'events_', 'pokedex', 'items_']
     display_list(
       @all_locals.map { |local| file_name_to_title(local.slice(0...-1)) },
       'Areas currently known:')
@@ -149,6 +149,7 @@ module Prompt
       Refresh an Area Dex - r or refresh
       Manage  Story Event - m or manage
       Gather Pokemon Info - i or info
+      Get  trainer  goods - g or goods
       (Hit return to exit) ", #14
 
       "https://www.random.org/integers/?\

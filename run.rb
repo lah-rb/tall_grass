@@ -31,6 +31,8 @@ class Runner
       hire Coordinator.new
     when 'i'
       hire Librarian.new
+    when 'g'
+      hire ShopKeeper.new
     when ''
       exit
     else

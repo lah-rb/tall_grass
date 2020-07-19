@@ -3,7 +3,7 @@ require_relative '../prompt.rb'
 require_relative 'dex.rb'
 require_relative 'dex_maker_toolbox.rb'
 
-class EventManager
+class Venue
   include Prompt
 
   def initialize

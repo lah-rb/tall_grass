@@ -11,7 +11,7 @@ guard :minitest do
 
   watch_arr = %w[
     dex_craftsman dex_maker_toolbox dex
-    discovery event_manager expedition
+    discovery venue expedition
     ]
 
   watch_arr.each do |file_name|

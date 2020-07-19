@@ -1,12 +1,12 @@
 require_relative '../prompt.rb'
-require_relative '../backend/event_manager.rb'
+require_relative '../backend/venue.rb'
 
 
 class Coordinator
   include Prompt
 
   def initialize
-    @planner = EventManager.new
+    @planner = Venue.new
     which_event
   end
 

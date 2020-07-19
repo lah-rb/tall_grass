@@ -3,8 +3,9 @@ require_relative '../dir_manager.rb'
 require_relative '../prompt.rb'
 require_relative 'dex_maker_toolbox.rb'
 require_relative 'dex.rb'
+require_relative 'distributer.rb'
 
-class TallGrass
+class TallGrass < Distributer
   include Prompt
   include DexMakerToolbox
   include Dex
@@ -28,14 +29,8 @@ class TallGrass
     end
   end
 
-  private
-
   def random_output(dex)
-    begin
-      @seed = URI.open(prompt_mint(15, dex.size)).string.chomp.to_i - 1
-    rescue
-      @seed = rand(1..dex.size) - 1
-    end
+    @seed = random_seed(dex)
     display(dex[@seed].name + " No. " + dex[@seed].num.to_s)
     return true
   end
