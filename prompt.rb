@@ -1,35 +1,19 @@
 module Prompt
   public
 
-  def get_info(prompt)
+  def get_info(prompt, message = '')
     puts
-    print prompt
+    puts prompt
+    print "<#{message}> "
     $stdin.gets.chomp
   end
 
-  def get_location(local_statement = "Where are you? ", file_sort = /^.*[_]/, is_dex = true)
-    @all_locals = Dir[@store + '*'].sort.map do |dir|
-      dir.split('/')[-1][file_sort]
-    end
-    @all_locals -= [nil, 'events_', 'pokedex', 'items_']
-    display_list(
-      @all_locals.map { |local| file_name_to_title(local.slice(0...-1)) },
-      'Areas currently known:')
-    @local = get_info(local_statement).downcase.gsub(" ", "_")
-    case @local.to_i
-    when 0
-      if is_dex
-        @local == 'pokedex' ? @store + @local : @store + @local + '_dex'
-      else
-        @local
-      end
+  def continue?(statement = "Continue?")
+    case get_info(statement, "y/return").downcase
+    when 'y', 'yes'
+      return true
     else
-      @local = @all_locals.map { |local| local.slice(0...-1) }[@local.to_i - 1]
-      if is_dex
-        @store + @local + '_dex'
-      else
-        @local
-      end
+      return false
     end
   end
 
@@ -38,7 +22,7 @@ module Prompt
     puts message
   end
 
-  def display_list(display_arr,descriptor_string, index_start = 1)
+  def display_list(display_arr, descriptor_string, index_start = 1)
     display descriptor_string
     display_arr.each.with_index(index_start) do |item, index|
       puts index.to_s + ": " + item
@@ -62,8 +46,8 @@ module Prompt
     return @title.join(" ")
   end
 
-  def prompt_mint(num, variable_string = '')
-    prompt_store(variable_string.to_s)[num].gsub('      ', '')
+  def prompt_mint(sym, variable_string = '')
+    prompt_store(variable_string.to_s)[sym].gsub('      ', '')
   end
 
   private
@@ -79,67 +63,65 @@ module Prompt
   end
 
   def prompt_store(variable_string)
-    [
+    {
+      specificmenu:
       "Do you see any specific pokemon?
       Input by pokedex number: 1-2-3
-      If there are no specific pokemon hit return }", #0
-
+      If there are no specific pokemon hit return",
+      populationmenu:
       "How many species do you see?
       Input example: 14
-      If you see no specific number hit return }", #1
-
+      If you see no specific number hit return",
+      evomenu:
       "What evolution stages are present?
       Input example: 2-3
-      If you don't know what evolution stages are here hit return }", #2
-
+      If you don't know what evolution stages are here hit return",
+      presenttypes:
       "What types are present?
       Input example: water-fire-grass
-      If you don't see any specific types hit return }", #3
-
+      If you don't see any specific types hit return",
+      absenttypes:
       "What types are not present?
       Input example: water-fire-grass
-      If any type maybe here hit return }", #4
-
-      "Which mission has been completed?
-      (type reset to clear events or hit return to exit) ", #5
-
+      If any type maybe here hit return",
+      currentlocalmenu:
       "Current location: #{variable_string.gsub('_', ' ')}
-      Any specific type? (Hit return for no type) ", #6
-
+      Any specific type?",
+      tribemenu:
       "Do #{variable_string} exist here?
       Input options:
       only or o - A whole tribe lives here!
       yes or y - I see some here!
       no or n - I don't see any here.
-      return - Some may or may not exist here }", #7
-
+      return - Some may or may not exist here",
+      conflictmenu:
       "In the case of conflict will evolution or pokemon distinction take priority?
       Input options:
       dist or d - prefer keeping distinctions over evolution stage (default)
       evo or e - prefer keeping evolution stage over distinctions
-      return - accept the default }", #8
-
+      return - accept the default",
+      evoegg:
       "While we encourage you to have eggs in your D&D night, \
       you don't really need us to generate them (Do you?!?).
       tall_grass just helps you decide what goes in the egg, \
-      so don't ask us for stage 0 pokemon from now on.", #9
-
+      so don't ask us for stage 0 pokemon from now on.",
+      evobad:
       "This program only considers evolution stages 1-3. #{variable_string} \
-      contains a number not within this range.", #10
-
+      contains a number not within this range.",
+      savemenu:
       "Would you like to start, overwrite, load, or delete an advenure?
       Input options:
       new or n - new save
       over or o - overwrite save
       load or l - load save
-      delete or d - permanently delete save }", #11
-
+      delete or d - permanently delete save",
+      confirmdelete:
       "Are you sure that you want to DELETE #{variable_string}?
-      This action cannot be undone. (Y/n) ", #12
-
+      This action cannot be undone.",
+      emptydexpool:
       "There were not enough pokemon which meet requirements to fill \
-      a pokedex of that size. The dex will be filled as much as possible", #13
-
+      a pokedex of that size. The dex will be filled as much as possible",
+      runmenu:
       "Welcome to tall_grass: A Pokemon D&D Adventure Aid!
 
       Would you like to:
@@ -149,11 +131,10 @@ module Prompt
       Refresh an Area Dex - r or refresh
       Manage  Story Event - m or manage
       Gather Pokemon Info - i or info
-      Get  trainer  goods - g or goods
-      (Hit return to exit) ", #14
-
+      Get  trainer  goods - g or goods",
+      randomurl:
       "https://www.random.org/integers/?\
-      num=1&min=1&max=#{variable_string}&col=1&base=10&format=plain&rnd=new" #15
-    ]
+      num=1&min=1&max=#{variable_string}&col=1&base=10&format=plain&rnd=new"
+    }
   end
 end

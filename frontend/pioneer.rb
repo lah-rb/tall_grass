@@ -10,27 +10,27 @@ class Pioneer
 
     @name = get_info("What do you want to call this new area? ")
 
-    @specific = get_info(prompt_mint(0))
+    @specific = get_info(prompt_mint(:specificmenu))
 
-    @richness = get_info(prompt_mint(1))
+    @richness = get_info(prompt_mint(:populationmenu))
 
-    @evo = get_info(prompt_mint(2))
+    @evo = get_info(prompt_mint(:evomenu))
 
-    @yes_types = get_info(prompt_mint(3))
+    @yes_types = get_info(prompt_mint(:presenttypes))
 
-    @no_types = get_info(prompt_mint(4))
+    @no_types = get_info(prompt_mint(:absenttypes))
 
-    @baby = get_info(prompt_mint(7, 'baby pokemon'))
+    @baby = get_info(prompt_mint(:tribemenu, 'baby pokemon'))
 
-    @fossil = get_info(prompt_mint(7, 'fossil pokemon'))
+    @fossil = get_info(prompt_mint(:tribemenu, 'fossil pokemon'))
 
-    @beast = get_info(prompt_mint(7, 'ultra beasts'))
+    @beast = get_info(prompt_mint(:tribemenu, 'ultra beasts'))
 
-    @legend = get_info(prompt_mint(7, 'legendary pokemon'))
+    @legend = get_info(prompt_mint(:tribemenu, 'legendary pokemon'))
 
-    @myth = get_info(prompt_mint(7, 'mythical pokemon'))
+    @myth = get_info(prompt_mint(:tribemenu, 'mythical pokemon'))
 
-    @priority = get_info(prompt_mint(8))
+    @priority = get_info(prompt_mint(:conflictmenu))
 
     Discovery.new(
       Observations.new(@name, @specific, @richness, @evo, @yes_types, @no_types, @baby, @fossil, @beast, @legend, @myth, @priority)

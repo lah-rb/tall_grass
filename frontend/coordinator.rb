@@ -12,7 +12,9 @@ class Coordinator
 
   def which_event
     @planner.list_events
-    @completed_event = get_info(prompt_mint(5))
+    @completed_event = get_info(
+      "Which mission has been completed?",
+      'type reset to clear events or hit return to exit')
     case @completed_event
     when 'r', 'c', 'reset', 'clear'
       @planner.reset_all

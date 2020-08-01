@@ -22,7 +22,7 @@ module DexMakerToolbox
     if dex_pool.size >= pages
       (0...pages).each { fill_dex(dex_pool) }
     else
-      Terminal.display(Terminal.prompt_mint(13))
+      Terminal.display(Terminal.prompt_mint(:emptydexpool))
       (0...dex_pool.size).each { fill_dex(dex_pool) }
     end
 

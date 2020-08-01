@@ -7,7 +7,7 @@ class Distinctions
     @drop_parser = '['
   end
 
-  def open_shut(subject, regexp_comp)
+  def sort_into_parser(subject, regexp_comp)
     case subject
     when 'o'
       @only_parser += regexp_comp
@@ -25,11 +25,11 @@ class Distinctions
   end
 
   def convert_to_regex
-    open_shut(@decision.baby, '*|')
-    open_shut(@decision.fossil, '~|')
-    open_shut(@decision.beast, '#|')
-    open_shut(@decision.legend, '!|')
-    open_shut(@decision.myth, '"^"|')
+    sort_into_parser(@decision.baby, '*|')
+    sort_into_parser(@decision.fossil, '~|')
+    sort_into_parser(@decision.beast, '#|')
+    sort_into_parser(@decision.legend, '!|')
+    sort_into_parser(@decision.myth, '"^"|')
 
     [
       finish_regexp(@only_parser),

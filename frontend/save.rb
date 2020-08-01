@@ -6,7 +6,7 @@ class Save
   public
 
   def initialize
-    @save_method = get_info(prompt_mint(11)).chr.downcase
+    @save_method = get_info(prompt_mint(:savemenu)).chr.downcase
     @save = SaveManager.new
 
 
@@ -52,7 +52,11 @@ class Save
   def insure_correct(save_num)
     unless save_num == -1 || save_num > @saves_size - 1 || save_num == -2
       @confirmation = get_info(
-        prompt_mint(12, file_name_to_title(@save.get_save_name(save_num)))
+        prompt_mint(
+          :confirmdelete,
+          file_name_to_title(@save.get_save_name(save_num))
+        ),
+        'Y/n'
       )
     else
       @confirmation = 'n'

@@ -3,9 +3,9 @@ require_relative '../prompt.rb'
 
 class Evo
   include Prompt
+  AcceptableEvos = [1, 2, 3]
 
   def initialize(requested_stages = [])
-    @acceptable_evos = [1, 2, 3]
     verify_stages(requested_stages)
   end
 
@@ -20,8 +20,8 @@ class Evo
   end
 
   def all_acceptable_evos
-    (1..@acceptable_evos.size - 1).reduce(Set.new) do |evo_set, length|
-      @acceptable_evos.combination(length).each do |comb|
+    (1..AcceptableEvos.size).reduce(Set.new) do |evo_set, length|
+      AcceptableEvos.combination(length).each do |comb|
         comb.permutation.each { |element| evo_set << element }
       end
       evo_set
@@ -29,14 +29,14 @@ class Evo
   end
 
   def verify_stages(requested_stages)
-    if all_acceptable_evos.include?(requested_stages)
+    if all_acceptable_evos.include?(requested_stages.uniq)
       self.class.verified_stages = requested_stages.to_set
-    elsif requested_stages.empty? || requested_stages == @acceptable_evos
-      self.class.verified_stages = @acceptable_evos.to_set
+    elsif requested_stages.empty?
+      self.class.verified_stages = AcceptableEvos.to_set
     elsif requested_stages.include?(0)
-      raise(BadEvoError, prompt_mint(9))
+      raise(BadEvoError, prompt_mint(:evoegg))
     else
-      raise(BadEvoError, prompt_mint(10, requested_stages))
+      raise(BadEvoError, prompt_mint(:evobad, requested_stages))
     end
   end
 end

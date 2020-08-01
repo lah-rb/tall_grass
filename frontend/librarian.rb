@@ -12,7 +12,7 @@ class Librarian
   private
 
   def name_or_num
-    case get_info('Lookup by species name or number? (name/#) ').downcase
+    case get_info('Lookup by species name or number?', 'name/#').downcase
     when 's', 'species', 'name'
       return :name
     when '#', 'num', 'number'
@@ -21,6 +21,6 @@ class Librarian
   end
 
   def get_pkmn
-    get_info('What are you searching for? ').capitalize
+    get_info('What are you searching for?').capitalize
   end
 end

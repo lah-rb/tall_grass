@@ -17,10 +17,12 @@ class Runner
   def run
     @director = DirManager.new
     @director.request_dir('tall_grass')
+    @tall_grass = Encounter.new
+    @shop_keeper = ShopKeeper.new
 
-    case get_info(prompt_mint(14)).chr.downcase
+    case get_info(prompt_mint(:runmenu), 'Hit return to exit').chr.downcase
     when 'e'
-      hire Encounter.new
+      hire @tall_grass.look_for_trouble
     when 'n'
       hire Pioneer.new
     when 's'
@@ -32,12 +34,14 @@ class Runner
     when 'i'
       hire Librarian.new
     when 'g'
-      hire ShopKeeper.new
-    when ''
-      exit
+      begin
+        hire @shop_keeper.customer_service
+      rescue SoftExit
+        hire(nil)
+        run
+      end
     else
-      display "I don't recognize that input."
-      run
+      exit
     end
   end
 end
