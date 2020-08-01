@@ -19,6 +19,7 @@ class Runner
     @director.request_dir('tall_grass')
     @tall_grass = Encounter.new
     @shop_keeper = ShopKeeper.new
+    @coordinator = Coordinator.new
 
     case get_info(prompt_mint(:runmenu), 'Hit return to exit').chr.downcase
     when 'e'
@@ -30,7 +31,7 @@ class Runner
     when 'r'
       hire Explorer.new
     when 'm'
-      hire Coordinator.new
+      hire @coordinator.which_event
     when 'i'
       hire Librarian.new
     when 'g'

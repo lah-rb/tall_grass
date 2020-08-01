@@ -21,19 +21,23 @@ class Encounter < Distributer
     )
     get_info("Where are you?").downcase.gsub(" ", "_")
   end
+  def not_in_range?
+    smaller_than_arr = @requested_num > TallGrass.local_arr.size
+    is_a_string_number = @requested_num.to_s == @requested_area
+    (smaller_than_arr || !@requested_num.positive?) && is_a_string_number
+  end
 
   def local_file
-    requested_area = area_from_list
-    requested_num = requested_area.to_i
+    @requested_area = area_from_list
+    @requested_num = @requested_area.to_i
 
-    if (requested_num > TallGrass.local_arr.size || requested_num < 1)\
-       && requested_num.to_s == requested_area
+    if not_in_range?
       display "That number is not on the list!"
-      local_file
-    elsif  requested_num.to_s == requested_area
-      @local = TallGrass.local_arr[requested_num - 1].slice(0..-5)
+
+    elsif  @requested_num.to_s == @requested_area
+      @local = TallGrass.local_arr[@requested_num - 1].slice(0..-5)
     else
-      @local = requested_area
+      @local = @requested_area
     end
 
     @local + '_dex'

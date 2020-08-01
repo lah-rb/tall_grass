@@ -6,20 +6,32 @@ class Coordinator
   include Prompt
 
   def initialize
-    @planner = Venue.new
-    which_event
+    @event_space = Venue.new
+  end
+
+  def not_in_range?
+    smaller_than_arr = @completed_num > @event_space.events_arr.size
+    is_a_string_number = @completed_num.to_s == @completed_event
+    (smaller_than_arr || !@completed_num.positive?) && is_a_string_number
   end
 
   def which_event
-    @planner.list_events
+    @event_space.list_events
     @completed_event = get_info(
       "Which mission has been completed?",
-      'type reset to clear events or hit return to exit')
-    case @completed_event
-    when 'r', 'c', 'reset', 'clear'
-      @planner.reset_all
+      'input options: int, r, return')
+    @completed_num = @completed_event.to_i
+
+    if not_in_range?
+      display "I am sorry we didn't plan for that event. Submit it through GitHub!"
     else
-      @planner.complete_event(@completed_event.to_i)
+      case @completed_event
+      when 'r', 'c', 'reset', 'clear'
+        @event_space.reset_all
+      else
+         @event_space.complete_event(@completed_event.to_i)
+
+      end
     end
   end
 end

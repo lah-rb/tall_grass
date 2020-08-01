@@ -102,6 +102,7 @@ On adventures you my find that a situation warrants a reward or your players may
 * Package tall_grass as an snap! #Distro |Devs
 * ItemShop should be able to produce carts of goods (many generated at once) #Feature |Devs
 * Runner hires too big of a crew. Employ memoization and clean up frontend initialize method dependencies. #Design |Devs
+* Pioneer should employ better exception handling #Implementation |Devs
 * Create tall_grass specific character sheet based of Professor Redwood's interview in pkmndd.odt. #Tabletop |Art,Game
 * Create more missions to receive from Professor Redwood. (long term) #Tabletop |Story,Game
 * Improve error handling in the frontend. (long term) #Design |Devs

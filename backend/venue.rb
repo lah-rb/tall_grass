@@ -29,6 +29,10 @@ class Venue
     display_list(@interpreted, 'Current events:')
   end
 
+  def events_arr
+    @interpreted
+  end
+
   def complete_event(completed_event = 0)
     unless completed_event == 0
       completed_event -= 1
