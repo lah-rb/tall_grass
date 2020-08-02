@@ -5,7 +5,7 @@ class Librarian
   include Prompt
   public
 
-  def initialize()
+  def look_up
     DexShelf.new.look_in_dex(name_or_num, get_pkmn)
   end
 

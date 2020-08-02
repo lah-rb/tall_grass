@@ -6,7 +6,7 @@ require_relative '../backend/expedition.rb'
 class Explorer
   include Prompt
 
-  def initialize
+  def make_landing
     @store = './dex_seeds/'
     @director = DirManager.new
     @director.request_dir('backend')

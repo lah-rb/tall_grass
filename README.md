@@ -1,6 +1,6 @@
 # tall_grass: A Pokemon D&D Adventure Aid
 ## Purpose of the Repository
-This is a side project to help build programming skills and have some fun along the way! The primary purpose of tall_grass is to generate pokemon and relevant information for encounters during adventures. The secondary purpose of tall_grass is to act as a way to hold campaign relevant information such as a parsable pokedex, smaller area localized dex, save states, and game play documents such as the play through narration and a printable pokedex.
+This is a side project intended to help build Ruby programming skills and have some fun along the way! The primary purpose of tall_grass is to generate pokemon and relevant information for encounters during adventures. The secondary purpose of tall_grass is to act as a way to hold campaign relevant information such as a parsable pokedex, smaller area localized dex, save states, and game play documents such as the play through narration and a printable pokedex.
 
 Note: If the behavior of this program acts unexpectedly please contact me through GitHub and I will work to fix it. Provided with no warranty. Unsure of compatibility with Windows.
 
@@ -81,7 +81,7 @@ There are many (890) pokemon that you may run into while using tall_grass. As su
 * If your input was '#' and '703' you will see this output: "No. 703 is Carbink which is at evolution stage 1 and is typed as Rock-Fairy."
 
 ### Get Trainer Goods
-On adventures you my find that a situation warrants a reward or your players may wish to purchase a good from an in game store. tall_grass's ShopKeeper is perfect for retrieving items from the items_dex.
+On adventures you my find that a situation warrants a reward or your players may wish to purchase a good from an in-game store. tall_grass's ShopKeeper is perfect for retrieving items from the items_dex.
 
 * Enter 'g' or 'goods' in run.rb
 * A list of item categories will be displayed. You will be prompted with "What type of item do you need?" Here you can type the category you want, enter the number of the category you want, or simply hit return to get an item from any category.
@@ -98,11 +98,8 @@ On adventures you my find that a situation warrants a reward or your players may
 * Implement tests for dex_seeds and \*\_dex files considered to be standard #Testing |Devs
 * ItemShop needs testing. #Testing |Devs
 * Examine current dependencies between objects in tall_grass and look to minimize with restructuring. (Use sequence diagrams) #Design |Devs
-* Implement tall_grass as an executable terminal app #Implementation |Devs
 * Package tall_grass as an snap! #Distro |Devs
 * ItemShop should be able to produce carts of goods (many generated at once) #Feature |Devs
-* Runner hires too big of a crew. Employ memoization and clean up frontend initialize method dependencies. #Design |Devs
-* Pioneer should employ better exception handling #Implementation |Devs
 * Create tall_grass specific character sheet based of Professor Redwood's interview in pkmndd.odt. #Tabletop |Art,Game
 * Create more missions to receive from Professor Redwood. (long term) #Tabletop |Story,Game
 * Improve error handling in the frontend. (long term) #Design |Devs

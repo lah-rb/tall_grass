@@ -6,7 +6,7 @@ class Pioneer
 
   Observations = Struct.new(:name, :specific, :abundance, :evo, :yes, :no, :baby, :fossil, :beast, :legend, :myth, :priority)
 
-  def initialize
+  def make_landing
 
     @name = get_info("What do you want to call this new area? ")
 
