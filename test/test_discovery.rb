@@ -21,7 +21,7 @@ class TestDiscovery < Minitest::Test
   def test_good_seed
     assert_equal(
       ["test", [111, 222, 333, 444, 555, 666, 777, 888], 10, [1, 3],
-      ["dark", "|", "dragon"], [false, /[!|"^"]/, /[*|~|#]/], "d"], NativeFruit.new.seed
+      ["Dark", "|", "Dragon"], [false, /[!|"^"]/, /[*|~|#]/], :dis], NativeFruit.new.seed
     )
   end
 end

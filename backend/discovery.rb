@@ -5,6 +5,12 @@ require_relative 'distinctions.rb'
 
 class Discovery
   public
+
+  AcceptedTypes = [
+    'Normal', 'Fire', 'Water', 'Grass', 'Electric', 'Ice', 'Fighting', 'Poison',
+    'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon', 'Dark',
+    'Steel', 'Fairy'
+  ]
   Environment = Struct.new(:name, :specific, :abundance, :evo, :type, :distinct, :priority)
   Fauna = Struct.new(:baby, :fossil, :beast, :legend, :myth)
 
@@ -21,17 +27,26 @@ class Discovery
   private
 
   def interpret(observations)
-    @name = observations.name.chomp.downcase.gsub(" ", "_")
+    @name = observations.name.chomp.downcase.gsub(" ", "_").gsub('/', '_')
 
     @specific = observations.specific.split('-').map(&:to_i)
 
     @richness = observations.abundance.to_i
 
     @stages_arr = observations.evo.split('-').map(&:to_i)
-    @evo = Evo.new(@stages_arr)
+    begin
+      @evo = Evo.new(@stages_arr)
+    rescue BadEvoError
+      @stages_arr = []
+      @evo = Evo.new(@stages_arr)
+    end
 
-    @yes_types = observations.yes.split('-')
-    @no_types = observations.no.split('-')
+    @yes_types = observations.yes.split('-').map(&:capitalize).keep_if do |type|
+      AcceptedTypes.include?(type)
+    end
+    @no_types = observations.no.split('-').map(&:capitalize).keep_if do |type|
+      AcceptedTypes.include?(type)
+    end
     @types = @yes_types + ['|'] + @no_types
     @types = false if @types == ['|']
 
@@ -45,10 +60,11 @@ class Discovery
 
     @myth = observations.myth.chr.downcase unless observations.myth.empty?
 
-    unless observations.priority.empty?
-      @priority = observations.priority.chr.downcase
+    case observations.priority.chr.downcase
+    when 'e'
+      @priority = :evo
     else
-      @priority = 'd'
+      @priority = :dis
     end
 
     @distinct = Distinctions.new(

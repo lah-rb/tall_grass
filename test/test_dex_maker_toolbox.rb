@@ -21,7 +21,7 @@ class TestDexMakerToolbox < Minitest::Test
     @evo = Evo.new([1, 3])
     @types = ["dark", "|", "dragon"]
     @distinct = [false, /[!|"^"]/, /[*|~|#]/]
-    @priority = 'd'
+    @priority = :dis
     @store = "./dex_store/test_dex"
     @filtered = DexMakerToolbox.filter_dex(@dex, @evo, @types, @distinct, @priority)
     if @filtered[-1][0].class == Dex::Entry

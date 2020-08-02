@@ -44,9 +44,9 @@ module DexMakerToolbox
         return @evo_dex
       else
         case priority
-        when 'd'
+        when :dis
           @evo_dex << @keep_dex
-        when 'e'
+        when :evo
           @evo_dex << evo_select(@keep_dex, evolution)
         end
       end
@@ -54,16 +54,16 @@ module DexMakerToolbox
       case distinct[1]
       when false
         case priority
-        when 'd'
+        when :dis
           return @tribal_dex
-        when 'e'
+        when :evo
           return evo_select(@tribal_dex, evolution)
         end
       else
         case priority
-        when 'd'
+        when :dis
           return @tribal_dex << @keep_dex
-        when 'e'
+        when :evo
           return evo_select(@tribal_dex << @keep_dex, evolution)
         end
       end

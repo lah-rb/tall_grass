@@ -10,7 +10,7 @@ class Encounter < Distributer
   def provide_type
     get_info(
       prompt_mint(:currentlocalmenu, file_name_to_title(@local)),
-      'Hit return for no type'
+      "hit return if it doesn't matter"
     )
   end
 

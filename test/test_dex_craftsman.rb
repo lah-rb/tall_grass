@@ -10,7 +10,7 @@ class TestDexCraftsman < Minitest::Test
   def setup
     @seed = Island.new(
       "test", [111, 222, 333, 444, 555, 666, 777, 888], 10,
-       Evo.new([1,3]), ["dark", "|", "dragon"], [false, /[!|"^"]/, /[*|~|#]/], 'd'
+       Evo.new([1,3]), ["Dark", "|", "Dragon"], [false, /[!|"^"]/, /[*|~|#]/], :dis
      )
   end
 
