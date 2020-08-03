@@ -144,7 +144,7 @@ module DexMakerToolbox
     @specimen = dex_pool[@seed]
     begin
       @refined_dex.none?(@specimen) ? @refined_dex << @specimen : fill_dex(dex_pool)
-    rescue(NoMethodError)
+    rescue NoMethodError
       set_refine
       fill_dex(dex_pool)
     end

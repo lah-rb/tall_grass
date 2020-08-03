@@ -87,23 +87,32 @@ On adventures you my find that a situation warrants a reward or your players may
 * A list of item categories will be displayed. You will be prompted with "What type of item do you need?" Here you can type the category you want, enter the number of the category you want, or simply hit return to get an item from any category.
 * If you choose the category 'mail' the output you will see could be: "Here is your Space Mail. The catalog description says Mail if you trust that kind of marketing."
 
+### Get a cart(chest) of goods
+* Enter 'c' or 'cart' in run.rb
+* You will be prompted with "How many items would you like in this cart?" where you should enter the number of items that you want the cart(chest) to contain.
+* A random list of goods will then be displayed.
+
 ## In the works
 \# - Relevance to tall_grass   
 | - Skill required for improvement   
 ~ - Approximate time frame to move to higher priority
 
-* Switch testing suite to Rspec #Testing |Devs
+* Switch testing suite to Rspec. #Testing |Devs
 * Implement tests for Dexshelf, TallGrass, Evo, Distinctions, and SaveManager. #Testing |Devs
 * Restructure DexMakerToolbox tests so that each of the standard dexes are tested against for greater robustness. #Testing |Devs
-* Implement tests for dex_seeds and \*\_dex files considered to be standard #Testing |Devs
+* Implement tests for dex_seeds and \*\_dex files considered to be standard. #Testing |Devs
 * ItemShop needs testing. #Testing |Devs
 * Examine current dependencies between objects in tall_grass and look to minimize with restructuring. (Use sequence diagrams) #Design |Devs
 * Package tall_grass as an snap! #Distro |Devs
-* ItemShop should be able to produce carts of goods (many generated at once) #Feature |Devs
+* ShopKeeper's checkout_cart method should be able to create carts from only certain items categories. #Feature |Devs
+* tall_grass should be able to generate trainers and their party pokemon. #Feature |Devs
 * Create tall_grass specific character sheet based of Professor Redwood's interview in pkmndd.odt. #Tabletop |Art,Game
+* Create an elm GUI to turn tall_grass into an SDK app. #Implementation |Devs
+* Add more items to items_dex. (long term) #Quality |Game
 * Create more missions to receive from Professor Redwood. (long term) #Tabletop |Story,Game
 * Improve error handling in the frontend. (long term) #Design |Devs
 * Add more status move mechanics to status_moves. (long term) #Design |Game
 * Figure out and fill in relative strengths as a guide for dungeon master decisions. (low priority ~ project interest first) #Design |Game
 * Add user input for how many yes distinction pokemon are included in the area. (low priority ~ GUI first) #Feature |Devs
+* Add user input for any pokemon specifically not in an area. (low priority ~ GUI first) #Feature |Devs
 * Venue should be able to add new events to events_dex. Coordinator should be updated to reflect the new functionality. (low priority ~ story interest first) #Feature |Devs

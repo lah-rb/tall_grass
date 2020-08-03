@@ -34,6 +34,7 @@ class Venue
   end
 
   def complete_event(completed_event = 0)
+    @director.request_dir('backend')
     unless completed_event == 0
       completed_event -= 1
       @events[completed_event][1] = '$'
@@ -42,6 +43,7 @@ class Venue
   end
 
   def reset_all
+    @director.request_dir('backend')
     @events = Dex.compile_dex(@events_path, true).reduce([]) do |reset_dex, old_dex|
       reset_dex << [old_dex[0], ['*']]
     end

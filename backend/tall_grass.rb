@@ -2,7 +2,6 @@ require_relative '../dir_manager.rb'
 require_relative '../prompt.rb'
 require_relative 'dex_maker_toolbox.rb'
 require_relative 'dex.rb'
-require_relative 'distributer.rb'
 
 class TallGrass
   include Prompt

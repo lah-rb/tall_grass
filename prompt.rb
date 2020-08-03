@@ -131,10 +131,8 @@ module Prompt
       Refresh an Area Dex - r or refresh
       Manage  Story Event - m or manage
       Gather Pokemon Info - i or info
-      Get  trainer  goods - g or goods",
-      randomurl:
-      "https://www.random.org/integers/?\
-      num=1&min=1&max=#{variable_string}&col=1&base=10&format=plain&rnd=new"
+      Get  trainer  goods - g or goods
+      Get a cart of goods - c or cart",
     }
   end
 end

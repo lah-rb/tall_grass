@@ -5,14 +5,8 @@ Dir['frontend/*'].each { |script| require_relative script }
 class Runner
   include Prompt
 
-  def hire(object)
-    sleep(2)
-    run
-  end
-
-  def run
+  def initialize
     @director = DirManager.new
-    @director.request_dir('tall_grass')
     @tall_grass = Encounter.new
     @pioneer = Pioneer.new
     @saver = Saver.new
@@ -20,29 +14,33 @@ class Runner
     @coordinator = Coordinator.new
     @librarian = Librarian.new
     @shop_keeper = ShopKeeper.new
+  end
+
+  def employ(object = nil)
+    sleep(1.5)
+    run
+  end
+
+  def run
+    @director.request_dir('tall_grass')
 
     case get_info(prompt_mint(:runmenu), 'Hit return to exit').chr.downcase
     when 'e'
-      hire @tall_grass.look_for_trouble
+      employ @tall_grass.look_for_trouble
     when 'n'
-      hire @pioneer.make_landing
+      employ @pioneer.make_landing
     when 's'
-      hire @saver.start_saving
+      employ @saver.start_saving
     when 'r'
-      hire @explorer.make_landing
+      employ @explorer.make_landing
     when 'm'
-      hire @coordinator.which_event
+      employ @coordinator.which_event
     when 'i'
-      hire @librarian.look_up
+      employ @librarian.look_up
     when 'g'
-      begin
-        hire @shop_keeper.customer_service
-      rescue SoftExit
-        hire(nil)
-        run
-      end
-    else
-      exit
+      employ @shop_keeper.checkout_good
+    when 'c'
+      employ @shop_keeper.checkout_cart
     end
   end
 end

@@ -1,8 +1,10 @@
 require 'set'
 require_relative '../prompt.rb'
 require_relative '../backend/tall_grass.rb'
+require_relative 'managers_assistant.rb'
 
-class Encounter < Distributer
+class Encounter
+  include ManagersAssistant
   include Prompt
 
   TallGrass = TallGrass.new
@@ -21,19 +23,14 @@ class Encounter < Distributer
     )
     get_info("Where are you?").downcase.gsub(" ", "_")
   end
-  def not_in_range?
-    smaller_than_arr = @requested_num > TallGrass.local_arr.size
-    is_a_string_number = @requested_num.to_s == @requested_area
-    (smaller_than_arr || !@requested_num.positive?) && is_a_string_number
-  end
 
   def local_file
     @requested_area = area_from_list
     @requested_num = @requested_area.to_i
 
-    if not_in_range?
+    if not_in_range?(@requested_area, TallGrass.local_arr)
       display "That number is not on the list!"
-
+      local_file
     elsif  @requested_num.to_s == @requested_area
       @local = TallGrass.local_arr[@requested_num - 1].slice(0..-5)
     else
