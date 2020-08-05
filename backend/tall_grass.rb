@@ -28,7 +28,7 @@ end
 
   def set_location(area)
     @director.request_dir('backend')
-    if local_arr.include? area
+    if local_arr.include?(area) || area == 'pokedex'
       Dex.compile_dex(store + area)
     else
       []

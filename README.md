@@ -19,7 +19,7 @@ As is fitting for this project there are many pokedex that can be accessed. Belo
     `[#<struct Dex::Entry :num, :name, :evo, :prime_type, :second_type>]`  
 and contains each of the base species released as of 03/03/2020. This is found in the backend directory.
 * pokedex is the parsible complete pokedex used by dex.rb and should only be accessed through dex.rb when writing new scripts. This is found in the ./backend/dex_store directory.
-* pokedex.ods is the table top version of the complete pokedex. It has the same information as pokedex in a physical ready format with additional columns for keeping track of pokemon seen, captured, and bonded with. This is ment to serve as a pokedex that players can fill out as their adventure unfolds. Additionally this file has a key for reading the distinction symbols that appear at the end of the species name. This is found in the game_play directory.
+* pokedex.ods is the table top version of the complete pokedex. It has the same information as pokedex in a physical ready format with additional columns for keeping track of pokemon seen, captured, and bonded with. This is intended to serve as a pokedex that players can fill out as their adventure unfolds. Additionally, this file has a key for reading the distinction symbols that appear at the end of the species name. This is found in the game_play directory.
 * pokedexres* files are intended to be read_only pokedex for archival purposes. These are kept for the case where reversion is warranted for the project later down the line. If access is desired please copy the file to the dex_store directory, rename it, and then treat it like pokedex. These are found in the ./backend/resevered directory.
 * \*\_dex files, such as incubator_facility_dex, are intended to keep track of the pokemon that can be encountered in a certain area during the exploration process. These are found in the ./backend/dex_store directory.
     - Additionally some of these dex files were designed for specific purposes during game play.
@@ -31,6 +31,15 @@ and contains each of the base species released as of 03/03/2020. This is found i
 ### Starting tall_grass
 * In the terminal change to the tall_grass directory and type: ruby run.rb
 * You will be prompted with a warm welcome and an input options list. Type the option corresponding to what you want to do with tall_grass.
+
+note: If you want to 'install' tall_grass on your Linux system these are the steps I recommend:
+1. In the terminal change to the tall_grass directory and run the command pwd.
+2. Copy the output. It will look something like this:
+    `/home/YOUR_USER_NAME_HERE/REST_OF_THE_PATH_TO_TALL_GRASS/tall_grass`
+3. Add the following alias to your .bashrc or equivalent profile:
+    `# 'installing' tall_grass
+    alias tall_grass='cd /home/YOUR_USER_NAME_HERE/REST_OF_THE_PATH_TO_TALL_GRASS/tall_grass && ruby run.rb && cd - >> /dev/null'`
+Then close out of all terminal sessions that you have open. You can now Enter tall_grass in any directory and tall_grass will run perfectly! As the project progresses other installation options will be considered, but until tall_grass matures this is the most feasible 'install' solution.
 
 ### Encountering a Pokemon
 * Enter 'e' or 'encounter' in run.rb
@@ -81,13 +90,13 @@ There are many (890) pokemon that you may run into while using tall_grass. As su
 * If your input was '#' and '703' you will see this output: "No. 703 is Carbink which is at evolution stage 1 and is typed as Rock-Fairy."
 
 ### Get Trainer Goods
-On adventures you my find that a situation warrants a reward or your players may wish to purchase a good from an in-game store. tall_grass's ShopKeeper is perfect for retrieving items from the items_dex.
+On adventures you my find that a situation warrants a reward or your players may wish to purchase a good from an in-game store. tall_grass's ShopKeeper is perfect for retrieving items from the items_dex. If you want to offer an award like a chest at the end of the proverbial dungeon see 'Get a Cart of Goods'.
 
 * Enter 'g' or 'goods' in run.rb
 * A list of item categories will be displayed. You will be prompted with "What type of item do you need?" Here you can type the category you want, enter the number of the category you want, or simply hit return to get an item from any category.
 * If you choose the category 'mail' the output you will see could be: "Here is your Space Mail. The catalog description says Mail if you trust that kind of marketing."
 
-### Get a cart(chest) of goods
+### Get a Cart of Goods
 * Enter 'c' or 'cart' in run.rb
 * You will be prompted with "How many items would you like in this cart?" where you should enter the number of items that you want the cart(chest) to contain.
 * A random list of goods will then be displayed.
@@ -112,6 +121,7 @@ On adventures you my find that a situation warrants a reward or your players may
 * Create more missions to receive from Professor Redwood. (long term) #Tabletop |Story,Game
 * Improve error handling in the frontend. (long term) #Design |Devs
 * Add more status move mechanics to status_moves. (long term) #Design |Game
+* Area dex should be able to include items and trainers as well as pokemon (low priority ~ solid item and trainer implementation first maybe GUI first too) #Feature |Devs
 * Figure out and fill in relative strengths as a guide for dungeon master decisions. (low priority ~ project interest first) #Design |Game
 * Add user input for how many yes distinction pokemon are included in the area. (low priority ~ GUI first) #Feature |Devs
 * Add user input for any pokemon specifically not in an area. (low priority ~ GUI first) #Feature |Devs

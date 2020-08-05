@@ -131,8 +131,8 @@ module Prompt
       Refresh an Area Dex - r or refresh
       Manage  Story Event - m or manage
       Gather Pokemon Info - i or info
-      Get  trainer  goods - g or goods
-      Get a cart of goods - c or cart",
+      Get  Trainer  Goods - g or goods
+      Get a Cart of Goods - c or cart",
     }
   end
 end

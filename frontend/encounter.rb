@@ -37,7 +37,11 @@ class Encounter
       @local = @requested_area
     end
 
-    @local + '_dex'
+    unless @local == 'pokedex'
+      @local + '_dex'
+    else
+      @local
+    end
   end
 
   def new_location
