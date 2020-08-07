@@ -19,6 +19,11 @@ module Dex
   end
   module_function :compile_dex
 
+  def entry(num, name, evo, prime, second)
+    Entry.new(num.to_i, name, evo.to_i, prime, second)
+  end
+  module_function :entry
+
   def pokedex
     compile_dex("./dex_store/pokedex")
   end

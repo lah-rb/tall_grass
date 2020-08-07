@@ -117,6 +117,11 @@ module DexMakerToolbox
   end
   module_function :write_dex
 
+  def set_refine
+    @refined_dex = Array.new
+  end
+  module_function :set_refine
+
   private
 
   def teaming
@@ -133,11 +138,6 @@ module DexMakerToolbox
     end
   end
   module_function :teaming
-
-  def set_refine
-    @refined_dex = Array.new
-  end
-  module_function :set_refine
 
   def fill_dex(dex_pool)
     @seed = rand(0...dex_pool.size)

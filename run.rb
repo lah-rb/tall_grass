@@ -14,6 +14,7 @@ class Runner
     @coordinator = Coordinator.new
     @librarian = Librarian.new
     @shop_keeper = ShopKeeper.new
+    @greeter = GymGreeter.new
   end
 
   def employ(object = nil)
@@ -41,6 +42,8 @@ class Runner
       employ @shop_keeper.checkout_good
     when 'c'
       employ @shop_keeper.checkout_cart
+    when 't'
+      employ @greeter.greet
     end
   end
 end

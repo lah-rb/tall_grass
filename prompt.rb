@@ -132,7 +132,8 @@ module Prompt
       Manage  Story Event - m or manage
       Gather Pokemon Info - i or info
       Get  Trainer  Goods - g or goods
-      Get a Cart of Goods - c or cart",
+      Get a Cart of Goods - c or cart
+      Encounter a Trainer - t or trainer",
     }
   end
 end
