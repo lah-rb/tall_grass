@@ -34,11 +34,11 @@ and contains each of the base species released as of 03/03/2020. This is found i
 
 note: If you want to 'install' tall_grass on your Linux system these are the steps I recommend:
 1. In the terminal change to the tall_grass directory and run the command pwd.
-2. Copy the output. It will look something like this:
-    `/home/YOUR_USER_NAME_HERE/REST_OF_THE_PATH_TO_TALL_GRASS/tall_grass`    
-3. Add the following alias to your .bashrc or equivalent profile:
+2. Copy the output. It will look something like this:  
+    `/home/YOUR_USER_NAME_HERE/REST_OF_THE_PATH_TO_TALL_GRASS/tall_grass`
+3. Add the following alias to your .bashrc or equivalent profile:  
     `# 'installing' tall_grass    
-    alias tall_grass='cd /home/YOUR_USER_NAME_HERE/REST_OF_THE_PATH_TO_TALL_GRASS/tall_grass && ruby run.rb && cd - >> /dev/null'`    
+    alias tall_grass='cd /home/YOUR_USER_NAME_HERE/REST_OF_THE_PATH_TO_TALL_GRASS/tall_grass && ruby run.rb && cd - >> /dev/null'`  
 Then close out of all terminal sessions that you have open. You can now Enter tall_grass in any directory and tall_grass will run perfectly! As the project progresses other installation options will be considered, but until tall_grass matures this is the most feasible 'install' solution.
 
 ### Encountering a Pokemon
