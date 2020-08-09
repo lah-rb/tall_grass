@@ -25,7 +25,7 @@ module Prompt
   def display_list(display_arr, descriptor_string, index_start = 1)
     display descriptor_string
     display_arr.each.with_index(index_start) do |item, index|
-      puts index.to_s + ": " + item
+      puts index.to_s + ": " + item.to_s
     end
   end
 
@@ -46,8 +46,8 @@ module Prompt
     return @title.join(" ")
   end
 
-  def prompt_mint(sym, variable_string = '')
-    prompt_store(variable_string.to_s)[sym].gsub('      ', '')
+  def prompt_mint(sym, *var_arr)
+    prompt_store(var_arr)[sym].gsub('      ', '')
   end
 
   private
@@ -62,8 +62,21 @@ module Prompt
     ]
   end
 
-  def prompt_store(variable_string)
+  def prompt_store(var_arr)
     {
+      runmenu:
+      "Welcome to tall_grass: A Pokemon D&D Adventure Aid!
+
+      Would you like to:
+      Encounter a Pokemon - e or encounter
+      Make a New Area Dex - n or new
+      Create a Save State - s or save
+      Refresh an Area Dex - r or refresh
+      Manage  Story Event - m or manage
+      Gather Pokemon Info - i or info
+      Get  Trainer  Goods - g or goods
+      Get a Cart of Goods - c or cart
+      Encounter a Trainer - t or trainer",
       specificmenu:
       "Do you see any specific pokemon?
       Input by pokedex number: 1-2-3
@@ -85,10 +98,10 @@ module Prompt
       Input example: water-fire-grass
       If any type maybe here hit return",
       currentlocalmenu:
-      "Current location: #{variable_string.gsub('_', ' ')}
+      "Current location: #{var_arr[0].gsub('_', ' ') unless var_arr[0].nil?}
       Any specific type?",
       tribemenu:
-      "Do #{variable_string} exist here?
+      "Do #{var_arr[0]} exist here?
       Input options:
       only or o - A whole tribe lives here!
       yes or y - I see some here!
@@ -100,40 +113,30 @@ module Prompt
       dist or d - prefer keeping distinctions over evolution stage (default)
       evo or e - prefer keeping evolution stage over distinctions
       return - accept the default",
-      evoegg:
-      "While we encourage you to have eggs in your D&D night, \
-      you don't really need us to generate them (Do you?!?).
-      tall_grass just helps you decide what goes in the egg, \
-      so don't ask us for stage 0 pokemon from now on.",
       evobad:
-      "This program only considers evolution stages 1-3. #{variable_string} \
+      "This program only considers evolution stages 1-3. #{var_arr[0]} \
       contains a number not within this range.",
       savemenu:
-      "Would you like to start, overwrite, load, or delete an advenure?
+      "Would you like to start, overwrite, load, or delete an adventure?
       Input options:
       new or n - new save
       over or o - overwrite save
       load or l - load save
       delete or d - permanently delete save",
       confirmdelete:
-      "Are you sure that you want to DELETE #{variable_string}?
+      "Are you sure that you want to DELETE #{var_arr[0]}?
       This action cannot be undone.",
       emptydexpool:
       "There were not enough pokemon which meet requirements to fill \
       a pokedex of that size. The dex will be filled as much as possible",
-      runmenu:
-      "Welcome to tall_grass: A Pokemon D&D Adventure Aid!
-
-      Would you like to:
-      Encounter a Pokemon - e or encounter
-      Make a New Area Dex - n or new
-      Create a Save State - s or save
-      Refresh an Area Dex - r or refresh
-      Manage  Story Event - m or manage
-      Gather Pokemon Info - i or info
-      Get  Trainer  Goods - g or goods
-      Get a Cart of Goods - c or cart
-      Encounter a Trainer - t or trainer",
+      comptrainer:
+      "Your competition is #{var_arr[0]} #{var_arr[1]} \
+      and here is their team!",
+      pkmninfo:
+      "#{var_arr[0]} is \
+      #{var_arr[1]}. This pokemon is at evolution stage \
+      #{var_arr[2]} and is typed as #{var_arr[3]}\
+      #{"-" + var_arr[4] unless var_arr[4] == '%' || var_arr[4].nil?}.",
     }
   end
 end

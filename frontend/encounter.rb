@@ -1,7 +1,7 @@
 require 'set'
 require_relative '../prompt.rb'
 require_relative '../backend/tall_grass.rb'
-require_relative 'managers_assistant.rb'
+require_relative '../managers_assistant.rb'
 
 class Encounter
   include ManagersAssistant
@@ -68,7 +68,7 @@ class Encounter
   end
 
   def look_for_trouble(is_new = true)
-    if is_new || continue?("Would you like a new location?")
+    if is_new
       @current_location = new_location
     end
 

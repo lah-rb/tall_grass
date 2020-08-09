@@ -10,15 +10,7 @@ class Explorer
     @store = './dex_seeds/'
     @director = DirManager.new
     @director.request_dir('backend')
-    begin
-      Expedition.new(
-        get_location(
-          local_arr, "Where are you looking to explore again? "
-        )
-      )
-    rescue LoadError, NoMethodError
-      display "We havn't found that place yet! Go find it!"
-    end
+    Expedition.new.embark_to(get_location)
   end
 
   def local_arr
@@ -27,18 +19,18 @@ class Explorer
     end
   end
 
-  def get_location(local_arr, local_statement = "Where are you? ")
-    local_arr -= [nil, 'events', 'pokedex', 'items']
+  def get_location
+    @all_locals = local_arr - [nil, 'events', 'pokedex', 'items']
     display_list(
-      local_arr.map { |local| file_name_to_title(local.slice(0...-1)) },
+      @all_locals.map { |local| file_name_to_title(local.slice(0...-1)) },
       'Areas currently known:')
-    @local = get_info(local_statement).downcase.gsub(" ", "_")
+    @local = get_info("Where are you looking to explore again?", "Enter 'all' to refresh all dex").downcase.gsub(" ", "_")
 
     case @local.to_i
     when 0
       @local
     else
-      local_arr.map { |local| local.slice(0...-1) }[@local.to_i - 1]
+      @all_locals.map { |local| local.slice(0...-1) }[@local.to_i - 1]
     end
   end
 end

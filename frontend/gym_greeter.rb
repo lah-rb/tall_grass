@@ -13,21 +13,10 @@ class GymGreeter
   end
 
   def greet
-    challenge_type = get_info(
-      'Would you like to face a gym member or a random trainer?',
-      'g or r'
-    )
-    case challenge_type.downcase.chr
-    when 'g'
-      display 'In the works!'
-    when 'r'
       comp = @hub.random_trainer
-      display "Alright! Your competition is #{comp.name} and here is their team!"
-      puts comp.party
-    else
-      display 'What???'
-      greet
-    end
+      display_list(
+        comp.party.map { |pkmn| pkmn.name },
+        prompt_mint(:comptrainer, comp.job, comp.name)
+      )
   end
-
 end

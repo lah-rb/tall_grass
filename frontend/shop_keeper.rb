@@ -1,6 +1,6 @@
 require_relative '../prompt.rb'
 require_relative '../backend/item_shop.rb'
-require_relative 'managers_assistant.rb'
+require_relative '../managers_assistant.rb'
 
 class ShopKeeper
   include Prompt

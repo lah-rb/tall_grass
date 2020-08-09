@@ -1,6 +1,6 @@
 require_relative '../prompt.rb'
 require_relative '../backend/venue.rb'
-require_relative 'managers_assistant.rb'
+require_relative '../managers_assistant.rb'
 
 
 class Coordinator

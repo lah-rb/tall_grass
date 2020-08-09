@@ -33,8 +33,6 @@ class Evo
       self.class.verified_stages = requested_stages.to_set
     elsif requested_stages.empty?
       self.class.verified_stages = AcceptableEvos.to_set
-    elsif requested_stages.include?(0)
-      raise(BadEvoError, prompt_mint(:evoegg))
     else
       raise(BadEvoError, prompt_mint(:evobad, requested_stages))
     end

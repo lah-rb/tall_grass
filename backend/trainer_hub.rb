@@ -14,6 +14,15 @@ class TrainerHub
     'Steel', 'Fairy', ''
   ]
 
+  TrainerJob = {
+    "Normal"=>"Veteran", "Fire"=>"Kindler", "Water"=>"Sailor", "Grass"=>"Gardener",
+    "Electric"=>"Super Nerd", "Ice"=>"Cool trainer", "Fighting"=>"Blackbelt",
+    "Poison"=>"Scientist", "Ground"=>"Expert", "Flying"=>"Bird Keeper",
+    "Psychic"=>"Psychic", "Bug"=>"Bug Catcher", "Rock"=>"Hiker",
+    "Ghost"=>"Channeler", "Dragon"=>"Dragon Tamer", "Dark"=>"Burgler",
+    "Steel"=>"Engineer", "Fairy"=>"Dancer", ""=>"Ace Trainer"
+  }
+
   EvoCombos = Evo.all_acceptable_evos.keep_if { |arr| arr.size < 3 } << []
 
   def initialize
@@ -53,6 +62,7 @@ class TrainerHub
   def train_trainer(name, type, party)
     new_trainer = Trainer.new(name)
     new_trainer.prefered_type = type
+    new_trainer.job = TrainerJob[type]
     new_trainer.party = party
     return new_trainer
   end
@@ -64,8 +74,10 @@ class TrainerHub
       random_party(random_type)
     )
   end
-  def found_gym(size, type = '')
-    size = rand(3..6) unless size.empty?
+
+  def random_gym
+    size = rand(3..6)
+    type = Types[rand(0...Types.size)]
     (1..size).reduce([]) do |store|
       if type.empty?
         store << random_trainer
@@ -76,20 +88,16 @@ class TrainerHub
     end
   end
 
-  def random_gym
-    size = rand(3..6)
-    type = Types[rand(0...Types.size)]
-    found_gym(size, type)
-  end
-
   def build_gym(trainers, file_name)
     trainer_ids = trainers.map do |trainer|
       {
         name: trainer.name,
+        job: trainer.job,
         prefered_type: trainer.prefered_type,
         party: trainer.party.map { |member| member.to_a }
       }
     end
+    
     File.open('gyms/' + file_name, 'w') do |line|
       line.puts "module Gym"
       line.puts "  def gym"
@@ -119,9 +127,7 @@ class TrainerHub
   end
 end
 
-@hub = TrainerHub.new
-
-
 __END__
+@hub = TrainerHub.new
 @hub.build_gym(@hub.random_gym, 'random_gym.rb')
 puts @hub.challenge('random_gym.rb')
