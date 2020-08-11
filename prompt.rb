@@ -80,6 +80,7 @@ module Prompt
       Make a New Area Dex - n or new
       Create a Save State - s or save
       Refresh an Area Dex - r or refresh
+      View   an  Area Dex - v or view
       Manage  Story Event - m or manage
       Gather Pokemon Info - i or info
       Get  Trainer  Goods - g or goods

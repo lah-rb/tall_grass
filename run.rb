@@ -15,6 +15,7 @@ class Runner
     @librarian = Librarian.new
     @shop_keeper = ShopKeeper.new
     @greeter = GymGreeter.new
+    @dex_case = DexCase.new
   end
 
   def employ(object = nil)
@@ -34,6 +35,8 @@ class Runner
       employ @saver.start_saving
     when 'r'
       employ @explorer.make_landing
+    when 'v'
+      employ @dex_case.view_dex
     when 'm'
       employ @coordinator.which_event
     when 'i'
