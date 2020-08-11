@@ -24,7 +24,7 @@ class TallGrass
     @requested_num = @requested_area.to_i
 
     if not_in_range?(@requested_area, local_arr)
-      display "That number is not on the list!"
+      show "That number is not on the list!"
       local_file
     elsif  @requested_num.to_s == @requested_area
       return local_arr[@requested_num - 1]

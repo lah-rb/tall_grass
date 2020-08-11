@@ -6,7 +6,7 @@ class Librarian
 
   def look_up
     @pkmn = DexShelf.new.look_in_dex(get_pkmn)
-    display(
+    show(
       make_output(@pkmn.num, @pkmn.name, @pkmn.evo,
       @pkmn.prime_type, @pkmn.second_type, :name)
     ) if @pkmn

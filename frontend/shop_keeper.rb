@@ -17,7 +17,7 @@ class ShopKeeper
 
   def checkout_good
     @good = best_deal(Shop.in_stock(section_from_catalog))
-    display (
+    show (
       'Here is your ' + @good[0].gsub('_', ' ') + ". The catalog description says "\
       + @good[1].gsub('_', ' ') + ' if you trust that kind of marketing.'
     )
@@ -30,18 +30,18 @@ class ShopKeeper
       item = fill_cart(@supply)
       item[0].gsub('_', ' ') + ' - ' + item[1].gsub('_', ' ')
     end
-    display_list(@cart, 'Here are your goods!')
+    show_list(@cart, 'Here are your goods!')
   end
 
   private
 
   def section_from_catalog
-    display_list(Catalog, 'Types of items we carry:')
+    show_list(Catalog, 'Types of items we carry:')
     @section = get_info('What type of item do you need?', 'Hit return for any')
     @section_num = @section.to_i
 
     if not_in_range?(@section, Catalog)
-      display "We don't carry that kind of item. Sorry."
+      show "We don't carry that kind of item. Sorry."
       section_from_catalog
     elsif @section_num.to_s == @section
       return Catalog[@section.to_i - 1].gsub(' ', '_')
@@ -50,7 +50,7 @@ class ShopKeeper
       if Catalog.include?(@section) || @section.empty?
         return @section
       else
-        display "We don't carry that kind of item. Sorry."
+        show "We don't carry that kind of item. Sorry."
         section_from_catalog
       end
     end

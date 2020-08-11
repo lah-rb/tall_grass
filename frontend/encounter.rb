@@ -20,7 +20,7 @@ class Encounter
       area_from_list(TallGrass.local_arr, "Where are you?"))
     @proto_dex = TallGrass.set_location(@local)
     if @proto_dex.empty?
-      display "We havn't found that place yet! Go find it!"
+      show "We havn't found that place yet! Go find it!"
       new_location
     end
     return @proto_dex
@@ -29,7 +29,7 @@ class Encounter
   def type_dex
     @proto_type_dex = TallGrass.make_type_dex(provide_type, @current_location)
     if @proto_type_dex.empty?
-      display 'No Pokemon was found in the area with that type.'
+      show 'No Pokemon was found in the area with that type.'
       type_dex
     end
     return @proto_type_dex
@@ -37,7 +37,7 @@ class Encounter
 
   def random_output(dex)
     @seed = random_seed(dex)
-    display(dex[@seed].name + " No. " + dex[@seed].num.to_s)
+    show(dex[@seed].name + " No. " + dex[@seed].num.to_s)
   end
 
   def look_for_trouble(is_new = true)

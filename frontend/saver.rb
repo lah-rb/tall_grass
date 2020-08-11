@@ -15,16 +15,16 @@ class Saver
       begin
         @save.new_save(new_save_input)
       rescue(Errno::EEXIST)
-        display 'That file name already exists. Please pick new name.'
+        show 'That file name already exists. Please pick new name.'
         @save.list_saves
         @save.new_save(new_save_input)
       end
     when 'o'
       @save_num = over_load_del_input('overwrite')
       if @save_num == -1 || @save_num > @saves_size -1
-        display "That's not on the list."
+        show "That's not on the list."
       elsif @save_num == -2
-        display "Let's create a new save!"
+        show "Let's create a new save!"
         @save.new_save(new_save_input)
       else
         @save.over_load(:overwrite, @save_num)
@@ -32,9 +32,9 @@ class Saver
     when 'l'
       @save_num = over_load_del_input('load')
       if @save_num == -1 || @save_num > @saves_size -1
-        display "That's not on the list."
+        show "That's not on the list."
       elsif @save_num == -2
-        display "Let's create a new save!"
+        show "Let's create a new save!"
         @save.new_save(new_save_input)
       else
         @save.over_load(:load, @save_num)
@@ -43,7 +43,7 @@ class Saver
       @save_num = insure_correct(over_load_del_input('delete'))
       @save.delete_save(@save_num) unless @save_num == -1 || @save_num > @saves_size -1
     else
-      display "I am sorry I don't know that input."
+      show "I am sorry I don't know that input."
     end
   end
 
@@ -66,7 +66,7 @@ class Saver
     when 'Y'
       return save_num
     else
-      display 'No save was deleted. Enter a capital "Y" to delete the save.'
+      show 'No save was deleted. Enter a capital "Y" to delete the save.'
       return -1
     end
   end
@@ -76,7 +76,7 @@ class Saver
     @saves_size = @save.current_saves.size
 
     if @current_saves.empty?
-      display "There are no existing saves."
+      show "There are no existing saves."
       return -2
     end
   end

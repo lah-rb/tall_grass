@@ -27,14 +27,14 @@ class DexShelf
     end
 
     if not_in_range?(seek, @dex)
-      display "That number appears to be out of the range of this pokedex."
+      show "That number appears to be out of the range of this pokedex."
       return false
     elsif @seek_num.to_s == seek
       return @dex.find { |poke| poke.num == seek.to_i }
     elsif @pkmn
       return @pkmn
     else
-      display "That name does not exist. Please check for spelling."
+      show "That name does not exist. Please check for spelling."
       return false
     end
   end

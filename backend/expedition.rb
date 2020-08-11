@@ -25,7 +25,7 @@ class Expedition
     elsif land_name == ''
       # Do nothing
     else
-      display "We havn't found that place yet! Go find it!"
+      show "We havn't found that place yet! Go find it!"
     end
   end
 

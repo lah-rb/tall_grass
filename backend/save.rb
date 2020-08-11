@@ -27,7 +27,7 @@ class Save
     cd("../..")
 
     @save_arr = mint_load_save_arr(:new, @save_name)
-    display(progress(@save_arr[0]))
+    show(progress(@save_arr[0]))
     fill_save(@save_arr)
     puts 'Done!'
   end
@@ -36,14 +36,14 @@ class Save
     @method = mint_load_save_arr(load_or_save)[0]
     @save_name = get_save_name(save_num)
     @over_load_arr = mint_load_save_arr(load_or_save, @save_name)
-    display(progress(@method))
+    show(progress(@method))
     fill_save(@over_load_arr)
     puts 'Done!'
   end
 
   def delete_save(save_num)
     @save_name = get_save_name(save_num)
-    display(progress('delete'))
+    show(progress('delete'))
     cd('saves')
     rm_r(@save_name, secure: true)
     puts 'Done!'
@@ -63,7 +63,7 @@ class Save
 
   def list_saves
     @saves = current_saves.map { |save| file_name_to_title(save.split("/").pop) }
-    display_list(@saves, "List of current save states:")
+    show_list(@saves, "List of current save states:")
     return current_saves
   end
 

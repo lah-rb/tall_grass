@@ -20,7 +20,7 @@ class Coordinator
     @completed_num = @completed_event.to_i
 
     if not_in_range?(@completed_event, @event_space.current_events)
-      display "I am sorry we didn't plan for that event. Submit it through GitHub!"
+      show "I am sorry we didn't plan for that event. Submit it through GitHub!"
     elsif @completed_num.to_s == @completed_event
       @event_space.complete_with_num(@completed_num)
     elsif @event_space.current_events.include?([@completed_event, 'incomplete'])

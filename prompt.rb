@@ -17,14 +17,14 @@ module Prompt
     end
   end
 
-  def display(message)
+  def show(message)
     puts
     puts message
   end
 
-  def display_list(display_arr, descriptor_string, index_start = 1)
-    display descriptor_string
-    display_arr.each.with_index(index_start) do |item, index|
+  def show_list(show_arr, descriptor_string, index_start = 1)
+    show descriptor_string
+    show_arr.each.with_index(index_start) do |item, index|
       puts index.to_s + ": " + item.to_s
     end
   end
@@ -47,7 +47,7 @@ module Prompt
   end
 
   def area_from_list(all_locals, *prompt)
-    display_list(
+    show_list(
       all_locals.map { |local| file_name_to_title local },
       'Here is what we know so far:'
     )
