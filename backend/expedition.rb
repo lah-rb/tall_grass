@@ -7,18 +7,23 @@ class Expedition
   include Prompt
   Environment = Struct.new(:name, :specific, :abundance, :evo, :type, :distinct, :priority)
 
-  def embark_to(land_name)
+  def initialize
     @director = DirManager.new
+  end
+
+  def embark_to(land_name)
     @director.request_dir('backend')
     @all_seeds = Dir['./dex_seeds/*']
     unless land_name.nil?
-      @seed = './dex_seeds/' + land_name.chomp.downcase.gsub(' ', '_') + '.rb'
+      @seed = './dex_seeds/' + land_name + '.rb'
     end
 
     if @all_seeds.include? @seed
       arrive_at(@seed)
     elsif land_name == 'all'
       @all_seeds.each { |land| arrive_at(land) }
+    elsif land_name == ''
+      # Do nothing
     else
       display "We havn't found that place yet! Go find it!"
     end

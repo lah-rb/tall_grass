@@ -28,6 +28,7 @@ class Discovery
 
   def interpret(observations)
     @name = observations.name.chomp.downcase.gsub(" ", "_").gsub('/', '_')
+    @name = 'temp' if @name.empty?
 
     @specific = observations.specific.split('-').map(&:to_i)
 
@@ -50,15 +51,11 @@ class Discovery
     @types = @yes_types + ['|'] + @no_types
     @types = false if @types == ['|']
 
-    @baby = observations.baby.chr.downcase unless observations.baby.empty?
-
-    @fossil = observations.fossil.chr.downcase unless observations.fossil.empty?
-
-    @beast = observations.beast.chr.downcase unless observations.beast.empty?
-
-    @legend = observations.legend.chr.downcase unless observations.legend.empty?
-
-    @myth = observations.myth.chr.downcase unless observations.myth.empty?
+    @baby = clean_observations(observations.baby)
+    @fossil = clean_observations(observations.fossil)
+    @beast = clean_observations(observations.beast)
+    @legend = clean_observations(observations.legend)
+    @myth = clean_observations(observations.myth)
 
     case observations.priority.chr.downcase
     when 'e'
@@ -69,6 +66,10 @@ class Discovery
 
     @distinct = Distinctions.new(
       Fauna.new(@baby, @fossil, @beast, @legend, @myth)).convert_to_regex
+  end
+
+  def clean_observations(only_yes_no_whatever)
+    only_yes_no_whatever.chr.downcase unless only_yes_no_whatever.empty?
   end
 
   def note_attributes

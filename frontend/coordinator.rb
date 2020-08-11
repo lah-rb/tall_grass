@@ -12,20 +12,21 @@ class Coordinator
   end
 
   def which_event
-    @event_space.list_events
-    @completed_event = get_info(
+    @completed_event = area_from_list(
+      @event_space.current_events.map { |event| event.join(' - ')},
       "Which mission has been completed?",
-      'input options: int, r, return')
+      'input options: int, r, return'
+    )
+    @completed_num = @completed_event.to_i
 
-    if not_in_range?(@completed_event, @event_space.events_arr)
+    if not_in_range?(@completed_event, @event_space.current_events)
       display "I am sorry we didn't plan for that event. Submit it through GitHub!"
-    else
-      case @completed_event.chr
-      when 'r', 'c'
-        @event_space.reset_all
-      else
-         @event_space.complete_event(@completed_event.to_i)
-      end
+    elsif @completed_num.to_s == @completed_event
+      @event_space.complete_with_num(@completed_num)
+    elsif @event_space.current_events.include?([@completed_event, 'incomplete'])
+      @event_space.complete_with_string(@completed_event)
+    elsif @completed_event.chr == 'r'
+      @event_space.write_reset
     end
   end
 end

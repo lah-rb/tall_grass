@@ -113,9 +113,13 @@ On adventures you my find that a situation warrants a reward or your players may
 * Implement tests for Dexshelf, TallGrass, Evo, Distinctions, and SaveManager. #Testing |Devs
 * Restructure DexMakerToolbox tests so that each of the standard dexes are tested against for greater robustness. #Testing |Devs
 * Implement tests for dex_seeds and \*\_dex files considered to be standard. #Testing |Devs
+* Encouter's local_file method should be in tall_grass and should have a test written for it #testing |Devs
 * ItemShop needs testing. #Testing |Devs
 * Examine current dependencies between objects in tall_grass and look to minimize with restructuring. (Use sequence diagrams) #Design |Devs
 * Package tall_grass as an snap! #Distro |Devs
+* Saver should confirm that you want to overwrite/load a save #Feature |Devs
+* tall_grass should be able to display area dex #Feature |Devs
+* Refactor Discovery's \@types variable to hold an array of yes_types and an array of no_types #Design |Devs
 * ShopKeeper's checkout_cart method should be able to create carts from only certain items categories. #Feature |Devs
 * tall_grass should be able to generate trainers and their party pokemon. #Feature |Devs
 * Create tall_grass specific character sheet based of Professor Redwood's interview in pkmndd.odt. #Tabletop |Art,Game

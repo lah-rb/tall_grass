@@ -1,4 +1,3 @@
-require 'set'
 require_relative '../prompt.rb'
 require_relative '../backend/tall_grass.rb'
 require_relative '../managers_assistant.rb'
@@ -16,36 +15,10 @@ class Encounter
     )
   end
 
-  def area_from_list
-    display_list(
-      TallGrass.local_arr.map { |area| file_name_to_title(area).slice(0..-5) },
-      'Areas currently known:'
-    )
-    get_info("Where are you?").downcase.gsub(" ", "_")
-  end
-
-  def local_file
-    @requested_area = area_from_list
-    @requested_num = @requested_area.to_i
-
-    if not_in_range?(@requested_area, TallGrass.local_arr)
-      display "That number is not on the list!"
-      local_file
-    elsif  @requested_num.to_s == @requested_area
-      @local = TallGrass.local_arr[@requested_num - 1].slice(0..-5)
-    else
-      @local = @requested_area
-    end
-
-    unless @local == 'pokedex'
-      @local + '_dex'
-    else
-      @local
-    end
-  end
-
   def new_location
-    @proto_dex = TallGrass.set_location(local_file)
+    @local = TallGrass.local_file(
+      area_from_list(TallGrass.local_arr, "Where are you?"))
+    @proto_dex = TallGrass.set_location(@local)
     if @proto_dex.empty?
       display "We havn't found that place yet! Go find it!"
       new_location

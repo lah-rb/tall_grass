@@ -2,34 +2,43 @@ require_relative '../dir_manager.rb'
 require_relative '../prompt.rb'
 require_relative 'dex_maker_toolbox.rb'
 require_relative 'dex.rb'
+require_relative '../managers_assistant.rb'
 
 class TallGrass
   include Prompt
+  include ManagersAssistant
   include DexMakerToolbox
   include Dex
 
-def store
-  './dex_store/'
-end
+  attr_reader :local_arr
 
-  def initialize()
+  def initialize
     @director = DirManager.new
+    @store = './dex_store/'
+    @local_arr = known_areas(@store, Set['events_dex', 'pokedex', 'items_dex'])
   end
 
-  def local_arr
+  def local_file(requested_area)
     @director.request_dir('backend')
-    special_dex = Set['events_dex', 'pokedex', 'items_dex']
-    Dir[store + '*'].sort.reduce([]) do |areas, dir|
-      dex = dir.split('/')[-1]
-      areas << dex unless special_dex.include?(dex)
-      areas
+    @requested_area = requested_area
+    @requested_num = @requested_area.to_i
+
+    if not_in_range?(@requested_area, local_arr)
+      display "That number is not on the list!"
+      local_file
+    elsif  @requested_num.to_s == @requested_area
+      return local_arr[@requested_num - 1]
+    else
+      return @requested_area
     end
   end
 
   def set_location(area)
     @director.request_dir('backend')
-    if local_arr.include?(area) || area == 'pokedex'
-      Dex.compile_dex(store + area)
+    if local_arr.include?(area)
+      Dex.compile_dex(@store + area + '_dex')
+    elsif area == 'pokedex'
+      pokedex
     else
       []
     end

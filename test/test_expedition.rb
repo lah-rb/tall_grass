@@ -12,7 +12,7 @@ class TestExpedition < Minitest::Test
     @land_hoe = "./dex_store/land_hoe_dex"
     @original = "./dex_store/original"
     cp(@land_hoe, @original)
-    @seed = 'land hoe'
+    @seed = 'land_hoe'
   end
 
   def teardown
@@ -21,7 +21,7 @@ class TestExpedition < Minitest::Test
   end
 
   def test_finds_area_again
-    assert Expedition.new(@seed)
+    assert Expedition.new.embark_to(@seed)
     refute_equal File.open(@original, 'r').readlines, File.open(@land_hoe, 'r').readlines
   end
 end

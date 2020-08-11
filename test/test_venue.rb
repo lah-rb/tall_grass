@@ -19,14 +19,14 @@ class TestVenue < Minitest::Test
   end
 
   def test_for_completition
-    assert @coordinator.complete_event(1)
+    assert @coordinator.complete_with_num(1)
     File.open("./dex_store/events_dex", "r") { |file| @first_line = file.gets.chomp }
-    assert_equal '$', @first_line[-1]
+    assert_equal 'complete', @first_line.split('-')[-1]
   end
 
   def test_reset
-    assert @coordinator.reset_all
+    assert @coordinator.write_reset
     File.open("./dex_store/events_dex", "r") { |file| @first_line = file.gets.chomp }
-    assert_equal '*', @first_line[-1]
+    assert_equal 'incomplete', @first_line.split('-')[-1]
   end
 end

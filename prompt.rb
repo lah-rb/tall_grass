@@ -46,6 +46,14 @@ module Prompt
     return @title.join(" ")
   end
 
+  def area_from_list(all_locals, *prompt)
+    display_list(
+      all_locals.map { |local| file_name_to_title local },
+      'Here is what we know so far:'
+    )
+    get_info(*prompt).downcase.gsub(" ", "_")
+  end
+
   def prompt_mint(sym, *var_arr)
     prompt_store(var_arr)[sym].gsub('      ', '')
   end

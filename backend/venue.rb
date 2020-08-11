@@ -6,48 +6,47 @@ require_relative 'dex_maker_toolbox.rb'
 class Venue
   include Prompt
 
+  attr_reader :events
+
   def initialize
     @director = DirManager.new
     @director.request_dir('backend')
-    @events_path = './dex_store/' + "events_dex"
+    @events_path = './dex_store/events_dex'
+    current_events
+  end
+
+  def current_events
+    @director.request_dir('backend')
     @events = Dex.compile_dex(@events_path, true)
   end
 
-  def list_events
-    @interpreted = @events.each.map do |event|
-      @title = file_name_to_title(event[0])
-
-      case event[1]
-      when '*'
-        @completeness = ' - incomplete'
-      when '$'
-        @completeness = ' - complete'
+  def complete_with_string(completed_event)
+    complete_event(
+      events.find_index do |event|
+        event.first == completed_event.gsub(' ', '_').downcase
       end
-      event = @title + @completeness
-    end
-
-    display_list(@interpreted, 'Current events:')
+    )
   end
 
-  def events_arr
-    @interpreted
+  def complete_with_num(completed_event)
+    complete_event(completed_event - 1)
   end
 
-  def complete_event(completed_event = 0)
+  def write_reset
     @director.request_dir('backend')
-    unless completed_event == 0
-      completed_event -= 1
-      @events[completed_event][1] = '$'
-      DexMakerToolbox.write_dex(@events, @events_path)
-    end
+    DexMakerToolbox.write_dex(reset_all, @events_path)
+  end
+
+  private
+
+  def complete_event(event_num)
+    events[event_num][1] = 'complete'
+    DexMakerToolbox.write_dex(events, @events_path)
   end
 
   def reset_all
-    @director.request_dir('backend')
-    @events = Dex.compile_dex(@events_path, true).reduce([]) do |reset_dex, old_dex|
-      reset_dex << [old_dex[0], ['*']]
+    Dex.compile_dex(@events_path, true).reduce([]) do |reset_dex, old_dex|
+      reset_dex << [old_dex.first, ['incomplete']]
     end
-
-    DexMakerToolbox.write_dex(@events, @events_path)
   end
 end
