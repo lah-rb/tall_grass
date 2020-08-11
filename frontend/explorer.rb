@@ -27,7 +27,7 @@ class Explorer
     when 0
       @local
     else
-      @all_locals.map { |local| local.slice(0...-1) }[@local.to_i - 1]
+      @all_locals[@local.to_i - 1]
     end
   end
 end
