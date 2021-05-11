@@ -3,6 +3,7 @@ require_relative '../prompt.rb'
 require_relative 'dex_maker_toolbox.rb'
 require_relative 'dex.rb'
 require_relative '../managers_assistant.rb'
+require 'set'
 
 class TallGrass
   include Prompt
@@ -16,6 +17,12 @@ class TallGrass
     @director = DirManager.new
     @store = './dex_store/'
     @local_arr = known_areas(@store, Set['events_dex', 'pokedex', 'items_dex'])
+    p @local_arr
+  end
+
+  def refresh_local
+    @local_arr = known_areas(@store, Set['events_dex', 'pokedex', 'items_dex'])
+    p @local_arr
   end
 
   def local_file(requested_area)

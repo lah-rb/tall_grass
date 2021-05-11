@@ -16,6 +16,7 @@ class Encounter
   end
 
   def new_location
+    TallGrass.refresh_local
     @local = TallGrass.local_file(
       area_from_list(TallGrass.local_arr, "Where are you?"))
     @proto_dex = TallGrass.set_location(@local)
