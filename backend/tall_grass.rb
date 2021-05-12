@@ -3,6 +3,7 @@ require_relative '../prompt.rb'
 require_relative 'dex_maker_toolbox.rb'
 require_relative 'dex.rb'
 require_relative '../managers_assistant.rb'
+require 'set'
 
 class TallGrass
   include Prompt
