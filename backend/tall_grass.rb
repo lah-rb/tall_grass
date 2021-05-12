@@ -17,6 +17,12 @@ class TallGrass
     @director = DirManager.new
     @store = './dex_store/'
     @local_arr = known_areas(@store, Set['events_dex', 'pokedex', 'items_dex'])
+    p @local_arr
+  end
+
+  def refresh_local
+    @local_arr = known_areas(@store, Set['events_dex', 'pokedex', 'items_dex'])
+    p @local_arr
   end
 
   def local_file(requested_area)

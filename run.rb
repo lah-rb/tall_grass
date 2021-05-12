@@ -5,7 +5,7 @@ Dir['frontend/*'].each { |script| require_relative script }
 class Runner
   include Prompt
 
-  def initialize
+  def new_employment
     @director = DirManager.new
     @tall_grass = Encounter.new
     @pioneer = Pioneer.new
@@ -24,6 +24,7 @@ class Runner
   end
 
   def run
+    new_employment
     @director.request_dir('tall_grass')
 
     case get_info(prompt_mint(:runmenu), 'Hit return to exit').chr.downcase
