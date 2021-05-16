@@ -1,12 +1,14 @@
 require_relative '../prompt.rb'
 require_relative '../backend/tall_grass.rb'
 require_relative '../managers_assistant.rb'
+require_relative '../backend/natures.rb'
 
 class Encounter
   include ManagersAssistant
   include Prompt
 
   TallGrass = TallGrass.new
+  Natures = Natures.new
 
   def provide_type
     get_info(
@@ -38,7 +40,9 @@ class Encounter
 
   def random_output(dex)
     @seed = random_seed(dex)
-    show(dex[@seed].name + " No. " + dex[@seed].num.to_s)
+    show(
+      prompt_mint(:encounter, dex[@seed].name, dex[@seed].num, Natures.give_random)
+    )
   end
 
   def look_for_trouble(is_new = true)

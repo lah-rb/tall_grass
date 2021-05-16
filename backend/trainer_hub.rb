@@ -3,10 +3,13 @@ require_relative 'dex.rb'
 require_relative 'dex_maker_toolbox.rb'
 require_relative 'evo.rb'
 require_relative '../dir_manager.rb'
+require_relative '../backend/natures.rb'
 
 class TrainerHub
   include Dex
   include DexMakerToolbox
+
+  Natures = Natures.new
 
   Types = [
     'Normal', 'Fire', 'Water', 'Grass', 'Electric', 'Ice', 'Fighting', 'Poison',
@@ -56,7 +59,7 @@ class TrainerHub
       :evo
     )
 
-    DexMakerToolbox.limit_pool(filtered_pool, party_size)
+    DexMakerToolbox.limit_pool(filtered_pool, party_size).map { |poke| [poke, Natures.give_random] }
   end
 
   def train_trainer(name, type, party)
@@ -97,7 +100,7 @@ class TrainerHub
         party: trainer.party.map { |member| member.to_a }
       }
     end
-    
+
     File.open('gyms/' + file_name, 'w') do |line|
       line.puts "module Gym"
       line.puts "  def gym"

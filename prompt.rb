@@ -25,7 +25,16 @@ module Prompt
   def show_list(show_arr, descriptor_string, index_start = 1)
     show descriptor_string
     show_arr.each.with_index(index_start) do |item, index|
-      puts index.to_s + ": " + item.to_s
+      if item.class == Array
+        print index.to_s + ": "
+        item.each do |word|
+          print word
+          print ' - ' unless item.find_index(word) == item.size - 1
+        end
+        puts
+      else
+        puts index.to_s + ": " + item.to_s
+      end
     end
   end
 
@@ -85,7 +94,8 @@ module Prompt
       Gather Pokemon Info - i or info
       Get  Trainer  Goods - g or goods
       Get a Cart of Goods - c or cart
-      Encounter a Trainer - t or trainer",
+      Encounter a Trainer - t or trainer
+      Ask the nature guru - a or ask",
       specificmenu:
       "Do you see any specific pokemon?
       Input by pokedex number: 1-2-3
@@ -131,7 +141,8 @@ module Prompt
       new or n - new save
       over or o - overwrite save
       load or l - load save
-      delete or d - permanently delete save",
+      delete or d - permanently delete save
+      backup or b - create a backup saves file",
       confirmdelete:
       "Are you sure that you want to DELETE #{var_arr[0]}?
       This action cannot be undone.",
@@ -146,6 +157,11 @@ module Prompt
       #{var_arr[1]}. This pokemon is at evolution stage \
       #{var_arr[2]} and is typed as #{var_arr[3]}\
       #{"-" + var_arr[4] unless var_arr[4] == '%' || var_arr[4].nil?}.",
+      gurusadvice:
+      "#{var_arr[0]} increases #{var_arr[1]} while decreasing #{var_arr[2]}.",
+      encounter:
+      "A #{var_arr[0]} (No. #{var_arr[1]}) appears \
+      with a #{var_arr[2]} nature.",
     }
   end
 end

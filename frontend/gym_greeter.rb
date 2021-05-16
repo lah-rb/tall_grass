@@ -15,7 +15,7 @@ class GymGreeter
   def greet
       comp = @hub.random_trainer
       show_list(
-        comp.party.map { |pkmn| pkmn.name },
+        comp.party.map { |pkmn| [pkmn[0].name, pkmn[1]] },
         prompt_mint(:comptrainer, comp.job, comp.name)
       )
   end

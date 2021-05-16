@@ -102,7 +102,10 @@ On adventures you my find that a situation warrants a reward or your players may
 * A random list of goods will then be displayed.
 
 ### Encounter a Trainer
-<strong>Under Construction!!!</strong>
+Trainers are an integral part of the pokemon world. In order to meet trainers which are not developed characters within the story line, tall_grass's GymGreeter can take the drudgery out of choosing trainer names and parties.
+
+* Enter 't' or 'trainer' in the tall_grass main menu.
+* A message will be displayed providing you with a random trainer class, name, and party based on their class.
 
 ## In the works
 \# - Relevance to tall_grass   
@@ -120,13 +123,12 @@ On adventures you my find that a situation warrants a reward or your players may
 * Saver should confirm that you want to overwrite/load a save #Feature |Devs
 * Refactor Discovery's \@types variable to hold an array of yes_types and an array of no_types #Design |Devs
 * ShopKeeper's checkout_cart method should be able to create carts from only certain items categories. #Feature |Devs
-* tall_grass should be able to generate trainers and their party pokemon. #Feature |Devs
-* Create tall_grass specific character sheet based of Professor Redwood's interview in pkmndd.odt. #Tabletop |Art,Game
-* Create an elm GUI to turn tall_grass into an SDK app. #Implementation |Devs
+* Create an shoes GUI to turn tall_grass into an SDK app. #Implementation |Devs
 * Add more items to items_dex. (long term) #Quality |Game
 * Create more missions to receive from Professor Redwood. (long term) #Tabletop |Story,Game
 * Improve error handling in the frontend. (long term) #Design |Devs
 * Add more status move mechanics to status_moves. (long term) #Design |Game
+* Add functionality to automatically restore from backup. (low priority ~ project interest first)
 * Area dex should be able to include items and trainers as well as pokemon (low priority ~ solid item and trainer implementation first maybe GUI first too) #Feature |Devs
 * Figure out and fill in relative strengths as a guide for dungeon master decisions. (low priority ~ project interest first) #Design |Game
 * Add user input for how many yes distinction pokemon are included in the area. (low priority ~ GUI first) #Feature |Devs

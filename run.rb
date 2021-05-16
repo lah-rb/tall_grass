@@ -16,6 +16,7 @@ class Runner
     @shop_keeper = ShopKeeper.new
     @greeter = GymGreeter.new
     @dex_case = DexCase.new
+    @guru = NatureGuru.new
   end
 
   def employ(object = nil)
@@ -48,6 +49,8 @@ class Runner
       employ @shop_keeper.checkout_cart
     when 't'
       employ @greeter.greet
+    when 'a'
+      employ @guru.ask_guru
     end
   end
 end

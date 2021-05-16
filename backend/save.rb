@@ -12,6 +12,11 @@ class Save
     @director.request_dir('backend')
   end
 
+  def backup
+    mkdir("../../.tall_grass_games_backup") unless Dir.glob('../../*', File::FNM_DOTMATCH).include?("../../.tall_grass_games_backup")
+    cp_r('./saves', "../../.tall_grass_games_backup/" + Time.now.strftime("%e-%m-%y-%I-%M-%S"))
+  end
+
   def new_save(save_name)
     @save_name = save_name.gsub('/', '')
     cd('saves')
@@ -25,17 +30,18 @@ class Save
     mkdir("dex_seeds")
     mkdir("dex_store")
     cd("../..")
-
-    @save_arr = mint_load_save_arr(:new, @save_name)
+    save_to = "./saves/" + save_name + "/"
+    @save_arr = mint_load_save_arr(:new, save_to)
     show(progress(@save_arr[0]))
     fill_save(@save_arr)
     puts 'Done!'
   end
 
   def over_load(load_or_save, save_num)
-    @method = mint_load_save_arr(load_or_save)[0]
     @save_name = get_save_name(save_num)
-    @over_load_arr = mint_load_save_arr(load_or_save, @save_name)
+    save_to = "./saves/" + @save_name + "/"
+    @over_load_arr = mint_load_save_arr(load_or_save, save_to)
+    @method = @over_load_arr[0]
     show(progress(@method))
     fill_save(@over_load_arr)
     puts 'Done!'
@@ -47,6 +53,7 @@ class Save
     cd('saves')
     rm_r(@save_name, secure: true)
     puts 'Done!'
+    cd('..')
   end
 
   def current_saves
@@ -79,17 +86,17 @@ class Save
     return [@source_arr, @target_arr, source_parent, target_parent]
   end
 
-  def mint_load_save_arr(load_or_save, save_name = 'temp')
+  def mint_load_save_arr(load_or_save, saves_dir)
     case load_or_save
     when :new, :overwrite
       @method = 'save' if load_or_save == :new
       @method = 'overwrite' if load_or_save == :overwrite
       @source_parent = "./"
-      @target_parent = "./saves/" + save_name + "/"
+      @target_parent = saves_dir
       [@method] + mint_navigation_arr(@source_parent, @target_parent)
     when :load
       @method = 'load'
-      @source_parent = "./saves/" + save_name + "/"
+      @source_parent = saves_dir
       @target_parent = "./"
       [@method] + mint_navigation_arr(@source_parent, @target_parent)
     end

@@ -6,9 +6,9 @@ class Saver
   public
 
   def start_saving
-    @save_method = get_info(prompt_mint(:savemenu)).chr.downcase
     @save = Save.new
-
+    @save.list_saves
+    @save_method = get_info(prompt_mint(:savemenu)).chr.downcase
 
     case @save_method
     when 'n'
@@ -42,8 +42,8 @@ class Saver
     when 'd'
       @save_num = insure_correct(over_load_del_input('delete'))
       @save.delete_save(@save_num) unless @save_num == -1 || @save_num > @saves_size -1
-    else
-      show "I am sorry I don't know that input."
+    when 'b'
+      @save.backup
     end
   end
 
@@ -82,7 +82,8 @@ class Saver
   end
 
   def new_save_input
-    get_info('Please give a name to this save: ').downcase.split(" ").join("_")
+    proto_name = get_info('Please give a name to this save: ').downcase.split(" ").join("_")
+    proto_name == '' ? 'temp' : proto_name
   end
 
   def over_load_del_input(method)
