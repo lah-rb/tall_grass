@@ -160,8 +160,8 @@ module Prompt
       gurusadvice:
       "#{var_arr[0]} increases #{var_arr[1]} while decreasing #{var_arr[2]}.",
       encounter:
-      "A #{var_arr[0]} (No. #{var_arr[1]}) appears \
-      with a #{var_arr[2]} nature.",
+      "#{var_arr[0]} (No. #{var_arr[1]}) appears, 
+      its #{var_arr[2]} nature shines though!",
     }
   end
 end
